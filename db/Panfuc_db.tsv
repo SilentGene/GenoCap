@@ -1,0 +1,414 @@
+Metabolism	Pathway	Module	KO	gene_name	if_key	NCBIfam	pfam	Refseq	EC	gene function	COG	Taxonomy	Reaction	Note															
+Nitrogen cycling	Denitrification	Nitrate -> Nitrite (narG)	K00370	narG	yes					"nitrate reductase / nitrite oxidoreductase, alpha subunit"			Nitrate -> Nitrite																
+Nitrogen cycling	Denitrification	Nitrate -> Nitrite (napAB)	K02567	napA	yes				EC:1.9.6.1	nitrate reductase (cytochrome)			Nitrate -> Nitrite																
+Nitrogen cycling	Denitrification	Nitrate -> Nitrite (napAB)	K02568	napB					EC:1.9.6.1	"nitrate reductase (cytochrome), electron transfer subunit"			Nitrate -> Nitrite																
+Nitrogen cycling	Denitrification;Anammox	Nitrite-> N2O (nirSK)	K15864	nirS	yes					nitrite reductase (NO-forming) / hydroxylamine reductase			Nitrite->Nitric oxide																
+Nitrogen cycling	Denitrification	Nitrite-> N2O (nirSK)	K00368	nirK						nitrite reductase (NO-forming)			Nitrite->Nitric oxide																
+Nitrogen cycling	Denitrification	NO -> N2O (norBC)	K02305	norC	yes					nitric oxide reductase subunit C	NA	Bacteria	Nitric oxide-> Nitrous oxide																
+Nitrogen cycling	Denitrification	NO -> N2O (norBC)	K04561	norB						nitric oxide reductase subunit B	COG3256	Bacteria	Nitric oxide-> Nitrous oxide																
+Nitrogen cycling	Denitrification	N2O -> N2 (nosZ)	K00376	nosZ	yes					nitrous-oxide reductase	COG4263	Bacteria	Nitrous oxide->Nitrogen																
+Nitrogen cycling	Nitrite reduction to ammonia	Nitrite -> Ammonia (nirBD)	K00362	nirB	yes					nitrite reductase (NADH) large subunit	COG1251	Bacteria		Better annotation: NCycDB															
+Nitrogen cycling	Nitrite reduction to ammonia	Nitrite -> Ammonia (nirBD)	K00363	nirD						nitrite reductase (NADH) small subunit	COG2146	Bacteria																	
+Nitrogen cycling	Nitrite reduction to ammonia	Nitrite -> Ammonia (nrfAHD)	K03385	nrfA	yes					nitrite reductase (cytochrome c-552)	COG3303	Bacteria																	
+Nitrogen cycling	Nitrite reduction to ammonia	Nitrite -> Ammonia (nrfAHD)	K15876	nrfH						cytochrome c nitrite reductase small subunit	COG3005	Bacteria																	
+Nitrogen cycling	Nitrite reduction to ammonia	Nitrite -> Ammonia (nrfAHD)	K04015	nrfD						"cytochrome c nitrite reductase, NrfD subunit"																			
+Nitrogen cycling	N Fixation (MoFe)	N Fixation (nifHDK)	K02586	nifD						(MoFe) nitrogenase molybdenum-iron protein alpha chain	COG2710	Bacteria/Archaea		FeFe (AnfHDGK) and VFe (VnfHDGK) nitrogenases have lower nitrogenase activity than MoFe (NifHDK) nitrogenases															
+Nitrogen cycling	N Fixation (MoFe)	N Fixation (nifHDK)	K02588	nifH	yes					(MoFe) nitrogenase iron protein NifH	COG1348	Bacteria/Archaea																	
+Nitrogen cycling	N Fixation (MoFe)	N Fixation (nifHDK)	K02591	nifK						(MoFe) nitrogenase molybdenum-iron protein beta chain	COG2710	Bacteria/Archaea																	
+Nitrogen cycling	N Fixation (FeFe)	N Fixation (anfHDGK)	NA	anfH						(FeFe) nitrogenase				hard to distinguish from nifH															
+Nitrogen cycling	N Fixation (FeFe)	N Fixation (anfHDGK)	NA	anfD		TIGR01861				(FeFe) nitrogenase																			
+Nitrogen cycling	N Fixation (FeFe)	N Fixation (anfHDGK)	NA	anfK		TIGR02931				(FeFe) nitrogenase																			
+Nitrogen cycling	N Fixation (FeFe)	N Fixation (anfHDGK)	K00531	anfG	yes					(FeFe) nitrogenase delta subunit	NA	Bacteria																	
+Nitrogen cycling	N Fixation (Vfe)	N Fixation (vnfHDGK)	K22896	vnfD					EC:1.18.6.2	vanadium-dependent nitrogenase alpha chain																			
+Nitrogen cycling	N Fixation (Vfe)	N Fixation (vnfHDGK)	K22897	vnfK					EC:1.18.6.2	vanadium-dependent nitrogenase beta chain																			
+Nitrogen cycling	N Fixation (Vfe)	N Fixation (vnfHDGK)	K22898	vnfG					EC:1.18.6.2	vanadium nitrogenase delta subunit																			
+Nitrogen cycling	N Fixation (Vfe)	N Fixation (vnfHDGK)	K22899	vnfH	yes					vanadium nitrogenase iron protein																			
+Nitrogen cycling	Nitrification	Nitrification (hao)	K10535	hao	yes					hydroxylamine dehydrogenase	NA	Bacteria																	
+Nitrogen cycling	Nitrification	Nitrification (amoABC)	K10944-amoA	amoA	yes	NF041557				methane/ammonia monooxygenase subunit A	NA	Bacteria/Archaea		pmoA and amoA have the same KEGG. Should be classified by other approach															
+Nitrogen cycling	Nitrification	Nitrification (amoABC)	K10945-amoB	amoB		NF041640				methane/ammonia monooxygenase subunit B	NA	Bacteria/Archaea																	
+Nitrogen cycling	Nitrification	Nitrification (amoABC)	K10946-amoC	amoC		NF041641				methane/ammonia monooxygenase subunit C	NA	Bacteria/Archaea																	
+Nitrogen cycling	Anammox	"Anammox (hzs, hdh, hzoA)"	K20932	hzs	yes					hydrazine synthase subunit			NO+ammonix->N2H4																
+Nitrogen cycling	Anammox	"Anammox (hzs, hdh, hzoA)"	K20935	"hdh,hzoA"						hydrazine dehydrogenase			N2H4->N2																
+Nitrogen cycling	organic N metanolism	Ammonia <=> Glutamate (gdh)	K00261	gdhA_K00261	yes					glutamate dehydrogenase (NADP+)			org-N->NH4+																
+Nitrogen cycling	organic N metanolism	Ammonia <=> Glutamate (gdh)	K00262	gdhA_K00262	yes					glutamate dehydrogenase (NADP+)																			
+Nitrogen cycling	organic N metanolism	Ammonia <=> Glutamate (gdh)	K15371	gdh2	yes					glutamate dehydrogenase																			
+Nitrogen cycling	organic N metanolism	Ammonia -> Glutamine (glnA)	K01915	glnA	yes					glutamine synthetase																			
+Nitrogen cycling	organic N metanolism	Glutamin -> Glutamate (gls)	K01425	glsA						glutaminase																			
+Nitrogen cycling	organic N metanolism	urease (ureAC)	K01430	ureA	yes					urease subunit gamma			urea + H2O = CO2 + 2 NH3 [RN:R00131]																
+Nitrogen cycling	organic N metanolism	urease (ureAC)	K01428	ureC						urease subunit alpha			urea + H2O = CO2 + 2 NH3 [RN:R00131]																
+Sulfur cycling	Sulfide oxidation	sulfide -> sulfur (fccAB)	K17229	fccB						"flavocytochrome c sulphide dehydrogenase, flavin-binding"			hydrogen sulfide + 2 ferricytochrome c = sulfur + 2 ferrocytochrome c + 2 H+ [RN:R09499]																
+Sulfur cycling	Sulfide oxidation	sulfide -> sulfur (fccAB)	K17230	fccA	yes					cytochrome subunit of sulfide dehydrogenase																			
+Sulfur cycling	Sulfide oxidation	sulfide -> sulfur (sqr)	K17218	sqr	yes					sulfide:quinone oxidoreductase			n HS- + n quinone = polysulfide + n quinol [RN:R10152]																
+Sulfur cycling	Sulfite reduction	Sulfite reduction (asrABC)	K16950	asrA	yes					anaerobic sulfite reductase subunit A																			
+Sulfur cycling	Sulfite reduction	Sulfite reduction (asrABC)	K16951	asrB						anaerobic sulfite reductase subunit B																			
+Sulfur cycling	Sulfite reduction	Sulfite reduction (asrABC)	K00385	asrC						anaerobic sulfite reductase subunit C																			
+Sulfur cycling	Sulfate reduction	Sulfate reduction (sat)	K00958	sat	yes					sulfate adenylyltransferase																			
+Sulfur cycling	Sulfate reduction	Sulfate reduction (aprAB)	K00394	aprA	yes					"adenylylsulfate reductase, subunit A"	NA	Bacteria/Archaea																	
+Sulfur cycling	Sulfate reduction	Sulfate reduction (aprAB)	K00395	aprB						"adenylylsulfate reductase, subunit B"	NA	Bacteria/Archaea																	
+Sulfur cycling	Sulfate reduction	Sulfate reduction (dsrABC)	K11179	dsrC						bacterial heterodisulfide	COG2920	Bacteria/Archaea																	
+Sulfur cycling	Sulfate reduction	Sulfate reduction (dsrABC)	K11180	dsrA	yes					dissimilatory sulfite reductase alpha subunit	COG2221	Bacteria/Archaea																	
+Sulfur cycling	Sulfate reduction	Sulfate reduction (dsrABC)	K11181	dsrB						dissimilatory sulfite reductase beta subunit	COG2221	Bacteria/Archaea																	
+Sulfur cycling	Sulfur oxidation	Sulfur oxidation (sdo)	K17725	sdo	yes				EC:1.13.11.18	sulfur dioxygenase			S-sulfanylglutathione + O2 + H2O = glutathione + sulfite + 2 H+ [RN:R08678]																
+Sulfur cycling	Sulfur oxidation/reduction	Sulfur oxidation/reduction (sor)	K16952	sor	yes				EC:1.13.11.55	sulfur oxygenase/reductase			4 sulfur + 4 H2O + O2 = 2 hydrogen sulfide + 2 sulfite [RN:R07365]																
+Sulfur cycling	Sulfur reduction	Sulfur reduction (sreABC)	K17219	sreA	yes					sulfur reductase molybdopterin subunit			Sulfur + Reduced acceptor = Hydrogen sulfide + Acceptor																
+Sulfur cycling	Sulfur reduction	Sulfur reduction (sreABC)	K17220	sreB						sulfur reductase FeS subunit			Sulfur + Reduced acceptor = Hydrogen sulfide + Acceptor																
+Sulfur cycling	Sulfur reduction	Sulfur reduction (sreABC)	K17221	sreC						sulfur reductase membrane anchor			Sulfur + Reduced acceptor = Hydrogen sulfide + Acceptor																
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17222	soxA	yes					sulfur-oxidizing protein SoxA	NA	Bacteria																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17224	soxB						sulfur-oxidizing protein SoxB	COG0737	Bacteria																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17225	soxC						sulfur-oxidizing protein SoxC	COG2041	Bacteria																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K08738	soxD						Sox (cytochrome c)	COG3474	Bacteria/Eukaryotes																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17223	soxX						sulfur-oxidizing protein SoxX	NA	Bacteria																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17226	soxY						sulfur-oxidizing protein SoxY	NA	Bacteria																	
+Sulfur cycling	SOX system	SOX system (soxABCDXYZ)	K17227	soxZ						sulfur-oxidizing protein SoxZ	NA	Bacteria																	
+Sulfur cycling	Thiosulfate disproportionation	thiosulfate -> sulfite + H2S (phsA)	K08352	phsA	yes				EC:1.8.5.5	thiosulfate reductase / polysulfide reductase chain A			thiosulfate + a quinol = sulfite + hydrogen sulfide + a quinone [RN:R11488]																
+Carbon fix	Calvin Cycle	Calvin Cycle (prkB)	K00855	prkB	yes		PF00485			Phosphoribulokinase (PRK)	COG0572	Bacteria	RuP->RuBP																
+Carbon fix	Calvin Cycle	Calvin Cycle (rbcSL)	K01601	rbcL	yes		PF00016;PF02788		EC:4.1.1.39	ribulose-bisphosphate carboxylase (RuBisCO) large chain	COG1850	"Bacteria/Archaea/cyanobacteria, algae and C3 plants"	RuBP+CO2+H2O -> G-3P	"initial step in CBB, fix CO2"															
+Carbon fix	Calvin Cycle	Calvin Cycle (rbcSL)	K01602	rbcS						ribulose-bisphosphate carboxylase (RuBisCO) small chain	NA	Bacteria/Archaea	RuBP+CO2+H2O -> G-3P	"initial step in CBB, fix CO2"															
+Carbon fix	C4-Dicarboxylic acid cycle	C4-Dicarboxylic acid cycle (ppc)	K01595	ppc	yes					phosphoenolpyruvate carboxylase (PEPC)			PEP+HCO3 -> oxaloacetate + Pi	second enzyme to efficiently fix CO2 in bacteria/C3 plant; primary CO2-fixing enzyme in C4 and CAM plants															
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl formate -> CO2 (fdhAB)	K05299	fdhA	yes					formate dehydrogenase (NADP+) alpha subunit	COG3383	Bacteria/Archaea																	
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl formate -> CO2 (fdhAB)	K15022	fdhB						formate dehydrogenase (NADP+) beta subunit	NA	Bacteria/Archaea	CO2->formate																
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO2 -> CO (cooFS)	K00196	cooF						anaerobic carbon-monoxide dehydrogenase iron sulfur subunit			CO2->CO	"Not necessary, sometimes replaced by cdhAB"															
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO2 -> CO (cooFS)	K00198	cooS	yes					anaerobic carbon-monoxide dehydrogenase catalytic subunit	COG1151	Bacteria/Archaea	CO2->CO	"Not necessary, sometimes replaced by cdhAB"															
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)	K15023	acsE						5-methyltetrahydrofolate corrinoid/iron sulfur protein methyltransferase	NA	Bacteria/Archaea																	
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)	K14138	acsB	yes					acetyl-CoA synthase	COG1152?COG1614	Bacteria/Archaea																	
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)	K00194	cdhD/ascD	yes					acetyl-CoA decarbonylase/synthase complex subunit delta	COG2069	Bacteria/Archaea																	
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)	K00197	cdhE/ascC						acetyl-CoA decarbonylase/synthase complex subunit gamma	COG1456	Bacteria/Archaea																	
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> CO2 (cdhAB)	K00192	cdhA	yes				EC:1.2.7.4	"anaerobic carbon-monoxide dehydrogenase, CODH/ACS complex subunit alpha"																			
+Carbon fix	Wood-Ljungdahl	Wood-Ljungdahl CO -> CO2 (cdhAB)	K00195	cdhB						"anaerobic carbon-monoxide dehydrogenase, CODH/ACS complex subunit epsilon"																			
+Carbon fix	C1 pool	One carbon pool by folate	K01938	fhs					EC:6.3.4.3	formate--tetrahydrofolate ligase																			
+Carbon fix	3-hydroxypropionate bicycle	3-hydroxypropionate bicycle	K14470	mct						2-methylfumaryl-CoA isomerase	COG1804	Chloroflexi																	
+Carbon fix	DC-HB;HP-HB cycles	DC-HB;HP-HB cycles	K14534	abfD	yes					4-hydroxybutyryl-CoA dehydratase / vinylacetyl-CoA-Delta-isomerase	COG2368	Crenarchaeota																	
+Carbon fix	DC-HB;HP-HB cycles	DC-HB;HP-HB cycles	K15016	k15016						enoyl-CoA hydratase / 3-hydroxyacyl-CoA dehydrogenase	COG1024?COG1250	Crenarchaeota																	
+Carbon fix	rTCA	rTCA (aclAB)	K15230	aclA	yes					ATP-citrate lyase alpha-subunit	NA	Bacteria																	
+Carbon fix	rTCA	rTCA (aclAB)	K15231	aclB						ATP-citrate lyase beta-subunit	NA	Bacteria																	
+Carbon fix	Pentose phosphate pathway - oxidative phase	Pentose phosphate pathway - oxidative phase (zwf)	K00036	zwf (G6PD)	yes				EC:1.1.1.49 1.1.1.363	glucose-6-phosphate 1-dehydrogenase				PPP: generates NADPH and ribose-5-phosphate for biosynthesis															
+Carbon fix	Pentose phosphate pathway - non-oxidative phase (rpiAB)	Pentose phosphate pathway - non-oxidative phase (rpiAB)	K01807	rpiA					EC:5.3.1.6	ribose 5-phosphate isomerase A																			
+Carbon fix	Pentose phosphate pathway - non-oxidative phase (rpiAB)	Pentose phosphate pathway - non-oxidative phase (rpiAB)	K01808	rpiB					EC:5.3.1.6	ribose 5-phosphate isomerase B																			
+Fermentation and TCA	Acetogenesis	"Acetogenesis (acdA, ack, pta)"	K01905	acdA	yes					"acetyl coenzyme A synthetase (ADP forming), alpha domain"				Acd ÓÃÓÚ ´Ó acetyl-CoA Éú³É acetate ²¢²úÉú ATP															
+Fermentation and TCA	Acetogenesis	"Acetogenesis (acdA, ack, pta)"	K00925	ack	yes					acetate kinase																			
+Fermentation and TCA	Acetogenesis	"Acetogenesis (acdA, ack, pta)"	K00625	pta	yes					phosphate acetyltransferase																			
+Fermentation and TCA	Acetate to acetyl-CoA	Acetate -> acetyl-CoA (ACS)	K01895	acs	yes					acetyl-CoA synthetase																			
+Fermentation and TCA	glycolysis	glycolysis	K01568	pdc	yes					pyruvate decarboxylase	COG3961	Bacteria/Eukaryotes		Glycolysis: breaks down glucose to generate ATP and NADH															
+Fermentation and TCA	glycolysis	glycolysis	K13951	ADH1_7						alcohol dehydrogenase 1/7	NA	Eukaryotes																	
+Fermentation and TCA	glycolysis	glycolysis	K00114	exaA						alcohol dehydrogenase (cytochrome c)	COG4993	Bacteria/Archaea																	
+Fermentation and TCA	glycolysis	glycolysis	K00002	aKR1A1						alcohol dehydrogenase (NADP+)	COG0656	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	glycolysis	glycolysis	K04022	eutG						alcohol dehydrogenase	COG1454	Bacteria																	
+Fermentation and TCA	glycolysis	glycolysis	K00128	aLDH	yes					aldehyde dehydrogenase (NAD+)	COG1012	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	glycolysis	glycolysis	K00129	aLDH3						aldehyde dehydrogenase (NAD(P)+)	COG1012	Bacteria/Eukaryotes																	
+Fermentation and TCA	pyruvate metabolism	lactate fermentation	K00016	ldh	yes					L-lactate dehydrogenase	COG0039	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	pyruvate metabolism	lactate fermentation	K00101	lldD					EC:1.1.2.3	L-lactate dehydrogenase (cytochrome)																			
+Fermentation and TCA	pyruvate metabolism	lactate fermentation	K00102	dld						D-lactate dehydrogenase (cytochrome)	NA	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	pyruvate metabolism	pyruvate metabolism	K00656	pflD						formate C-acetyltransferase	COG1882	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	Lysine biosynthesis	Lysine biosynthesis	K00825	AADAT						kynurenine/2-aminoadipate aminotransferase	NA	Eukaryotes																	
+Fermentation and TCA	Butanoate metabolism	Butanoate metabolism	K00004	butB	yes					"(R,R)-butanediol dehydrogenase / meso-butanediol dehydrogenase / diacetyl reductase"	COG1063	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	Butanoate metabolism	Butanoate metabolism	K00929	buk						butyrate kinase	COG3426	Bacteria																	
+Fermentation and TCA	Butanoate metabolism	Butanoate metabolism	K00248	bcd						butyryl-CoA dehydrogenase	COG1960	Bacteria/Archaea/Eukaryotes																	
+Fermentation and TCA	Pyruvate oxidation	Pyruvate oxidation	K00169	porA	yes					pyruvate ferredoxin oxidoreductase alpha subunit																			
+Fermentation and TCA	Alcohol utilization	Alcohol utilization (adh)	K00001	adh	yes					alcohol dehydrogenase																			
+Fermentation and TCA	Propionate fermentation	propionate fermentation	K01676	fumA	yes				EC:4.2.1.2	fumarate hydratase																			
+Fermentation and TCA	TCA cycle	TCA cycle	K00239	"sdhA, frdA"	yes					"succinate dehydrogenase / fumarate reductase, flavoprotein subunit"	COG1053	Bacteria/Archaea																	
+Fermentation and TCA	TCA cycle	TCA cycle	K00240	"sdhB, frdB"						"succinate dehydrogenase / fumarate reductase, iron-sulfur subunit"	COG0479	Bacteria/Archaea																	
+Fermentation and TCA	TCA cycle	TCA cycle	K01647	cs	yes				EC:2.3.3.1	citrate synthase																			
+Fermentation and TCA	TCA cycle	TCA cycle	K05942	k05942					EC:2.3.3.3	citrate (Re)-synthase																			
+Photosynthesis	Anoxygenic Photosynthesis (Purple)	Anoxygenic Photosynthesis (Purple) (pufAB)	K08926	pufA	yes					light-harvesting complex 1 alpha chain	NA	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Purple)	Anoxygenic Photosynthesis (Purple) (pufAB)	K08927	pufB						light-harvesting complex 1 beta chain	NA	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Purple)	Anoxygenic Photosynthesis (Purple) (pucAB/puhA)	K08930	pucA	yes					light-harvesting protein B-800-850 alpha chain	NA	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Purple)	Anoxygenic Photosynthesis (Purple) (pucAB/puhA)	K08939	pucB						light-harvesting protein B-800-850 beta chain	NA	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Purple)	Anoxygenic Photosynthesis (Purple) (pucAB/puhA)	K13991	puhA						photosynthetic reaction center H subunit	NA	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Green Non Sulfur)	Anoxygenic Photosynthesis (Green Non Sulfur)	K04040	bchG	yes					chlorophyll/bacteriochlorophyll a synthase	COG0382	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Green Non Sulfur)	Anoxygenic Photosynthesis (Green Non Sulfur)	K10960	bchP						geranylgeranyl diphosphate/geranylgeranyl-bacteriochlorophyllide a reductase	COG0644	Green Non Sulfur and Purple Sulfur Bacteria																	
+Photosynthesis	Anoxygenic Photosynthesis (Green Sulfur)	Anoxygenic Photosynthesis (Green Sulfur)	K08944	fomA	yes					bacteriochlorophyll A protein	NA	Chlorobi																	
+Photosynthesis	Anoxygenic Photosynthesis (Green Sulfur)	Anoxygenic Photosynthesis (Green Sulfur)	K13603	bchV						3-vinyl bacteriochlorophyllide hydratase	NA	Chlorobi																	
+Photosynthesis	Anoxygenic Photosynthesis (Green Sulfur)	Anoxygenic Photosynthesis (Green Sulfur)	K13605	bchK						bacteriochlorophyll c synthase	NA	Chlorobi																	
+Photosynthesis	Anoxygenic photosystem II	Anoxygenic photosystem II (pufLM)	K08928	pufL	yes					photosynthetic reaction center L subunit																			
+Photosynthesis	Anoxygenic photosystem II	Anoxygenic photosystem II (pufLM)	K08929	pufM						photosynthetic reaction center M subunit																			
+Photosynthesis	Oxygenic photosystem I	Oxygenic photosystem I (psaAB)	K02689	psaA	yes					photosystem I P700 chlorophyll a apoprotein A1	NA	Cyanobacteria and Photosynthetic eukaryotes																	
+Photosynthesis	Oxygenic photosystem I	Oxygenic photosystem I (psaAB)	K02690	psaB						photosystem I P700 chlorophyll a apoprotein A2	NA	Cyanobacteria and Photosynthetic eukaryotes																	
+Photosynthesis	Oxygenic photosystem II	Oxygenic photosystem II (psbAB)	K02703	psbA	yes					photosystem II P680 reaction center D1 protein	NA	Cyanobacteria and Photosynthetic eukaryotes																	
+Photosynthesis	Oxygenic photosystem II	Oxygenic photosystem II (psbAB)	K02704	psbB						photosystem II CP47 chlorophyll apoprotein	NA	Cyanobacteria and Photosynthetic eukaryotes																	
+C1 and methane metabolism	Aerobic CO oxidation	Aerobic CO oxidation (coxLMS)	K03520	coxL	yes					aerobic carbon-monoxide dehydrogenase large subunit			CO->CO2																
+C1 and methane metabolism	Aerobic CO oxidation	Aerobic CO oxidation (coxLMS)	K03519	coxM						aerobic carbon-monoxide dehydrogenase medium subunit			CO->CO2																
+C1 and methane metabolism	Aerobic CO oxidation	Aerobic CO oxidation (coxLMS)	K03518	coxS						aerobic carbon-monoxide dehydrogenase small subunit			CO->CO2																
+C1 and methane metabolism	Methanol oxidation	Methanol oxidation (mxaF/mdh)	K14028	mxaF	yes					methanol dehydrogenase (cytochrome c) subunit 1																			
+C1 and methane metabolism	Methanol oxidation	Methanol oxidation (mxaF/mdh)	K00093	mdh						methanol dehydrogenase																			
+C1 and methane metabolism	Formate oxidation	Formate oxidation (fdoHG/fdwB)	K22515	fdwB	yes					formate dehydrogenase beta subunit																			
+C1 and methane metabolism	Formate oxidation	Formate oxidation (fdoHG/fdwB)	K00123	fdoG						formate dehydrogenase major subunit																			
+C1 and methane metabolism	Formate oxidation	Formate oxidation (fdoHG/fdwB)	K00124	fdoH	yes					formate dehydrogenase iron-sulfur subunit																			
+C1 and methane metabolism	Formate oxidation	Formate oxidation (fdhAB)	K22516	fdhA	yes					formate dehydrogenase (coenzyme F420) alpha subunit																			
+C1 and methane metabolism	Formate oxidation	Formate oxidation (fdhAB)	K00125	fdhB						formate dehydrogenase (coenzyme F420) beta subunit																			
+C1 and methane metabolism	Methyl amine -> formaldehyde	Methyl amine -> formaldehyde (mauAB)	K15228	mauA	yes					methylamine dehydrogenase light chain																			
+C1 and methane metabolism	Methyl amine -> formaldehyde	Methyl amine -> formaldehyde (mauAB)	K15229	mauB						methylamine dehydrogenase heavy chain																			
+C1 and methane metabolism	Formaldehyde oxidation	Formaldehyde oxidation	K00148	fdhA						glutathione-independent formaldehyde dehydrogenase																			
+C1 and methane metabolism	Formaldehyde oxidation	Formaldehyde oxidation	K01070	fghA						S-formylglutathione hydrolase																			
+C1 and methane metabolism	Formaldehyde oxidation	Formaldehyde oxidation	K00121	frmA						S-(hydroxymethyl)glutathione dehydrogenase / alcohol dehydrogenase																			
+C1 and methane metabolism	Formaldehyde oxidation	Formaldehyde oxidation	K00153	mycoS_dep_FDH						S-(hydroxymethyl)mycothiol dehydrogenase																			
+C1 and methane metabolism	Formaldehyde oxidation	Formaldehyde oxidation	K10713	fae						"5,6,7,8-tetrahydromethanopterin hydro-lyase"																			
+C1 and methane metabolism	Methanogenesis	Methanogenesis (mcrA_methanogen)	K00399-methanogen	mcrA_methanogen	yes					methyl-coenzyme M reductase alpha subunit	NA	Methanogens		methanogen and methanotroph mcrA have the same KEGG. Should be classified by other approach															
+C1 and methane metabolism	methane oxidation	Methane oxidation (mcrA_methanotroph)	K00399-methanotroph	mcrA_methanotroph	yes					methyl-coenzyme M reductase alpha subunit	NA	Methanogens																	
+C1 and methane metabolism	methane oxidation	Methane oxidation sMMO (mmoX)	K16157	mmoX	yes					methane monooxygenase component A alpha chain																			
+C1 and methane metabolism	methane oxidation	Methane oxidation pMMO (pmoABC)	K10944-pmoA	pmoA	yes	NF045802				methane/ammonia monooxygenase subunit A				pmoA and amoA have the same KEGG. Should be classified by other approach															
+C1 and methane metabolism	methane oxidation	Methane oxidation pMMO (pmoABC)	K10945-pmoB	pmoB	yes	NF045804				methane/ammonia monooxygenase subunit A				pmoA and amoA have the same KEGG. Should be classified by other approach															
+C1 and methane metabolism	methane oxidation	Methane oxidation pMMO (pmoABC)	K10946-pmoC	pmoC	yes	NF045803				methane/ammonia monooxygenase subunit A				pmoA and amoA have the same KEGG. Should be classified by other approach															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Methyl-CoM <=> Methane (mcrBGCD/atwA)	K00401	mcrB						methyl-coenzyme M reductase beta subunit	NA	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Methyl-CoM <=> Methane (mcrBGCD/atwA)	K00402	mcrG						methyl-coenzyme M reductase gamma subunit	NA	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Methyl-CoM <=> Methane (mcrBGCD/atwA)	K03421	mcrC						methyl-coenzyme M reductase subunit C	NA	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Methyl-CoM <=> Methane (mcrBGCD/atwA)	K03422	mcrD						methyl-coenzyme M reductase subunit D	NA	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Methyl-CoM <=> Methane (mcrBGCD/atwA)	K00400	atwA						"methyl coenzyme M reductase system, component A2"	COG1123	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00581	mtrE					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit E																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00580	mtrD					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit D																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00579	mtrC					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit C																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00578	mtrB					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit B																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00577	mtrA	yes				7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit A																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00582	mtrF					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit F																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00583	mtrG					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit G																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic & Acetotrophic (mtrABCDEFGH)	K00584	mtrH					7.2.1.4	Tetrahydromethanopterin S-methyltransferase subunit H																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00320	mer	yes				1.5.98.2	"5,10-methylenetetrahydromethanopterin reductase"																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K13942	hmd					1.12.98.2	"5,10-methenyltetrahydromethanopterin hydrogenase"																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00319	mtd					1.5.98.1	methylenetetrahydromethanopterin dehydrogenase																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00300	mtdA	yes				1.5.1.-	methylenetetrahydrofolate/methylenetetrahydromethanopterin dehydrogenase (NADP+)																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K10714	mtdB					1.5.1.-	methylene-tetrahydromethanopterin dehydrogenase																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K01499	mch	yes				3.5.4.27	methenyltetrahydromethanopterin cyclohydrolase																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00672	ftr	yes				2.3.1.101	formylmethanofuran-tetrahydromethanopterin N-formyltransferase																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00202	fwdC					1.2.7.12	formylmethanofuran dehydrogenase subunit C																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00200	fwdA	yes				1.2.7.12	formylmethanofuran dehydrogenase subunit A																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00201	fwdB					1.2.7.12	formylmethanofuran dehydrogenase subunit B																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00203	fwdD					1.2.7.12	formylmethanofuran dehydrogenase subunit D																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00204	fwdH					1.2.7.12	4Fe-4S ferredoxin																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K00205	fwdF					1.2.7.12	4Fe-4S ferredoxin																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K11261	fwdE					1.2.7.12	4Fe-4S ferredoxin																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Hydrogenotrophic (mer/hmd/mtd/mch/ftr/fwd)	K11260	fwdG					1.2.7.12	4Fe-4S ferredoxin																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (cdhCDE)	K00193	cdhC					EC:2.3.1.169	acetyl-CoA decarbonylase/synthase complex subunit beta				"Step1: cleave Acetyl-CoA, generate CH3 and CO"															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (cdhCDE)	K00194	cdhD/ascD	yes				EC:2.1.1.245	"acetyl-CoA decarbonylase/synthase, CODH/ACS complex subunit delta"				Step2.1: transfer CH3 to acceptors															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (cdhCDE)	K00197	cdhE/acsC					EC:2.1.1.245	"acetyl-CoA decarbonylase/synthase, CODH/ACS complex subunit gamma"				Step2.1: transfer CH3 to acceptors															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (cdhAB)	K00192	cdhA	yes					"anaerobic carbon-monoxide dehydrogenase, CODH/ACS complex subunit alpha"				"Step2.2: oxidize CO to CO2, release electron"															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (cdhAB)	K00195	cdhB						"anaerobic carbon-monoxide dehydrogenase, CODH/ACS complex subunit epsilon"				"Step2.2: oxidize CO to CO2, release electron"															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic (acs)	K01895	acs	yes																								
+C1 and methane metabolism	Methanogenesis;methane oxidation	"Acetoclastic (ack, pta)"	K00925	ack	yes																								
+C1 and methane metabolism	Methanogenesis;methane oxidation	"Acetoclastic (ack, pta)"	K00625	pta	yes																								
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic CO -> CO2 (cooFS)	K00196	cooF						anaerobic carbon-monoxide dehydrogenase iron sulfur subunit			CO2->CO	"Not necessary, sometimes replaced by cdhAB"															
+C1 and methane metabolism	Methanogenesis;methane oxidation	Acetoclastic CO -> CO2 (cooFS)	K00198	cooS	yes					anaerobic carbon-monoxide dehydrogenase catalytic subunit	COG1151	Bacteria/Archaea	CO2->CO	"Not necessary, sometimes replaced by cdhAB"															
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Methanol) (mtaABC)	K14080	mtaA (Methanol)	yes	Methanol -> Methyl-CoM (mtaABC)			2.1.1.246	[methyl-Co(III) methanol/glycine betaine-specific corrinoid protein]:coenzyme M methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Methanol) (mtaABC)	K04480	mtaB (Methanol)		Methanol -> Methyl-CoM (mtaABC)			2.1.1.90	methanol---5-hydroxybenzimidazolylcobamide Co-methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Methanol) (mtaABC)	K14081	mtaC (Methanol)		Methanol -> Methyl-CoM (mtaABC)			NA	methanol corrinoid protein																			
+C1 and methane metabolism	Methylotrophic	"Methylotrophic (mono-, di, tri-methylamine) (mtbA)"	K14082	"mtbA (mono-, di, tri-methylamine)"	yes	Methylamine -> Methyl-CoM (mfbA)			2.1.1.247	[methyl-Co(III) methylamine-specific corrinoid protein]:coenzyme M methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Methylamine) (mtmBC)	K16176	mtmB (Methylamine)	yes	Methylamine -> Methyl-CoM (mtmBC)			2.1.1.248	methylamine---corrinoid protein Co-methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Methylamine) (mtmBC)	K16177	mtmC (Methylamine)		Methylamine -> Methyl-CoM (mtmBC)			NA	monomethylamine corrinoid protein																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Dimethylamine) (mtbBC)	K16178	mtbB (Dimethylamine)	yes	Dimethylamine -> Methyl-CoM (mtbBC)			2.1.1.249	dimethylamine---corrinoid protein Co-methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Dimethylamine) (mtbBC)	K16179	mtbC (Dimethylamine)		Dimethylamine -> Methyl-CoM (mtbBC)			NA	dimethylamine corrinoid protein																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Trimethylamine) (mttBC)	K14083	mttB (Trimethylamine)	yes	Trimethylamine -> Methyl-CoM (mttBC)			2.1.1.250	trimethylamine---corrinoid protein Co-methyltransferase																			
+C1 and methane metabolism	Methylotrophic	Methylotrophic (Trimethylamine) (mttBC)	K14084	mttC (Trimethylamine)		Trimethylamine -> Methyl-CoM (mttBC)			NA	trimethylamine corrinoid protein																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (echABCDE)	"K14086, K14087, K14088, K14089, K14090, K14091"	echABCDEF	yes					ech hydrogenase subunit ABCDEF																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (fpoABCDFHIJKLMNO)	"K22158, K22159, K22160, K22161, K22162, K22163, K22164, K22165, K22166, K22167, K22168, K22169, K22170"	fpoABCDFHIJKLMNO	yes					F420H2 dehydrogenase subunitA-O																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (mvhADG)	K14126	mvhA	yes	Energy Conservation (mvhADG)				F420-non-reducing hydrogenase large subunit		Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (mvhADG)	K14127	mvhD		Energy Conservation (mvhADG)				F420-non-reducing hydrogenase iron-sulfur subunit		Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (mvhADG)	K14128	mvhG		Energy Conservation (mvhADG)				F420-non-reducing hydrogenase small subunit		Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC1)	K22480	hdrA1	yes	Energy Conservation (hdrABC-1)			EC:1.8.7.3	heterodisulfide reductase subunit A1	COG1148	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC1)	K22481	hdrB1		Energy Conservation (hdrABC-1)			EC:1.8.7.3	heterodisulfide reductase subunit B1	COG2048	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC1)	K22482	hdrC1		Energy Conservation (hdrABC-1)			EC:1.8.7.3	heterodisulfide reductase subunit C1	COG1150	Methanogens																	
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC2)	K03388	hdrA2	yes	Energy Conservation (hdrABC-2)			EC:1.8.7.3 1.8.98.4 1.8.98.5 1.8.98.6	heterodisulfide reductase subunit A2																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC2)	K03389	hdrB2		Energy Conservation (hdrABC-2)			EC:1.8.7.3 1.8.98.4 1.8.98.5 1.8.98.6	heterodisulfide reductase subunit B2																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrABC2)	K03390	hdrC2		Energy Conservation (hdrABC-2)			EC:1.8.7.3 1.8.98.4 1.8.98.5 1.8.98.6	heterodisulfide reductase subunit C2																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrDE)	K08264	hdrD	yes	Energy Conservation (hdrDE)			EC:1.8.98.1	heterodisulfide reductase subunit D																			
+C1 and methane metabolism	Methanogenesis;methane oxidation	Energy Conservation (hdrDE)	K08265	hdrE		Energy Conservation (hdrDE)			EC:1.8.98.1	heterodisulfide reductase subunit E																			
+C1 and methane metabolism	C¨CP lyase methane production	Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)	K06163	phnJ	yes				EC:4.7.1.1	alpha-D-ribose 1-methylphosphonate 5-phosphate C-P lyase																			
+C1 and methane metabolism	C¨CP lyase methane production	Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)	K06162	phnM					EC:3.6.1.63	alpha-D-ribose 1-methylphosphonate 5-triphosphate diphosphatase																			
+C1 and methane metabolism	C¨CP lyase methane production	Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)	K06164	phnI					EC:2.7.8.37	alpha-D-ribose 1-methylphosphonate 5-triphosphate synthase subunit PhnI																			
+C1 and methane metabolism	C¨CP lyase methane production	Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)	K18049	mpnS					EC:1.13.11.73	methylphosphonate synthase																			
+Oxidative phosphorylation and stress	Complex I (NADH-quinone oxidoreductase)	Complex I (NADH-quinone oxidoreductase) (nuoABC)	K00330	nuoA	yes					NADH-quinone oxidoreductase subunit A																			
+Oxidative phosphorylation and stress	Complex I (NADH-quinone oxidoreductase)	Complex I (NADH-quinone oxidoreductase) (nuoABC)	K00331	nuoB						NADH-quinone oxidoreductase subunit B																			
+Oxidative phosphorylation and stress	Complex I (NADH-quinone oxidoreductase)	Complex I (NADH-quinone oxidoreductase) (nuoABC)	K00332	nuoC						NADH-quinone oxidoreductase subunit C																			
+Oxidative phosphorylation and stress	Complex I (NAD(P)H-quinone oxidoreductase)	Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)	K05572	ndhA	yes					NAD(P)H-quinone oxidoreductase subunit 1																			
+Oxidative phosphorylation and stress	Complex I (NAD(P)H-quinone oxidoreductase)	Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)	K05573	ndhB						NAD(P)H-quinone oxidoreductase subunit 2																			
+Oxidative phosphorylation and stress	Complex I (NAD(P)H-quinone oxidoreductase)	Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)	K05574	ndhC						NAD(P)H-quinone oxidoreductase subunit 3																			
+Oxidative phosphorylation and stress	Complex II	Complex II	K00241	sdhC	yes					"succinate dehydrogenase / fumarate reductase, cytochrome b subunit"																			
+Oxidative phosphorylation and stress	Complex II	Complex II	K00242	sdhD						"succinate dehydrogenase / fumarate reductase, membrane anchor subunit"																			
+Oxidative phosphorylation and stress	Complex III	Complex III	K00411	petA	yes					ubiquinol-cytochrome c reductase iron-sulfur subunit																			
+Oxidative phosphorylation and stress	Complex III	Complex III	K00412	petB						ubiquinol-cytochrome c reductase cytochrome b/c1 subunit																			
+Oxidative phosphorylation and stress	Complex III	Complex III	K00410	fbcH						ubiquinol-cytochrome c reductase cytochrome b/c1 subunit																			
+Oxidative phosphorylation and stress	Complex V (V/A type)	Complex V (V/A type)	K02117	atpA (V/A-type)	yes					V/A-type H+/Na+-transporting ATPase subunit A																			
+Oxidative phosphorylation and stress	Complex V (V/A type)	Complex V (V/A type)	K02118	atpB (V/A-type)						V/A-type H+/Na+-transporting ATPase subunit B																			
+Oxidative phosphorylation and stress	Complex V (F type)	Complex V (F type)	K02111	atpA (F-type)	yes					F-type H+/Na+-transporting ATPase subunit alpha																			
+Oxidative phosphorylation and stress	Complex V (F type)	Complex V (F type)	K02112	atpD (F-type)						F-type H+/Na+-transporting ATPase subunit beta																			
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02262	cOX3	yes					cytochrome c oxidase subunit 3	COG1845	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02256	cOX1						cytochrome c oxidase subunit 1	COG0843	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02261	cOX2						cytochrome c oxidase subunit 2	COG1622	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02263	cOX4						cytochrome c oxidase subunit 4	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02264	cOX5A						cytochrome c oxidase subunit 5a	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02265	cOX5B						cytochrome c oxidase subunit 5b	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02266	cOX6A						cytochrome c oxidase subunit 6a	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02267	cOX6B						cytochrome c oxidase subunit 6b	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02268	cOX6C						cytochrome c oxidase subunit 6c	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02269	cOX7						cytochrome c oxidase subunit 7	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02271	cOX7B						cytochrome c oxidase subunit 7b	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02272	cOX7C						cytochrome c oxidase subunit 7c	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (Mitochondria)	K02273	cOX8						cytochrome c oxidase subunit 8	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase assembly	K02258	cOX11						cytochrome c oxidase assembly protein subunit 11	COG3175	Bacteria/Archaea/Eukaryotes																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase assembly	K02259	cOX15						cytochrome c oxidase assembly protein subunit 15	COG1612	Bacteria/Archaea/Eukaryotes																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase assembly	K02260	cOX17						cytochrome c oxidase assembly protein subunit 17	NA	Mitochondria																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome o ubiquinol oxidase (cyoABCD)	K02300	cyoD						cytochrome o ubiquinol oxidase subunit IV	COG3125	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome o ubiquinol oxidase (cyoABCD)	K02299	cyoC						cytochrome o ubiquinol oxidase subunit III	COG1845	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome o ubiquinol oxidase (cyoABCD)	K02298	cyoB						cytochrome o ubiquinol oxidase subunit I	COG0843	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome o ubiquinol oxidase (cyoABCD)	K02297	cyoA	yes					cytochrome o ubiquinol oxidase subunit II	COG1622	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (coxABCD)	K02277	"coxD, ctaF"						cytochrome c oxidase subunit IV	COG3125	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (coxABCD)	K02276	coxC						cytochrome c oxidase subunit III	COG1845	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (coxABCD)	K02274	coxA	yes					cytochrome c oxidase subunit I	COG0843	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome c oxidase (coxABCD)	K02275	coxB						cytochrome c oxidase subunit II	COG1622	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome aa3-600 menaquinol oxidase (qoxABCD)	K02829	qoxD						cytochrome aa3-600 menaquinol oxidase subunit IV	COG3125	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome aa3-600 menaquinol oxidase (qoxABCD)	K02828	qoxC						cytochrome aa3-600 menaquinol oxidase subunit III	COG1845	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome aa3-600 menaquinol oxidase (qoxABCD)	K02827	qoxB						cytochrome aa3-600 menaquinol oxidase subunit I	COG0843	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Oxidative Phosphorylation	cytochrome aa3-600 menaquinol oxidase (qoxABCD)	K02826	qoxA	yes					cytochrome aa3-600 menaquinol oxidase subunit II	COG1622	Bacteria/Archaea																	
+Oxidative phosphorylation and stress	Alternative oxidase	Alternative oxidase (AOX)	K17893	AOX	yes					ubiquinol oxidase		Mitochondria/Chloroplasts/Cyanobacteria/Proteobacteria																	
+Oxidative phosphorylation and stress	Superoxide removal	Superoxide dismutase (SOD)	K04564	SOD2					EC:1.15.1.1	"Superoxide dismutase, Fe-Mn family"																			
+Oxidative phosphorylation and stress	Superoxide removal	Superoxide dismutase (SOD)	K04565	SOD1	yes				EC:1.15.1.1	"Superoxide dismutase, Cu-Zn family"																			
+Oxidative phosphorylation and stress	Superoxide removal	Superoxide dismutase (SOD)	K16627	SOD3					EC:1.15.1.1	"Superoxide dismutase, Cu-Zn family"																			
+Oxidative phosphorylation and stress	Hydrogen peroxide removal	Catalase (katEG)	K03781	katE	yes				EC:1.11.1.21	Catalase																			
+Oxidative phosphorylation and stress	Hydrogen peroxide removal	Catalase (katEG)	K03782	katG					EC:1.11.1.21	Catalase-peroxidase																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (ahpCF)	K24119	ahpC	yes					NADH-dependent peroxiredoxin subunit C																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (ahpCF)	K03387	ahpF						NADH-dependent peroxiredoxin subunit F																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (Prx/Trx)	K03564	bcp						Thioredoxin-dependent peroxiredoxin																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (Prx/Trx)	K11065	tpx	yes					Thioredoxin-dependent peroxiredoxin																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (Prx/Trx)	K23856	GPX						Peroxiredoxin																			
+Oxidative phosphorylation and stress	Peroxide reduction	Peroxide reduction (Prx/Trx)	K24158	prx	yes					Thioredoxin-dependent peroxiredoxin																			
+Oxidative phosphorylation and stress	Reductant regeneration	Reductant regeneration (gor/gshAB)	K00383	gor						Glutathione reductase (NADPH)																			
+Oxidative phosphorylation and stress	Reductant regeneration	Reductant regeneration (gor/gshAB)	K01919	gshA						Glutamate--cysteine ligase																			
+Oxidative phosphorylation and stress	Reductant regeneration	Reductant regeneration (gor/gshAB)	K01920	gshB						Glutathione synthase																			
+Oxidative phosphorylation and stress	Repair of oxidative damage	Repair of oxidative damage (mutMY)	K10563	mutM	yes					Formamidopyrimidine-DNA glycosylase																			
+Oxidative phosphorylation and stress	Repair of oxidative damage	Repair of oxidative damage (mutMY)	K03575	mutY						A/G-specific adenine glycosylase																			
+Oxidative phosphorylation and stress	Regulatory factors	Regulatory factors (soxSR)	K13639	soxR						Redox-sensitive transcriptional activator SoxR				Activates the transcription of the soxS gene which itself controls the superoxide response regulon.															
+Oxidative phosphorylation and stress	Regulatory factors	Regulatory factors (soxSR)	K13631	soxS	yes					"AraC family transcriptional regulator, mar-sox-rob regulon activator"																			
+Oxidative phosphorylation and stress	Thioredoxin system	Thioredoxin system (trxB)	K00384	"trxB, TRR"	yes					"Thioredoxin reductase (NADPH), maintains cellular redox environment"																			
+Oxidative phosphorylation and stress	Glutaredoxin system	Glutaredoxin system (grxABC)	K03674	grxA	yes					"Glutaredoxin 1, glutathione system"																			
+Oxidative phosphorylation and stress	Glutaredoxin system	Glutaredoxin system (grxABC)	K03675	grxB						"Glutaredoxin 2, glutathione system"																			
+Oxidative phosphorylation and stress	Glutaredoxin system	Glutaredoxin system (grxABC)	K03676	"grxC, GLRX, GLRX2"						"Glutaredoxin 3, glutathione system"																			
+Oxidative phosphorylation and stress	Redox regulation	Redox regulation (rex)	K01926	rex						Redox-sensing transcriptional repressor																			
+Carbon source utilization	Amino acid utilization	4-aminobutyrate and related aminotransferases	"K00823, K07250, K13524, K14268, K03918"	NA						4-aminobutyrate aminotransferase and related aminotransferases																			
+Carbon source utilization	Amino acid utilization	Aminotransferase class I and II	K05825	NA						aminotransferase class I and II																			
+Carbon source utilization	Amino acid utilization	Phosphoserine aminotransferase	K00831	NA						phosphoserine aminotransferase																			
+Carbon source utilization	Amino acid utilization	Ornithine/acetylornithine aminotransferase	"K00819, K00821, K05830, K00840"	NA						ornithine/acetylornithine aminotransferase																			
+Carbon source utilization	Amino acid utilization	Branched-chain amino acid aminotransferase	K00826	NA						branched-chain amino acid aminotransferase/4-amino-4-deoxychorismate lyase																			
+Carbon source utilization	Amino acid utilization	4-amino-4-deoxychorismate lyase	"K02619, K03342"	NA						4-amino-4-deoxychorismate lyase																			
+Carbon source utilization	Amino acid utilization	Aspartate/tyrosine/aromatic aminotransferase	"K00812, K00813, K11358, K00832"	NA						aspartate/tyrosine/aromatic aminotransferase																			
+Carbon source utilization	Amino acid utilization	Histidinol-phosphate/aromatic aminotransferase	K00817	NA						histidinol-phosphate/aromatic aminotransferase																			
+Carbon source utilization	Amino acid utilization	Serine-pyruvate/archaeal aspartate aminotransferase	K00830	NA						serine-pyruvate aminotransferase/archaeal aspartate aminotransferase																			
+Carbon source utilization	Aromatics degradation	Phenol => Benzoyl-CoA	K03186	ubiX						flavin prenyltransferase																			
+Carbon source utilization	Aromatics degradation	Phenol => Benzoyl-CoA	K01612	bsdC						vanillate/4-hydroxybenzoate decarboxylase subunit C																			
+Carbon source utilization	Aromatics degradation	Benzoyl-CoA reduction (bcrABCD)	K04112	bcrC						benzoyl-CoA reductase subunit C																			
+Carbon source utilization	Aromatics degradation	Benzoyl-CoA reduction (bcrABCD)	K04113	bcrB						benzoyl-CoA reductase subunit B																			
+Carbon source utilization	Aromatics degradation	Benzoyl-CoA reduction (bcrABCD)	K04114	bcrA						benzoyl-CoA reductase subunit A																			
+Carbon source utilization	Aromatics degradation	Benzoyl-CoA reduction (bcrABCD)	K04115	bcrD						benzoyl-CoA reductase subunit D																			
+Carbon source utilization	Polysaccharides degradation	Laccase	K05909	Laccase						laccase [EC:1.10.3.2]																			
+Carbon source utilization	Polysaccharides degradation	Peroxidase (DyP-type)	K15733	Peroxidase (DyP-type)						dye decolorizing peroxidase [EC:1.11.1.19]																			
+Carbon source utilization	Polysaccharides degradation	Vanillate monooxygenase	K03862	vanA						vanillate monooxygenase [EC:1.14.13.82]																			
+Carbon source utilization	Polysaccharides degradation	Vanillate monooxygenase ferredoxin	K03863	vanB						vanillate monooxygenase ferredoxin subunit																			
+Carbon source utilization	Polysaccharides degradation	"Protocatechuate 3,4-dioxygenase"	K00448	pcaG						"protocatechuate 3,4-dioxygenase, alpha subunit [EC:1.13.11.3]"																			
+Carbon source utilization	Polysaccharides degradation	"Protocatechuate 3,4-dioxygenase"	K00449	pcaH						"protocatechuate 3,4-dioxygenase, beta subunit [EC:1.13.11.3]"																			
+Carbon source utilization	Polysaccharides degradation	"Catechol 1,2-dioxygenase"	K03381	catA						"catechol 1,2-dioxygenase [EC:1.13.11.1]"																			
+Carbon source utilization	Polysaccharides degradation	"Catechol 2,3-dioxygenase"	K07104	catE						"catechol 2,3-dioxygenase [EC:1.13.11.2]"																			
+Carbon source utilization	Polysaccharides degradation	Gallate dioxygenase	K04099	galA						gallate dioxygenase [EC:1.13.11.57]																			
+Carbon source utilization	Polysaccharides degradation	Feruloyl esterase	K09252	FaeB						feruloyl esterase [EC:3.1.1.73]																			
+Carbon source utilization	Polysaccharides degradation	Tannase (tannin acyl hydrolase)	K10759	tannase						tannase [EC:3.1.1.20]																			
+Carbon source utilization	Polysaccharides degradation	Mannanase	"K01218, K19355"	"mannan endo-1,4-beta-mannosidase"	yes					"mannan endo-1,4-beta-mannosidase"																			
+Carbon source utilization	Polysaccharides degradation	xyloglucan	K18576	XEG						"xyloglucan-specific endo-beta-1,4-glucanase"																			
+Carbon source utilization	Polysaccharides degradation	xylanase	K01181	Xyn	yes					"endo-1,4-beta-xylanase"																			
+Carbon source utilization	Polysaccharides degradation	xylanase	K20845	txyA						"endo-1,3-beta-xylanase"																			
+Carbon source utilization	Polysaccharides degradation	Cellulose degrading	K19668	cbhA	yes				EC:3.2.1.91	"cellulose 1,4-beta-cellobiosidase"																			
+Carbon source utilization	Polysaccharides degradation	Cellulose degrading	"K01179, K20542"	cellulase						cellulase																			
+Carbon source utilization	Polysaccharides degradation	Cellulose degrading	"K01188, K05349, K05350"	beta-glucosidase						beta-glucosidase																			
+Carbon source utilization	Polysaccharides degradation	pectin lyase	K01728	pel																									
+Carbon source utilization	Polysaccharides degradation	pectate lyase	K01731	pelW																									
+Carbon source utilization	Polysaccharides degradation	polygalacturonase	K01184	polygalacturonase																									
+Carbon source utilization	Polysaccharides degradation	pectinesterase	K01051	pectinesterase																									
+Carbon source utilization	Polysaccharides degradation	Amylolytic enzymes	"K01176, K05343, K07405"	alpha-amylase						alpha-amylase																			
+Carbon source utilization	Polysaccharides degradation	Amylolytic enzymes	K01178	sGA1						glucoamylase																			
+Carbon source utilization	Polysaccharides degradation	Amylolytic enzymes	K01200	pullulanase						pullulanase																			
+Carbon source utilization	Polysaccharides degradation	Amylolytic enzymes	K01214	iSA					EC:3.2.1.68	isoamylase																			
+Carbon source utilization	Polysaccharides degradation	Chitin degrading	"K01183, K13381"	chitiniase	yes					chitiniase																			
+Carbon source utilization	Polysaccharides degradation	Chitin degrading	"K01207, K12373, K14459"	hexosaminidase						hexosaminidase																			
+Carbon source utilization	Polysaccharides degradation	PUL (Polysaccharide Utilization Loci)	K21573	susC	yes					TonB-dependent starch-binding outer membrane protein SusC																			
+Carbon source utilization	Polysaccharides degradation	PUL (Polysaccharide Utilization Loci)	K21572	susD						"starch-binding outer membrane protein, SusD/RagB family"																			
+Carbon source utilization	Polysaccharides degradation	Hemicullulose debranching	"K01209, K15921"	arabinosidase						arabinosidase																			
+Carbon source utilization	Polysaccharides degradation	Hemicullulose debranching	K01195	beta-glucuronidase						beta-glucuronidase																			
+Carbon source utilization	Polysaccharides degradation	Hemicullulose debranching	K05989	alpha-L-rhamnosidase						alpha-L-rhamnosidase																			
+Carbon source utilization	Polysaccharides degradation	Endohemicellulases	K01811	alpha-D-xyloside xylohydrolase						alpha-D-xyloside xylohydrolase																			
+Carbon source utilization	Sucrose degradation	sucrose degradation	K01193	sacA	yes				EC:3.2.1.26	beta-fructofuranosidase																			
+Carbon source utilization	Sucrose degradation	sucrose degradation	K00690	sucrose phosphorylase					EC:2.4.1.7	sucrose phosphorylase																			
+Carbon source utilization	Mannose degradation	mannose degradation	K01809	manA					EC:5.3.1.8	mannose-6-phosphate isomerase																			
+Carbon source utilization	Galactose degradation	galactose degradation	K01785	galM	yes				EC:5.1.3.3	aldose 1-epimerase																			
+Carbon source utilization	Galactose degradation	galactose degradation	K00849	galK					EC:2.7.1.6	galactokinase 																			
+Carbon source utilization	Galactose degradation	galactose degradation	K00965	galT					EC:2.7.7.12	UDPglucose--hexose-1-phosphate uridylyltransferase																			
+Carbon source utilization	Fucose degradation	fucose degradation	K01818	fucI					EC:5.3.1.25 5.3.1.3	L-fucose/D-arabinose isomerase																			
+Carbon source utilization	Xylose degradation	xylose degrading (isomerase pathway)	K01805	xylA	yes					xylose isomerase																			
+Carbon source utilization	Xylose degradation	xylose degrading (isomerase pathway)	K00854	xylB						xylulokinase																			
+Carbon source utilization	Xylose degradation	xylose degrading (oxidoreductase pathway)	K17743	XYL1	yes					D-xylose reductase																			
+Carbon source utilization	Xylose degradation	xylose degrading (oxidoreductase pathway)	K05351	D-xylose reductase						D-xylose reductase																			
+Carbon source utilization	Xylose degradation	xylose degrading (oxidoreductase pathway)	K00011	AKR1B						aldehyde reductase																			
+Carbon source utilization	Xylose degradation	xylose degrading (xylonate hydratase pathway)	K14275	xad	yes					D-xylonate dehydratase																			
+Carbon source utilization	Xylose degradation	xylose degrading (weimburg/dahms)	K14273	xdh	yes					"D-xylose 1-dehydrogenase (NADP+, D-xylono-1,5-lactone-forming)"																			
+Carbon source utilization	Xylose degradation	xylose degrading (weimburg/dahms)	K00078	DHDH						dihydrodiol dehydrogenase / D-xylose 1-dehydrogenase (NADP)																			
+Carbon source utilization	Xylose degradation	xylose degrading (weimburg/dahms)	K14274	xylC						"xylono-1,5-lactonase"																			
+Carbon source utilization	Xylosidase	xylosidase	K01198	beta-xylosidase						beta-xylosidase																			
+Carbon source utilization	Mannosidase	mannosidase	K01192	beta-mannosidase	yes					beta-mannosidase																			
+Carbon source utilization	Galactosidase	galactosidase	"K01190, K12111, K12308"	beta-galactosidase						beta-galactosidase																			
+Carbon source utilization	Fructose degradation	fructose degradation	K00847	scrK					EC:2.7.1.4	fructokinase 																			
+Carbon source utilization	Galacturonic acid degradation	galacturonic acid degradation	K01812	uxaC					EC:5.3.1.12	glucuronate isomerase																			
+Carbon source utilization	Galacturonic acid degradation	galacturonic acid degradation	K00874	kdgK					EC:2.7.1.45	2-dehydro-3-deoxygluconokinase																			
+Carbon source utilization	multi-carbon alkane degradation	Alkylsuccinate synthase		ASS									require syntrophic associations between fermentative bacteria and methanogenic archaea. The first step: addition to fumarate yielding alkyl-subtituted succinateds by ASS.																
+Carbon source utilization	multi-carbon alkane degradation	alkyl-coenzyme M reductases		ACR									similar to Mcr genes																
+Carbon source utilization	hydrocarbon degradation	hydrocarbon monooxygenase (hmoA)	K10944-hmoA	HmoA																									
+Carbon source utilization	Fatty acid degradation	Fatty acid degradation	"K00249, K00255, K06445, K06446, K09456, K09478, K11410, K15980, K18244"	acyl-CoA dehydrogenase	yes					acyl-CoA dehydrogenase	"a acyl-CoA + electron-transfer flavoprotein = a trans-2,3-dehydroacyl-CoA + reduced electron-transfer flavoprotein [RN:R00392]"																		
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K00514	crtQ	yes					zeta-carotene desaturase	COG3349	Bacteria/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K02291	crtB						15-cis-phytoene/all-trans-phytoene synthase	COG1562	Bacteria/Archaea/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K02293	crtP						15-cis-phytoene desaturase	COG3349	Bacteria/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K02294	crtR						beta-carotene hydroxylase	COG3239	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K06443	crtY						lycopene beta-cyclase	NA	Bacteria/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K06444	lycE						lycopene epsilon-cyclase	NA	Bacteria/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09835	crtH						prolycopene isomerase	COG1233	Bacteria/Eukaryotes																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09836	crtW						beta-carotene ketolase	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09844	crtC						"carotenoid 1,2-hydratase"	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09845	crtD						"1-hydroxycarotenoid 3,4-desaturase"	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09846	crtF						demethylspheroidene O-methyltransferase	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K09879	crtU						isorenieratene synthase	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K10027	crtI						phytoene desaturase	COG1233	Bacteria/Archaea																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K10210	crtP						diapolycopene oxygenase	COG1233	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K10211	crtQ						"4,4'-diaponeurosporenoate glycosyltransferase"	COG0463	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K10212	crtO						"glycosyl-4,4'-diaponeurosporenoate acyltransferase"	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K14605	cruA						lycopene cyclase CruA	NA	Bacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K14606	cruP						lycopene cyclase CruP	NA	Cyanobacteria																	
+Others	Carotenoid biosynthesis	Carotenoid biosynthesis	K15746	crtZ						beta-carotene 3-hydroxylase	NA	Bacteria/Archaea/Eukaryotes																	
+Others	NiFe Hydrogenases	NiFe Hydrogenases	K00437	hydB						[NiFe] hydrogenase large subunit	NA	Bacteria	H2<->2H++2e-																
+Others	NiFe Hydrogenases	NiFe Hydrogenases	K18008	hydA	yes					[NiFe] hydrogenase small subunit	NA	Bacteria																	
+Others	NiFe Hydrogenases	NiFe Hydrogenases	K18005	hoxF	yes					[NiFe] hydrogenase diaphorase moiety large subunit	NA	Bacteria																	
+Others	NiFe Hydrogenases	NiFe Hydrogenases	K18006	hoxU						[NiFe] hydrogenase diaphorase moiety small subunit	NA	Bacteria																	
+Others	As(V) Arsenate reduction	Arsenate reduction (arrAB)	K28466	arrA	yes	NF041714				arsenate respiratory reductase subunit A				AsgeneDB better annotation															
+Others	As(V) Arsenate reduction	Arsenate reduction (arrAB)	K28467	arrB						arsenate respiratory reductase subunit B																			
+Others	As methylation	Arsenite methylation (arsM)	K07755	arsM	yes				EC:2.1.1.137	arsenite methyltransferase																			
+Others	As(V) Arsenate reduction	Arsenate reduction (arsC_grx)	K00537	arsC_grx	yes				EC:1.20.4.1	arsenate reductase (glutaredoxin)																			
+Others	As(V) Arsenate reduction	Arsenate reduction (arsC_grx)	K03741	arsC_trx	yes				EC:1.20.4.4	arsenate reductase (thioredoxin)																			
+Others	Arsenite oxidation	Arsenite oxidation (arxA)	NA	arxA	yes	NA				arsenite oxidase (molybdopterin subunit)																			
+Others	Arsenite oxidation	Arsenite oxidation (aioA)	K08356	aioA	yes					arsenite oxidase large subunit																			
+Others	Arsenite transport	Arsenite transport (arsB)	K03325	arsB	yes					arsenite transporter																			
+Others	MeHg -> Hg(II)	MeHg -> Hg(II) (merB)	K00221	merB	yes	NF015216				alkylmercury lyase			MeHg -> Hg(II)																
+Others	Hg(II) -> Hg(0)	Hg(II) -> Hg(0) (merA)	K00520	merA	yes	TIGR02053				mercuric reductase			Hg(II) -> Hg(0)																
+Others	Hg(II) -> MeHg	Hg(II) -> MeHg (hgcA)	NA	hgcA	yes	"NF040863,NF043039"				mercury methylation protein subunit A			Hg(II) -> MeHg																
+Others	Manganese oxidation	Manganese oxidation	K06324	cotA	yes				EC:1.16.3.3	"spore coat protein A, manganese oxidase"																			
+Others	Manganese oxidation	Manganese oxidation	K22348	moxA	yes				EC:1.16.3.3	manganese oxidase																			
+Others	Manganese oxidation	Manganese oxidation	K22349	mnxG					EC:1.16.3.3	manganese oxidase																			
+Others	Manganese oxidation	Manganese oxidation	K22350	mcoA					EC:1.16.3.3	manganese oxidase																			
+Others	Fe oxidation	Fe oxidation (cyc2)	K20150	cyc2	yes					iron:rusticyanin reductase				FeGenie better annoation															
+Others	Fe oxidation	Fe oxidation	NA	cyc1	yes	NA																							
+Others	Fe reduction	Fe reduction	NA	mtrA_Fe	yes	TIGR03508	PF13435	Q8EG35		Extracelllular iron oxide respiratory system periplasmic decaheme cytochrome c component MtrA																			
+Others	Fe reduction	Fe reduction	NA	mtrB_Fe		TIGR03509	PF11854	Q8CVD4		Extracellular iron oxide respiratory system outer membrane component MtrB																			
+Others	Fe reduction	Fe reduction	NA	mtrC_Fe		TIGR03507		O87540		Deca-heme c-type cytochrome																			
+Others	Chlorite reduction	Chlorite reduction	K09162	cld	yes					chlorite dismutase																			
+Others	Selenate reduction	Selenate reduction	K12529	ygfM						putative selenate reductase FAD-binding subunit	selenite + H2O + acceptor = selenate + reduced acceptor [RN:R07229]																		
+Others	Selenate reduction	Selenate reduction	K12528	xdhD						putative selenate reductase molybdopterin-binding subunit	selenite + H2O + acceptor = selenate + reduced acceptor [RN:R07229]																		
+Others	Selenate reduction	Selenate reduction	K12527	ygfK	yes					putative selenate reductase	selenite + H2O + acceptor = selenate + reduced acceptor [RN:R07229]																		
+Others	Polyhydroxyalkanoates (PHA) synthesis	Polyhydroxyalkanoates (PHA) synthesis	K00626	atoB					EC:2.3.1.9	acetyl-CoA C-acetyltransferase																			
+Others	Polyhydroxyalkanoates (PHA) synthesis	Polyhydroxyalkanoates (PHA) synthesis	K00059	fabG					EC:1.1.1.100	3-oxoacyl-[acyl-carrier protein] reductase																			
+Others	Polyhydroxyalkanoates (PHA) synthesis	Polyhydroxyalkanoates (PHA) synthesis	K03821	phaC	yes				EC:2.3.1.304	poly[(R)-3-hydroxyalkanoate] polymerase subunit PhaC																			
+Others	Hopanoid synthesis	Hopanoid synthesis	K06045	shc	yes					squalene-hopene/tetraprenyl-beta-curcumene cyclase				"Membrane Stability, Environmental Adaptation, Metabolic Versatility Indicator"															
+Others	Hopanoid synthesis	Hopanoid synthesis	K21677	hpnE	yes					hydroxysqualene dehydroxylase [EC:1.17.8.1]																			
+Others	Hopanoid synthesis	Hopanoid synthesis	K21678	hpnD						presqualene diphosphate synthase [EC:2.5.1.103]																			
+Others	Hopanoid synthesis	Hopanoid synthesis	K21679	hpnC						hydroxysqualene synthase																			
+Others	polyphenol degradation	polyphenol degradation (queD)	K06911	queD	yes					"quercetin 2,3-dioxygenase"				polyphenol -> CO															
+Others	heme biosynthesis	heme biosynthesis	K01772	hemH	yes				EC:4.98.1.1 4.99.1.9	protoporphyrin/coproporphyrin ferrochelatase				The last step to synthesis heme															
