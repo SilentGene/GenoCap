@@ -901,8 +901,8 @@
   },
   {
     "metabolism": "Fermentation and TCA",
-    "pathway": "Propionate fermentation",
-    "module": "propionate fermentation",
+    "pathway": "TCA cycle",
+    "module": "TCA cycle",
     "ko": "K01676",
     "geneName": "fumA",
     "isKey": true,
@@ -1783,7 +1783,7 @@
   },
   {
     "metabolism": "C1 and methane metabolism",
-    "pathway": "C¨CP lyase methane production",
+    "pathway": "C-CP lyase methane production",
     "module": "Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)",
     "ko": "K06163",
     "geneName": "phnJ",
@@ -1792,7 +1792,7 @@
   },
   {
     "metabolism": "C1 and methane metabolism",
-    "pathway": "C¨CP lyase methane production",
+    "pathway": "C-CP lyase methane production",
     "module": "Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)",
     "ko": "K06162",
     "geneName": "phnM",
@@ -1801,7 +1801,7 @@
   },
   {
     "metabolism": "C1 and methane metabolism",
-    "pathway": "C¨CP lyase methane production",
+    "pathway": "C-CP lyase methane production",
     "module": "Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)",
     "ko": "K06164",
     "geneName": "phnI",
@@ -1810,7 +1810,7 @@
   },
   {
     "metabolism": "C1 and methane metabolism",
-    "pathway": "C¨CP lyase methane production",
+    "pathway": "C-CP lyase methane production",
     "module": "Aearobic Methanogenesis (phnJ/phnM/phnI/mpnS)",
     "ko": "K18049",
     "geneName": "mpnS",

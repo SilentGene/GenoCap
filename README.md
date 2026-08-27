@@ -33,7 +33,7 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000` in a browser. The database JSON is regenerated automatically from `db/Panfuc_db.tsv` whenever the development server or production build starts.
+Open `http://localhost:3000` in a browser. The database JSON is regenerated automatically from `db/GenoCap_db.tsv` whenever the development server or production build starts.
 
 ## GitHub Pages deployment
 
@@ -48,7 +48,7 @@ The supplied `doc/input_annotation.tsv` file can be used as a complete example.
 ## Project structure
 
 - `web/` — Next.js and Ant Design application.
-- `db/Panfuc_db.tsv` — authoritative functional reference database.
+- `db/GenoCap_db.tsv` — authoritative functional reference database.
 - `doc/` — example input and reference visualization.
 - `.github/workflows/deploy-pages.yml` — automated GitHub Pages deployment.
 

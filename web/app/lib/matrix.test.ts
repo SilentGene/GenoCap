@@ -52,10 +52,13 @@ describe('matrix construction', () => {
   it('matches expected database contexts and sample visible rows', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const parsed = parseAnnotations(sample, 'tsv', database);
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'module', true).rows).toHaveLength(162);
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows).toHaveLength(376);
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows).toHaveLength(139);
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows).toHaveLength(94);
+    const rowCounts = [
+      buildMatrix(database, parsed.records, parsed.genomes, 'module', true).rows.length,
+      buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows.length,
+      buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
+      buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
+    ];
+    expect(rowCounts).toEqual([161, 376, 139, 94]);
   });
 
   it('exports current display values in genome order', () => {

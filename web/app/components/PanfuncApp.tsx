@@ -1,5 +1,6 @@
 'use client';
 
+import { QuestionCircleFilled } from '@ant-design/icons';
 import {
   Alert,
   App as AntApp,
@@ -12,6 +13,7 @@ import {
   Empty,
   Flex,
   List,
+  Popover,
   Segmented,
   Select,
   Slider,
@@ -208,8 +210,12 @@ function PanfuncWorkspace() {
               <Button onClick={chooseFile} loading={loading}>Replace</Button>
             </Flex>
           </Card> : <Card size="small" title={<SectionTitle>Data source</SectionTitle>}>
-            <h2 className="sidebar-heading">Import annotations</h2>
-            <p className="helper-text">Select the file type first. Required headers are <code>gene</code>, <code>genome</code> and <code>ko</code>.</p>
+            <Flex align="center" gap={4} className="annotation-heading-row">
+              <h2 className="sidebar-heading">Import annotations</h2>
+              <Popover title="Example file format" content={<AnnotationFormatExample />} trigger={['hover', 'click']} placement="rightTop">
+                <Button type="text" size="small" className="annotation-help-button" icon={<QuestionCircleFilled />} aria-label="Show annotation file format" />
+              </Popover>
+            </Flex>
             <Flex gap={8} className="file-actions mt-3">
               <Select className="file-kind-select" aria-label="Annotation file type" value={fileKind} options={[{ label: 'TSV', value: 'tsv' }, { label: 'CSV', value: 'csv' }]} onChange={(value) => changeFileKind(value as FileKind)} />
               <Button type="primary" onClick={chooseFile} loading={loading}>Choose annotation file</Button>
@@ -264,6 +270,24 @@ function PanfuncWorkspace() {
 }
 
 function SectionTitle({ children }: { children: ReactNode }) { return <span className="section-title">{children}</span>; }
+
+function AnnotationFormatExample() {
+  const rows = [
+    ['NC_019977.1_1', 'GCF_000328665.1', 'K10725'],
+    ['NC_019977.1_2', 'GCF_000328665.1', 'K13280'],
+    ['NC_019977.1_3', 'GCF_000328665.1', 'K00936; K07718'],
+    ['contig01_1', 'MAG_001', 'K06176'],
+    ['contig01_2', 'MAG_001', ''],
+    ['contig01_3', 'MAG_001', 'K01531, K01537'],
+  ];
+  return <div className="annotation-format-example">
+    <table className="annotation-example-table">
+      <thead><tr><th>gene</th><th>genome</th><th>ko</th></tr></thead>
+      <tbody>{rows.map(([gene, genome, ko]) => <tr key={gene}><td>{gene}</td><td>{genome}</td><td>{ko}</td></tr>)}</tbody>
+    </table>
+    <p>The file must include the headers shown above.</p>
+  </div>;
+}
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
   return <Flex align="center" justify="space-between" gap={12} className="setting-row"><span>{label}</span><Switch size="small" checked={checked} onChange={onChange} /></Flex>;

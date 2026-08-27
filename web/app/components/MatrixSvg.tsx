@@ -178,18 +178,18 @@ function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: Visuali
   const labelHeight = Math.max(1, ...genomeOrder.map((genome) => estimateTextWidth(genome, settings.fontSize)));
   const matrixTop = TREE_TOP + treeHeight + TREE_LABEL_GAP + labelHeight + LABEL_MATRIX_GAP;
   const matrixWidth = Math.max(1, genomeOrder.length * pitch);
-  const maxChars = Math.max(28, Math.floor((LABEL_WIDTH - 34) / (settings.fontSize * 0.58)));
+  const featureLabelWidth = Math.max(LABEL_WIDTH, ...matrix.rows.map((row) => estimateSingleLineLabelWidth(row.feature, settings.fontSize) + 34));
   let cursor = 0;
   const rows = matrix.rows.map((row) => {
-    const lines = [row.feature.length > maxChars ? `${row.feature.slice(0, Math.max(1, maxChars - 1))}…` : row.feature];
+    const lines = [row.feature];
     const height = pitch;
     const value = { top: cursor, height, center: cursor + height / 2, lines };
     cursor += height;
     return value;
   });
   const matrixHeight = Math.max(pitch, cursor);
-  const matrixLeft = settings.swapSideLabels ? GROUP_WIDTH : LABEL_WIDTH;
-  const width = LABEL_WIDTH + matrixWidth + GROUP_WIDTH;
+  const matrixLeft = settings.swapSideLabels ? GROUP_WIDTH : featureLabelWidth;
+  const width = featureLabelWidth + matrixWidth + GROUP_WIDTH;
   return { pitch, treeHeight, matrixTop, matrixWidth, matrixHeight, matrixLeft, width, height: matrixTop + matrixHeight + BOTTOM_SPACE, xForGenome: new Map(genomeOrder.map((genome, index) => [genome, matrixLeft + index * pitch + pitch / 2])), rows };
 }
 
@@ -206,6 +206,10 @@ function estimateTextWidth(text: string, fontSize: number): number {
   // Genome names are mostly ASCII identifiers. A conservative em estimate keeps
   // even long names clear of both the dendrogram and the matrix during SSR/export.
   return Math.ceil(text.length * fontSize * 0.7);
+}
+
+function estimateSingleLineLabelWidth(text: string, fontSize: number): number {
+  return Math.ceil([...text].length * fontSize);
 }
 
 function getRotatedCanvas(width: number, height: number, rotation: VisualizationSettings['rotation']): { width: number; height: number; transform?: string } {

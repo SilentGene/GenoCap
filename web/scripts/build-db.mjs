@@ -3,7 +3,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const sourcePath = resolve(here, '../../db/Panfuc_db.tsv');
+const sourcePath = resolve(here, '../../db/GenoCap_db.tsv');
 const outputPath = resolve(here, '../app/data/panfunc-db.json');
 const exampleSourcePath = resolve(here, '../../doc/input_annotation.tsv');
 const exampleOutputPath = resolve(here, '../public/input_annotation.tsv');
