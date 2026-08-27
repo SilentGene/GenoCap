@@ -6,7 +6,8 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 
 ## Live application
 
-[Open GenoCap App](https://silentgene.github.io/GenoCap/)
+[![Button Click]][https://silentgene.github.io/GenoCap/ "Open GenoCap Online App"]
+
 
 ## Features
 
@@ -17,12 +18,12 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 
 ## Technology stack
 
-- **Application framework:** Next.js 16 with the App Router and static export.
-- **User interface:** React 19, TypeScript, Ant Design 6, and Tailwind CSS 4.
-- **Visualization:** Interactive, dynamically generated SVG rendered directly by React.
-- **Data processing:** Papa Parse for TSV/CSV input, with parsing, matrix construction, clustering, and exports performed entirely in the browser.
+- **Application framework:** [Next.js 16](https://nextjs.org/) with the App Router and static export.
+- **User interface:** [React 19](https://reactjs.org/), TypeScript, [Ant Design 6](https://ant.design/), and [Tailwind CSS 4](https://tailwindcss.com/).
+- **Visualization:** Interactive, dynamically generated SVG rendered directly by [React](https://reactjs.org/).
+- **Data processing:** [Papa Parse](https://www.papaparse.com/) for TSV/CSV input, with parsing, matrix construction, clustering, and exports performed entirely in the browser.
 - **Testing and quality:** Vitest, ESLint, and the Next.js TypeScript production build.
-- **Deployment:** GitHub Actions and GitHub Pages on Node.js 22.
+- **Deployment:** GitHub Actions and [GitHub Pages](https://pages.github.com/) on Node.js 22.
 
 ## Run locally
 
@@ -82,3 +83,5 @@ Lin, H. (2026). GenoCap (Version 0.5) [Web application]. Available at https://gi
 ```
 
 ...🧙‍♂️🧬
+
+[Button Click]: https://img.shields.io/badge/Open_GenoCap!-37a779?style=for-the-badge
