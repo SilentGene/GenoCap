@@ -6,7 +6,6 @@ import {
   Button,
   Card,
   Checkbox,
-  Collapse,
   ColorPicker,
   ConfigProvider,
   Divider,
@@ -22,17 +21,21 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
-import { useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type ReactNode } from 'react';
+import { useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
 import databaseJson from '../data/panfunc-db.json';
 import { clusterGenomes } from '../lib/cluster';
 import { downloadPng, downloadSvg, downloadText, matrixToCsv } from '../lib/export';
 import { parseAnnotations } from '../lib/input';
-import { buildMatrix, DEFAULT_METABOLISM_COLORS } from '../lib/matrix';
-import type { DatabaseEntry, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
+import { buildMatrix, DEFAULT_METABOLISM_COLORS, DEFAULT_METABOLISM_ORDER } from '../lib/matrix';
+import type { DatabaseEntry, FigureRotation, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
 import MatrixSvg, { MatrixStickyHeader } from './MatrixSvg';
 
 const database = databaseJson as DatabaseEntry[];
 const metabolisms = [...new Set(database.map((entry) => entry.metabolism))];
+const defaultMetabolismOrder = [
+  ...DEFAULT_METABOLISM_ORDER.filter((metabolism) => metabolisms.includes(metabolism)),
+  ...metabolisms.filter((metabolism) => !DEFAULT_METABOLISM_ORDER.includes(metabolism as typeof DEFAULT_METABOLISM_ORDER[number])),
+];
 const theme = {
   token: {
     colorPrimary: '#1677ff',
@@ -51,9 +54,9 @@ const theme = {
 };
 
 const initialSettings: VisualizationSettings = {
-  mode: 'module', shape: 'circle', spacing: 4, border: true, backgroundCoverage: 'full', quarterFill: true, showAllRows: false,
-  clustering: false, cellSize: 17, fontSize: 11, zoom: 1,
-  presentColor: '#636363', absentColor: '#ffffff', metabolismColors: { ...DEFAULT_METABOLISM_COLORS },
+  mode: 'module', shape: 'circle', spacing: 4, border: true, metabolismColorTarget: 'background', quarterFill: true, showAllRows: false,
+  clustering: false, cellSize: 17, fontSize: 11, zoom: 1, rotation: 0, swapSideLabels: false,
+  presentColor: '#636363', absentColor: '#ffffff', metabolismColors: { ...DEFAULT_METABOLISM_COLORS }, metabolismOrder: [...defaultMetabolismOrder],
   visibleMetabolisms: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])),
 };
 
@@ -67,18 +70,23 @@ function PanfuncWorkspace() {
   const [fileKind, setFileKind] = useState<FileKind>('tsv');
   const [result, setResult] = useState<ParsedAnnotations | null>(null);
   const [fileName, setFileName] = useState('');
+  const [usingExample, setUsingExample] = useState(false);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [settings, setSettings] = useState<VisualizationSettings>(initialSettings);
+  const [draggingMetabolism, setDraggingMetabolism] = useState<string | null>(null);
+  const draggedMetabolismRef = useRef<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
   const matrix = useMemo(() => {
     if (!result || result.errors.length) return null;
     const visible = new Set(Object.entries(settings.visibleMetabolisms).filter(([, isVisible]) => isVisible).map(([metabolism]) => metabolism));
-    return buildMatrix(database, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
-  }, [result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms]);
+    const nextMatrix = buildMatrix(database, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
+    const ranks = new Map(settings.metabolismOrder.map((metabolism, index) => [metabolism, index]));
+    return { ...nextMatrix, rows: nextMatrix.rows.toSorted((a, b) => (ranks.get(a.metabolism) ?? Number.MAX_SAFE_INTEGER) - (ranks.get(b.metabolism) ?? Number.MAX_SAFE_INTEGER) || a.sourceIndex - b.sourceIndex) };
+  }, [result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms, settings.metabolismOrder]);
 
   const clustered = useMemo(() => {
     if (!matrix || !settings.clustering) return { order: matrix?.genomes ?? [], root: undefined };
@@ -86,18 +94,62 @@ function PanfuncWorkspace() {
   }, [matrix, settings.clustering]);
 
   const update = <K extends keyof VisualizationSettings>(key: K, value: VisualizationSettings[K]) => setSettings((current) => ({ ...current, [key]: value }));
+  const rotateFigure = () => setSettings((current) => ({ ...current, rotation: ((current.rotation + 90) % 360) as FigureRotation }));
   const chooseFile = () => fileRef.current?.click();
   const changeFileKind = (kind: FileKind) => { setFileKind(kind); if (fileRef.current) fileRef.current.value = ''; };
+
+  function reorderMetabolism(source: string, target: string) {
+    if (source === target) return;
+    setSettings((current) => {
+      const nextOrder = [...current.metabolismOrder];
+      const sourceIndex = nextOrder.indexOf(source);
+      const targetIndex = nextOrder.indexOf(target);
+      if (sourceIndex < 0 || targetIndex < 0) return current;
+      nextOrder.splice(sourceIndex, 1);
+      nextOrder.splice(targetIndex, 0, source);
+      return { ...current, metabolismOrder: nextOrder };
+    });
+  }
+
+  function moveMetabolism(metabolism: string, direction: -1 | 1) {
+    const index = settings.metabolismOrder.indexOf(metabolism);
+    const target = settings.metabolismOrder[index + direction];
+    if (target) reorderMetabolism(metabolism, target);
+  }
+
+  function beginMetabolismDrag(metabolism: string) {
+    draggedMetabolismRef.current = metabolism;
+    setDraggingMetabolism(metabolism);
+  }
+
+  function finishMetabolismDrag() {
+    draggedMetabolismRef.current = null;
+    setDraggingMetabolism(null);
+  }
+
+  async function loadAnnotations(name: string, readText: () => Promise<string>, isExample = false, kind: FileKind = fileKind) {
+    setLoading(true); setCopied(false); setFileName(name); setUsingExample(isExample); setResult(null);
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    try { setResult(parseAnnotations(await readText(), kind, database)); }
+    catch (error) {
+      setResult({ records: [], genomes: [], summary: { records: 0, genomes: 0, uniqueKos: 0, matchedKos: 0 }, errors: [{ line: 1, field: 'file', value: '', reason: error instanceof Error ? error.message : 'Unable to read this file.' }] });
+    } finally { setLoading(false); }
+  }
 
   async function handleFile(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
-    setLoading(true); setCopied(false); setFileName(file.name); setResult(null);
-    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-    try { setResult(parseAnnotations(await file.text(), fileKind, database)); }
-    catch (error) {
-      setResult({ records: [], genomes: [], summary: { records: 0, genomes: 0, uniqueKos: 0, matchedKos: 0 }, errors: [{ line: 1, field: 'file', value: '', reason: error instanceof Error ? error.message : 'Unable to read this file.' }] });
-    } finally { setLoading(false); }
+    await loadAnnotations(file.name, () => file.text());
+  }
+
+  async function loadExampleFile() {
+    if (fileRef.current) fileRef.current.value = '';
+    setFileKind('tsv');
+    await loadAnnotations('input_annotation.tsv', async () => {
+      const response = await fetch('./input_annotation.tsv');
+      if (!response.ok) throw new Error(`Unable to load the example file (${response.status}).`);
+      return response.text();
+    }, true, 'tsv');
   }
 
   async function copyErrors() {
@@ -119,19 +171,18 @@ function PanfuncWorkspace() {
     finally { setExporting(false); }
   }
 
-  const metabolismItems = [{
-    key: 'metabolisms',
-    label: 'Metabolism groups',
-    children: <div>
-      <Flex justify="flex-end" gap={4} className="mb-2">
-        <Button type="link" size="small" onClick={() => update('visibleMetabolisms', Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])))}>Select all</Button>
-        <Button type="link" size="small" onClick={() => update('visibleMetabolisms', Object.fromEntries(metabolisms.map((metabolism) => [metabolism, false])))}>Clear all</Button>
+  const metabolismControls = <section className="metabolism-groups" aria-labelledby="metabolism-groups-heading">
+      <Flex align="center" justify="space-between" gap={8} className="metabolism-groups-header">
+        <h3 id="metabolism-groups-heading">Metabolism groups</h3>
+        <Flex gap={4}>
+          <Button type="link" size="small" onClick={() => update('visibleMetabolisms', Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])))}>Select all</Button>
+          <Button type="link" size="small" onClick={() => update('visibleMetabolisms', Object.fromEntries(metabolisms.map((metabolism) => [metabolism, false])))}>Clear all</Button>
+        </Flex>
       </Flex>
-      <Space orientation="vertical" size={10} className="w-full">
-        {metabolisms.map((metabolism) => <MetabolismControl key={metabolism} metabolism={metabolism} checked={settings.visibleMetabolisms[metabolism] !== false} color={settings.metabolismColors[metabolism] ?? '#e8ebe7'} onChecked={(checked) => setSettings((current) => ({ ...current, visibleMetabolisms: { ...current.visibleMetabolisms, [metabolism]: checked } }))} onColor={(value) => setSettings((current) => ({ ...current, metabolismColors: { ...current.metabolismColors, [metabolism]: value } }))} />)}
-      </Space>
-    </div>,
-  }];
+      <div className="metabolism-list">
+        {settings.metabolismOrder.map((metabolism) => <MetabolismControl key={metabolism} metabolism={metabolism} checked={settings.visibleMetabolisms[metabolism] !== false} color={settings.metabolismColors[metabolism] ?? '#e8ebe7'} dragging={draggingMetabolism === metabolism} onDragStart={() => beginMetabolismDrag(metabolism)} onDragMove={(target) => { const source = draggedMetabolismRef.current; if (source) reorderMetabolism(source, target); }} onDragEnd={finishMetabolismDrag} onMove={(direction) => moveMetabolism(metabolism, direction)} onChecked={(checked) => setSettings((current) => ({ ...current, visibleMetabolisms: { ...current.visibleMetabolisms, [metabolism]: checked } }))} onColor={(value) => setSettings((current) => ({ ...current, metabolismColors: { ...current.metabolismColors, [metabolism]: value } }))} />)}
+      </div>
+    </section>;
 
   return <main className="panfunc-app">
     <div className="panfunc-layout">
@@ -150,8 +201,8 @@ function PanfuncWorkspace() {
 
         <div className="sidebar-stack">
           {result && !result.errors.length ? <Card size="small" title={<SectionTitle>Loaded dataset</SectionTitle>}>
-            <p className="file-name" title={fileName}>{fileName}</p>
-            <div className="statistics-grid">{[['Records', result.summary.records], ['Genomes', result.summary.genomes], ['Unique KOs', result.summary.uniqueKos], ['DB matches', result.summary.matchedKos]].map(([label, value]) => <Statistic key={label} title={label} value={Number(value)} groupSeparator="," />)}</div>
+            <p className="file-name" title={fileName}>{usingExample ? <a href="./input_annotation.tsv" download="input_annotation.tsv">{fileName}</a> : fileName}</p>
+            <div className="statistics-grid">{[['Gene', result.summary.records], ['Genomes', result.summary.genomes], ['Unique KOs', result.summary.uniqueKos], ['DB matches', result.summary.matchedKos]].map(([label, value]) => <Statistic key={label} title={label} value={Number(value)} groupSeparator="," />)}</div>
             <Flex gap={8} className="file-actions mt-3">
               <Select className="file-kind-select" aria-label="Annotation file type" value={fileKind} options={[{ label: 'TSV', value: 'tsv' }, { label: 'CSV', value: 'csv' }]} onChange={(value) => changeFileKind(value as FileKind)} />
               <Button onClick={chooseFile} loading={loading}>Replace</Button>
@@ -163,6 +214,7 @@ function PanfuncWorkspace() {
               <Select className="file-kind-select" aria-label="Annotation file type" value={fileKind} options={[{ label: 'TSV', value: 'tsv' }, { label: 'CSV', value: 'csv' }]} onChange={(value) => changeFileKind(value as FileKind)} />
               <Button type="primary" onClick={chooseFile} loading={loading}>Choose annotation file</Button>
             </Flex>
+            <a className="example-file-link" href="./input_annotation.tsv" aria-disabled={loading} onClick={(event) => { event.preventDefault(); if (!loading) void loadExampleFile(); }}>{loading ? 'Loading example...' : 'Use example file...'}</a>
             {fileName ? <p className="file-name mt-2" title={fileName}>{fileName}</p> : null}
           </Card>}
 
@@ -177,14 +229,14 @@ function PanfuncWorkspace() {
 
           <Card size="small" title={<SectionTitle>Appearance</SectionTitle>} extra={<Button type="link" size="small" onClick={() => setSettings(initialSettings)}>Reset</Button>}>
             <Field label="Cell shape"><Select value={settings.shape} onChange={(value) => update('shape', value)} options={[{ label: 'Circle', value: 'circle' }, { label: 'Square', value: 'square' }]} /></Field>
-            <Field label="Background coverage"><Select value={settings.backgroundCoverage} onChange={(value) => update('backgroundCoverage', value)} options={[{ label: 'Full row', value: 'full' }, { label: 'Cell area only', value: 'matrix' }]} /></Field>
+            <Field label="Metabolism colors"><Select value={settings.metabolismColorTarget} onChange={(value) => update('metabolismColorTarget', value)} options={[{ label: 'Background', value: 'background' }, { label: 'Cell fill', value: 'cell' }]} /></Field>
             <Range label="Cell size" value={settings.cellSize} min={10} max={28} suffix="px" onChange={(value) => update('cellSize', value)} />
             <Range label="Spacing" value={settings.spacing} min={0} max={12} suffix="px" onChange={(value) => update('spacing', value)} />
             <Range label="Label size" value={settings.fontSize} min={9} max={16} suffix="px" onChange={(value) => update('fontSize', value)} />
             <Toggle label="Cell borders" checked={settings.border} onChange={(checked) => update('border', checked)} />
             <Divider className="my-3" />
-            <Flex gap={16} justify="space-between"><ColorInput label="Present" value={settings.presentColor} onChange={(value) => update('presentColor', value)} /><ColorInput label="Absent" value={settings.absentColor} onChange={(value) => update('absentColor', value)} /></Flex>
-            <Collapse className="mt-3" size="small" items={metabolismItems} />
+            <Flex gap={16} justify="space-between">{settings.metabolismColorTarget === 'background' ? <ColorInput label="Present" value={settings.presentColor} onChange={(value) => update('presentColor', value)} /> : null}<ColorInput label="Absent" value={settings.absentColor} onChange={(value) => update('absentColor', value)} /></Flex>
+            {metabolismControls}
           </Card>
         </div>
       </aside>
@@ -197,11 +249,14 @@ function PanfuncWorkspace() {
           <Tooltip title="Zoom in"><Button onClick={() => update('zoom', Math.min(2, +(settings.zoom + 0.1).toFixed(1)))} aria-label="Zoom in">+</Button></Tooltip>
           <Button onClick={() => update('zoom', 1)}>Reset view</Button>
           <Divider orientation="vertical" className="toolbar-divider" />
+          <Tooltip title={`Current rotation: ${settings.rotation}°`}><Button onClick={rotateFigure} aria-label="Rotate figure clockwise 90 degrees">Rotate 90°</Button></Tooltip>
+          <Tooltip title="Exchange feature and metabolism labels between the two sides"><Button type={settings.swapSideLabels ? 'primary' : 'default'} onClick={() => update('swapSideLabels', !settings.swapSideLabels)} aria-pressed={settings.swapSideLabels}>Swap labels</Button></Tooltip>
+          <Divider orientation="vertical" className="toolbar-divider" />
           <Button onClick={exportCsv}>CSV</Button>
           <Button onClick={() => svgRef.current && downloadSvg(svgRef.current, `genocap-${settings.mode}-matrix.svg`)}>SVG</Button>
           <Button onClick={exportPng} loading={exporting}>PNG</Button>
         </Flex> : null}>
-          {!result ? <EmptyState fileKind={fileKind} /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max"><div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div><MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} />}
+          {!result ? <EmptyState fileKind={fileKind} /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} />}
         </Card>
       </section>
     </div>
@@ -226,8 +281,25 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
   return <Flex align="center" gap={8}><span className="color-label">{label}</span><ColorPicker value={value} format="hex" onChangeComplete={(color) => onChange(color.toHexString())} aria-label={`${label} color`} /></Flex>;
 }
 
-function MetabolismControl({ metabolism, checked, color, onChecked, onColor }: { metabolism: string; checked: boolean; color: string; onChecked: (checked: boolean) => void; onColor: (color: string) => void }) {
-  return <Flex align="center" justify="space-between" gap={8} className="metabolism-row"><Checkbox checked={checked} onChange={(event) => onChecked(event.target.checked)}>{metabolism}</Checkbox><ColorPicker size="small" value={color} format="hex" disabled={!checked} onChangeComplete={(next) => onColor(next.toHexString())} aria-label={`${metabolism} background color`} /></Flex>;
+function MetabolismControl({ metabolism, checked, color, dragging, onDragStart, onDragMove, onDragEnd, onMove, onChecked, onColor }: { metabolism: string; checked: boolean; color: string; dragging: boolean; onDragStart: () => void; onDragMove: (target: string) => void; onDragEnd: () => void; onMove: (direction: -1 | 1) => void; onChecked: (checked: boolean) => void; onColor: (color: string) => void }) {
+  function movePointer(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
+    const target = document.elementFromPoint(event.clientX, event.clientY)?.closest<HTMLElement>('[data-metabolism]')?.dataset.metabolism;
+    if (target) onDragMove(target);
+  }
+
+  function releasePointer(event: ReactPointerEvent<HTMLButtonElement>) {
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    onDragEnd();
+  }
+
+  return <Flex align="center" gap={6} className={`metabolism-row${dragging ? ' is-dragging' : ''}`} data-metabolism={metabolism}>
+    <button type="button" className="metabolism-drag-handle" aria-label={`Reorder ${metabolism}`} title="Drag to reorder" onPointerDown={(event) => { event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); onDragStart(); }} onPointerMove={movePointer} onPointerUp={releasePointer} onPointerCancel={releasePointer} onKeyDown={(event) => { if (event.key === 'ArrowUp' || event.key === 'ArrowDown') { event.preventDefault(); onMove(event.key === 'ArrowUp' ? -1 : 1); } }}>
+      <svg viewBox="0 0 12 18" aria-hidden="true">{[3, 9].flatMap((x) => [4, 9, 14].map((y) => <circle key={`${x}-${y}`} cx={x} cy={y} r="1.25" fill="currentColor" />))}</svg>
+    </button>
+    <Checkbox checked={checked} onChange={(event) => onChecked(event.target.checked)}>{metabolism}</Checkbox>
+    <ColorPicker size="small" value={color} format="hex" disabled={!checked} onChangeComplete={(next) => onColor(next.toHexString())} aria-label={`${metabolism} color`} />
+  </Flex>;
 }
 
 function ErrorPanel({ fileName, result, copied, onCopy }: { fileName: string; result: ParsedAnnotations; copied: boolean; onCopy: () => void }) {

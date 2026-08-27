@@ -14,6 +14,15 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 - Export the complete visualization as SVG or PNG and the displayed matrix as CSV.
 - Parse TSV and CSV files entirely in the browser, including multiple KO identifiers per cell.
 
+## Technology stack
+
+- **Application framework:** Next.js 16 with the App Router and static export.
+- **User interface:** React 19, TypeScript, Ant Design 6, and Tailwind CSS 4.
+- **Visualization:** Interactive, dynamically generated SVG rendered directly by React.
+- **Data processing:** Papa Parse for TSV/CSV input, with parsing, matrix construction, clustering, and exports performed entirely in the browser.
+- **Testing and quality:** Vitest, ESLint, and the Next.js TypeScript production build.
+- **Deployment:** GitHub Actions and GitHub Pages on Node.js 22.
+
 ## Run locally
 
 Requirements: Node.js 22.13 or newer.

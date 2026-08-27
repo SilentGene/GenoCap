@@ -92,14 +92,28 @@ function buildDefinitions(database: DatabaseEntry[], mode: ViewMode, visibleMeta
   return [...groups.values()].sort((a, b) => a.sourceIndex - b.sourceIndex);
 }
 
+export const DEFAULT_METABOLISM_ORDER = [
+  'C1 and methane metabolism',
+  'Carbon fix',
+  'Nitrogen cycling',
+  'Sulfur cycling',
+  'Photosynthesis',
+  'Fermentation and TCA',
+  'Anaerobic Respiration',
+  'Oxidative phosphorylation and stress',
+  'Carbon source utilization',
+  'Others',
+] as const;
+
 export const DEFAULT_METABOLISM_COLORS: Record<string, string> = {
-  'Nitrogen cycling': '#dfe8f7',
-  'Sulfur cycling': '#f7e8c9',
-  'Carbon source utilization': '#f6ddd8',
-  'Carbon fix': '#d8e8f4',
-  'Fermentation and TCA': '#dcefd3',
-  'C1 and methane metabolism': '#eee2e6',
-  'Oxidative phosphorylation and stress': '#e5ddec',
-  Photosynthesis: '#e8edc9',
-  Others: '#e5e8e3',
+  'C1 and methane metabolism': '#c9ba58',
+  'Carbon fix': '#7ce5c7',
+  'Nitrogen cycling': '#d17f71',
+  'Sulfur cycling': '#d68a25',
+  Photosynthesis: '#81d171',
+  'Fermentation and TCA': '#dd85a5',
+  'Anaerobic Respiration': '#b07de2',
+  'Oxidative phosphorylation and stress': '#8ad3ed',
+  'Carbon source utilization': '#bf9e9e',
+  Others: '#d3d3d3',
 };

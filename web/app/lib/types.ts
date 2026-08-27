@@ -1,7 +1,8 @@
 export type FileKind = 'tsv' | 'csv';
 export type ViewMode = 'module' | 'gene' | 'key';
 export type CellShape = 'circle' | 'square';
-export type BackgroundCoverage = 'full' | 'matrix';
+export type MetabolismColorTarget = 'background' | 'cell';
+export type FigureRotation = 0 | 90 | 180 | 270;
 
 export interface AnnotationRecord {
   gene: string;
@@ -80,15 +81,18 @@ export interface VisualizationSettings {
   shape: CellShape;
   spacing: number;
   border: boolean;
-  backgroundCoverage: BackgroundCoverage;
+  metabolismColorTarget: MetabolismColorTarget;
   quarterFill: boolean;
   showAllRows: boolean;
   clustering: boolean;
   cellSize: number;
   fontSize: number;
   zoom: number;
+  rotation: FigureRotation;
+  swapSideLabels: boolean;
   presentColor: string;
   absentColor: string;
   metabolismColors: Record<string, string>;
+  metabolismOrder: string[];
   visibleMetabolisms: Record<string, boolean>;
 }

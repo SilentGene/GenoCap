@@ -1,10 +1,12 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = resolve(here, '../../db/Panfuc_db.tsv');
 const outputPath = resolve(here, '../app/data/panfunc-db.json');
+const exampleSourcePath = resolve(here, '../../doc/input_annotation.tsv');
+const exampleOutputPath = resolve(here, '../public/input_annotation.tsv');
 const source = await readFile(sourcePath, 'utf8');
 const lines = source.replace(/^\uFEFF/, '').split(/\r?\n/).filter(Boolean);
 const headers = lines[0].split('\t');
@@ -36,4 +38,6 @@ const entries = lines.slice(1).map((line, sourceIndex) => {
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(entries, null, 2)}\n`, 'utf8');
-console.log(`Generated ${entries.length} GenoCap database entries.`);
+await mkdir(dirname(exampleOutputPath), { recursive: true });
+await copyFile(exampleSourcePath, exampleOutputPath);
+console.log(`Generated ${entries.length} GenoCap database entries and copied the example annotation file.`);

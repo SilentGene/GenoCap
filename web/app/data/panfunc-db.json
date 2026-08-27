@@ -3159,7 +3159,7 @@
     "sourceIndex": 379
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "As(V) Arsenate reduction",
     "module": "Arsenate reduction (arrAB)",
     "ko": "K28466",
@@ -3168,7 +3168,7 @@
     "sourceIndex": 380
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "As(V) Arsenate reduction",
     "module": "Arsenate reduction (arrAB)",
     "ko": "K28467",
@@ -3186,7 +3186,7 @@
     "sourceIndex": 382
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "As(V) Arsenate reduction",
     "module": "Arsenate reduction (arsC_grx)",
     "ko": "K00537",
@@ -3195,7 +3195,7 @@
     "sourceIndex": 383
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "As(V) Arsenate reduction",
     "module": "Arsenate reduction (arsC_grx)",
     "ko": "K03741",
@@ -3285,7 +3285,7 @@
     "sourceIndex": 395
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "Chlorite reduction",
     "module": "Chlorite reduction",
     "ko": "K09162",
@@ -3294,7 +3294,7 @@
     "sourceIndex": 400
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "Selenate reduction",
     "module": "Selenate reduction",
     "ko": "K12529",
@@ -3303,7 +3303,7 @@
     "sourceIndex": 401
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "Selenate reduction",
     "module": "Selenate reduction",
     "ko": "K12528",
@@ -3312,7 +3312,7 @@
     "sourceIndex": 402
   },
   {
-    "metabolism": "Others",
+    "metabolism": "Anaerobic Respiration",
     "pathway": "Selenate reduction",
     "module": "Selenate reduction",
     "ko": "K12527",

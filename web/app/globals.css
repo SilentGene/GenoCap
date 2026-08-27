@@ -40,9 +40,14 @@ code, .font-mono { font-family: var(--font-jetbrains-mono), ui-monospace, Menlo,
 .sidebar-heading { margin: 0 0 6px; color: #1f1f1f; font-size: 18px; font-weight: 600; line-height: 26px; }
 .helper-text { margin: 0; color: #595959; font-size: 12px; line-height: 19px; }
 .file-name { overflow: hidden; margin: 0; color: #1f1f1f; font-size: 13px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.file-name a { color: #1677ff; text-decoration: none; }
+.file-name a:hover { color: #4096ff; text-decoration: underline; }
 .file-actions { align-items: center; }
 .file-actions .file-kind-select { width: 88px; flex: 0 0 88px; }
 .file-actions .ant-btn { min-width: 0; flex: 1; }
+.example-file-link { display: inline-block; margin-top: 4px; margin-left: 96px; color: #1677ff; font-size: 12px; text-decoration: none; }
+.example-file-link:hover { color: #4096ff; text-decoration: underline; }
+.example-file-link[aria-disabled="true"] { color: #bfbfbf; cursor: wait; pointer-events: none; }
 .ant-select-content, .ant-select-item-option-content { font-size: 12px; }
 .statistics-grid { display: grid; margin-top: 12px; overflow: hidden; border: 1px solid #f0f0f0; border-radius: 8px; grid-template-columns: repeat(2, 1fr); }
 .statistics-grid .ant-statistic { min-width: 0; padding: 10px; border-right: 1px solid #f0f0f0; border-bottom: 1px solid #f0f0f0; }
@@ -58,9 +63,21 @@ code, .font-mono { font-family: var(--font-jetbrains-mono), ui-monospace, Menlo,
 .range-field code { color: #262626; font-size: 11px; }
 .range-field .ant-slider { margin: 7px 6px 4px; }
 .color-label { color: #595959; font-size: 12px; }
-.metabolism-row { width: 100%; }
+.metabolism-groups { margin-top: 20px; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+.metabolism-groups-header { margin-bottom: 10px; }
+.metabolism-groups-header h3 { margin: 0; color: #262626; font-size: 13px; font-weight: 600; line-height: 22px; }
+.metabolism-list { display: grid; gap: 6px; }
+.metabolism-row { width: 100%; min-height: 30px; border-radius: 6px; transition: background-color 0.15s, opacity 0.15s; }
+.metabolism-row:hover { background: #fafafa; }
+.metabolism-row.is-dragging { opacity: 0.55; background: #e6f4ff; }
 .metabolism-row .ant-checkbox-wrapper { min-width: 0; flex: 1; color: #434343; font-size: 12px; line-height: 17px; }
 .metabolism-row .ant-checkbox-wrapper > span:last-child { overflow-wrap: anywhere; }
+.metabolism-drag-handle { display: grid; width: 18px; height: 26px; padding: 0; flex: 0 0 18px; place-items: center; border: 0; border-radius: 4px; background: transparent; color: #8c8c8c; cursor: grab; opacity: 0; touch-action: none; transition: opacity 0.15s, color 0.15s, background-color 0.15s; }
+.metabolism-row:hover .metabolism-drag-handle, .metabolism-drag-handle:focus-visible, .metabolism-row.is-dragging .metabolism-drag-handle { opacity: 1; }
+.metabolism-drag-handle:hover { background: #f0f0f0; color: #434343; }
+.metabolism-drag-handle:active { cursor: grabbing; }
+.metabolism-drag-handle:focus-visible { outline: 2px solid #1677ff; outline-offset: 1px; }
+.metabolism-drag-handle svg { width: 12px; height: 18px; }
 .zoom-tag { min-width: 52px; margin: 0; text-align: center; font-family: var(--font-jetbrains-mono), monospace; }
 
 .panfunc-workspace { min-width: 0; padding: 12px; }
@@ -89,7 +106,13 @@ code, .font-mono { font-family: var(--font-jetbrains-mono), ui-monospace, Menlo,
 .empty-state h2 { margin: 0 0 8px; color: #1f1f1f; font-size: 24px; font-weight: 600; line-height: 32px; }
 .empty-state p { margin: 0 auto 18px; max-width: 500px; color: #595959; font-size: 14px; line-height: 22px; }
 
-.cell-tooltip { border-color: #d9d9d9 !important; border-radius: 8px !important; background: #ffffff !important; color: #262626 !important; box-shadow: 0 6px 16px rgba(0,0,0,0.08), 0 3px 6px -4px rgba(0,0,0,0.12) !important; }
+.matrix-cell { cursor: pointer; }
+.cell-tooltip { user-select: text; border-color: #d9d9d9 !important; border-radius: 8px !important; background: #ffffff !important; color: #262626 !important; box-shadow: 0 6px 16px rgba(0,0,0,0.08), 0 3px 6px -4px rgba(0,0,0,0.12) !important; }
+.cell-tooltip p { margin: 0; }
+.tooltip-close { position: absolute; top: 4px; right: 6px; display: grid; width: 24px; height: 24px; padding: 0; place-items: center; border: 0; border-radius: 6px; background: transparent; color: #8c8c8c; cursor: pointer; font-size: 18px; line-height: 1; }
+.tooltip-close:hover { background: #f0f0f0; color: #262626; }
+.tooltip-close:focus-visible { outline: 2px solid #1677ff; outline-offset: 1px; }
+.cell-tooltip:has(.tooltip-close) { padding-right: 38px; }
 
 @media (max-width: 1023px) {
   .panfunc-layout { display: block; }
