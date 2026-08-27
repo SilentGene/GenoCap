@@ -1,6 +1,6 @@
 'use client';
 
-import { memo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactElement, type RefObject } from 'react';
+import { memo, useLayoutEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactElement, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import type { ClusterNode, MatrixModel, VisualizationSettings } from '../lib/types';
 
@@ -19,16 +19,20 @@ interface HeaderProps {
   settings: VisualizationSettings;
 }
 
-const LABEL_WIDTH = 330;
 const GROUP_WIDTH = 205;
+const FEATURE_LABEL_GAP = 12;
 const TREE_TOP = 18;
 const TREE_HEIGHT = 88;
 const TREE_LABEL_GAP = 14;
+const LABEL_TOP_GAP = 8;
 const LABEL_MATRIX_GAP = 10;
 const BOTTOM_SPACE = 20;
 
 function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: MatrixSvgProps) {
-  const layout = getLayout(matrix, genomeOrder, settings);
+  const featureLabels = useMemo(() => matrix.rows.map((row) => row.feature), [matrix.rows]);
+  const genomeLabelHeight = useTextWidth(genomeOrder, settings.fontSize);
+  const featureLabelWidth = useTextWidth(featureLabels, settings.fontSize);
+  const layout = getLayout(matrix, genomeOrder, settings, genomeLabelHeight, featureLabelWidth);
   const rotated = getRotatedCanvas(layout.width, layout.height, settings.rotation);
   const groups = metabolismGroups(matrix);
   const tooltipRef = useRef<HTMLDivElement>(null);
@@ -134,7 +138,7 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
         const rowLayout = layout.rows[rowIndex];
         const cy = layout.matrixTop + rowLayout.center;
         return <g key={row.id}>
-          <text x={settings.swapSideLabels ? layout.matrixLeft + layout.matrixWidth + 12 : layout.matrixLeft - 12} y={cy} textAnchor={settings.swapSideLabels ? 'start' : 'end'} dominantBaseline="middle" fontSize={settings.fontSize} fill="#34433d" data-feature-tooltip="true" data-row-index={rowIndex}>{rowLayout.lines.map((line, lineIndex) => <tspan key={`${line}-${lineIndex}`} x={settings.swapSideLabels ? layout.matrixLeft + layout.matrixWidth + 12 : layout.matrixLeft - 12} y={cy - ((rowLayout.lines.length - 1) * (settings.fontSize + 2)) / 2 + lineIndex * (settings.fontSize + 2)}>{line}</tspan>)}</text>
+          <text x={settings.swapSideLabels ? layout.matrixLeft + layout.matrixWidth + FEATURE_LABEL_GAP : layout.matrixLeft - FEATURE_LABEL_GAP} y={cy} textAnchor={settings.swapSideLabels ? 'start' : 'end'} dominantBaseline="middle" fontSize={settings.fontSize} fill="#34433d" data-feature-tooltip="true" data-row-index={rowIndex}>{rowLayout.lines.map((line, lineIndex) => <tspan key={`${line}-${lineIndex}`} x={settings.swapSideLabels ? layout.matrixLeft + layout.matrixWidth + FEATURE_LABEL_GAP : layout.matrixLeft - FEATURE_LABEL_GAP} y={cy - ((rowLayout.lines.length - 1) * (settings.fontSize + 2)) / 2 + lineIndex * (settings.fontSize + 2)}>{line}</tspan>)}</text>
           {genomeOrder.map((genome, columnIndex) => {
             const cell = row.cells[genome];
             const cx = layout.matrixLeft + columnIndex * layout.pitch + layout.pitch / 2;
@@ -162,7 +166,10 @@ function TooltipCard({ tooltip, tooltipRef, pinned, onClose }: { tooltip: Toolti
 }
 
 export function MatrixStickyHeader({ matrix, genomeOrder, clusterRoot, settings }: HeaderProps) {
-  const layout = getLayout(matrix, genomeOrder, settings);
+  const featureLabels = useMemo(() => matrix.rows.map((row) => row.feature), [matrix.rows]);
+  const genomeLabelHeight = useTextWidth(genomeOrder, settings.fontSize);
+  const featureLabelWidth = useTextWidth(featureLabels, settings.fontSize);
+  const layout = getLayout(matrix, genomeOrder, settings, genomeLabelHeight, featureLabelWidth);
   return <svg viewBox={`0 0 ${layout.width} ${layout.matrixTop}`} width={layout.width * settings.zoom} height={layout.matrixTop * settings.zoom} aria-hidden="true" className="block max-w-none bg-white"><rect width={layout.width} height={layout.matrixTop} fill="#ffffff" /><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} /></svg>;
 }
 
@@ -172,13 +179,13 @@ interface Layout {
   rows: { top: number; height: number; center: number; lines: string[] }[];
 }
 
-function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: VisualizationSettings): Layout {
+function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: VisualizationSettings, labelHeight: number, measuredFeatureWidth: number): Layout {
   const pitch = settings.cellSize + settings.spacing;
   const treeHeight = settings.clustering ? TREE_HEIGHT : 0;
-  const labelHeight = Math.max(1, ...genomeOrder.map((genome) => estimateTextWidth(genome, settings.fontSize)));
-  const matrixTop = TREE_TOP + treeHeight + TREE_LABEL_GAP + labelHeight + LABEL_MATRIX_GAP;
+  const contentTop = settings.clustering ? TREE_TOP + treeHeight + TREE_LABEL_GAP : LABEL_TOP_GAP;
+  const matrixTop = contentTop + labelHeight + LABEL_MATRIX_GAP;
   const matrixWidth = Math.max(1, genomeOrder.length * pitch);
-  const featureLabelWidth = Math.max(LABEL_WIDTH, ...matrix.rows.map((row) => estimateSingleLineLabelWidth(row.feature, settings.fontSize) + 34));
+  const featureLabelWidth = measuredFeatureWidth + FEATURE_LABEL_GAP * 2;
   let cursor = 0;
   const rows = matrix.rows.map((row) => {
     const lines = [row.feature];
@@ -191,6 +198,29 @@ function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: Visuali
   const matrixLeft = settings.swapSideLabels ? GROUP_WIDTH : featureLabelWidth;
   const width = featureLabelWidth + matrixWidth + GROUP_WIDTH;
   return { pitch, treeHeight, matrixTop, matrixWidth, matrixHeight, matrixLeft, width, height: matrixTop + matrixHeight + BOTTOM_SPACE, xForGenome: new Map(genomeOrder.map((genome, index) => [genome, matrixLeft + index * pitch + pitch / 2])), rows };
+}
+
+function useTextWidth(labels: string[], fontSize: number): number {
+  const measurementKey = `${fontSize}:${labels.join('\u0000')}`;
+  const fallback = Math.max(1, ...labels.map((label) => estimateTextWidth(label, fontSize)));
+  const [measurement, setMeasurement] = useState<{ key: string; width: number } | null>(null);
+
+  useLayoutEffect(() => {
+    let cancelled = false;
+    const measure = () => {
+      const context = document.createElement('canvas').getContext('2d');
+      if (!context || cancelled) return;
+      context.font = `400 ${fontSize}px ${getComputedStyle(document.body).fontFamily}`;
+      const width = Math.max(1, ...labels.map((label) => Math.ceil(context.measureText(label).width)));
+      setMeasurement({ key: measurementKey, width });
+    };
+
+    measure();
+    void document.fonts?.ready.then(measure);
+    return () => { cancelled = true; };
+  }, [fontSize, labels, measurementKey]);
+
+  return measurement?.key === measurementKey ? measurement.width : fallback;
 }
 
 function HeaderContent({ layout, genomeOrder, clusterRoot, settings }: { layout: Layout; genomeOrder: string[]; clusterRoot?: ClusterNode; settings: VisualizationSettings }) {
@@ -206,10 +236,6 @@ function estimateTextWidth(text: string, fontSize: number): number {
   // Genome names are mostly ASCII identifiers. A conservative em estimate keeps
   // even long names clear of both the dendrogram and the matrix during SSR/export.
   return Math.ceil(text.length * fontSize * 0.7);
-}
-
-function estimateSingleLineLabelWidth(text: string, fontSize: number): number {
-  return Math.ceil([...text].length * fontSize);
 }
 
 function getRotatedCanvas(width: number, height: number, rotation: VisualizationSettings['rotation']): { width: number; height: number; transform?: string } {

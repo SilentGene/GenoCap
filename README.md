@@ -4,7 +4,7 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 
 ## Live application
 
-[Open GenoCap](https://silentgene.github.io/GenoCap/)
+[Open GenoCap App](https://silentgene.github.io/GenoCap/)
 
 ## Features
 
@@ -12,7 +12,6 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 - Display binary presence or quartile module completeness using circles or squares.
 - Filter metabolism groups, customize colors and layout, and cluster genomes.
 - Export the complete visualization as SVG or PNG and the displayed matrix as CSV.
-- Parse TSV and CSV files entirely in the browser, including multiple KO identifiers per cell.
 
 ## Technology stack
 
@@ -33,7 +32,11 @@ npm install
 npm run dev
 ```
 
-Open `http://localhost:3000` in a browser. The database JSON is regenerated automatically from `db/GenoCap_db.tsv` whenever the development server or production build starts.
+Open `http://localhost:3000` in a browser.
+
+## Database
+
+The database JSON is regenerated automatically from [db/GenoCap_db.tsv](db/GenoCap_db.tsv) whenever the development server or production build starts. Users are encouraged to edit the TSV file directly to add or remove KEGG modules, genes, or KOs.
 
 ## GitHub Pages deployment
 
@@ -43,7 +46,7 @@ The application is exported as a fully static site. Every push to `main` runs th
 
 Select TSV or CSV in the interface, then upload a file containing the exact headers `gene`, `genome`, and `ko`. A KO cell may contain multiple identifiers separated by semicolons, commas, pipes, or a mixture of these. In CSV files, KO values containing commas must be quoted.
 
-The supplied `doc/input_annotation.tsv` file can be used as a complete example.
+The supplied [doc/input_annotation.tsv](doc/input_annotation.tsv) file can be used as a complete example.
 
 ## Project structure
 
@@ -64,3 +67,13 @@ npm run build
 ## License
 
 GenoCap is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+
+## Citation
+
+GenoCap has not been formally published yet. If you use GenoCap in your research, please cite it as:
+
+```
+Lin, H. (2026). GenoCap (Version 0.5) [Web application]. Available at https://github.com/SilentGene/GenoCap
+```
+
+...🧙‍♂️🧬
