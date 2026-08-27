@@ -6,7 +6,7 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 
 ## Live application
 
-[![Button Click]][https://silentgene.github.io/GenoCap/ "Open GenoCap Online App"]
+[![Button Click]][link]
 
 
 ## Features
@@ -84,4 +84,5 @@ Lin, H. (2026). GenoCap (Version 0.5) [Web application]. Available at https://gi
 
 ...🧙‍♂️🧬
 
+[link]: https://silentgene.github.io/GenoCap/ 'Open GenoCap Online App'
 [Button Click]: https://img.shields.io/badge/Open_GenoCap!-37a779?style=for-the-badge
