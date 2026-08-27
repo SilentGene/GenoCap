@@ -139,7 +139,7 @@ function PanfuncWorkspace() {
       <aside className="panfunc-sidebar">
         <header className="panfunc-brand">
           <div className="brand-row"><div className="brand-mark">G</div><div><h1>GenoCap</h1><p>Explore Genome Capabilities</p></div></div>
-          <div className="privacy-row"><Badge status="success" /><span>Local processing · private by design</span></div>
+          <div className="privacy-row"><Badge status="success" /><span>Local processing · private by design</span><a href="https://github.com/SilentGene/GenoCap" target="_blank" rel="noreferrer">Source</a></div>
         </header>
 
         <input ref={fileRef} id="annotation-file" aria-label="Annotation file" type="file" accept={fileKind === 'tsv' ? '.tsv,text/tab-separated-values' : '.csv,text/csv'} onChange={handleFile} className="sr-only" />

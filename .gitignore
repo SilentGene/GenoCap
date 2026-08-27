@@ -1,0 +1,35 @@
+# Dependencies
+**/node_modules/
+**/.pnp
+**/.pnp.*
+
+# Next.js and static exports
+**/.next/
+**/out/
+**/dist/
+
+# Tests and tooling
+**/coverage/
+**/.vinext/
+**/.wrangler/
+**/outputs/
+**/work/
+
+# Local configuration and secrets
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+
+# Package-manager and debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+

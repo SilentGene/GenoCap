@@ -6,6 +6,14 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 
 [Open GenoCap](https://silentgene.github.io/GenoCap/)
 
+## Features
+
+- Visualize KEGG annotations across multiple genomes in Module, Gene, or Key gene mode.
+- Display binary presence or quartile module completeness using circles or squares.
+- Filter metabolism groups, customize colors and layout, and cluster genomes.
+- Export the complete visualization as SVG or PNG and the displayed matrix as CSV.
+- Parse TSV and CSV files entirely in the browser, including multiple KO identifiers per cell.
+
 ## Run locally
 
 Requirements: Node.js 22.13 or newer.
@@ -28,6 +36,13 @@ Select TSV or CSV in the interface, then upload a file containing the exact head
 
 The supplied `doc/input_annotation.tsv` file can be used as a complete example.
 
+## Project structure
+
+- `web/` — Next.js and Ant Design application.
+- `db/Panfuc_db.tsv` — authoritative functional reference database.
+- `doc/` — example input and reference visualization.
+- `.github/workflows/deploy-pages.yml` — automated GitHub Pages deployment.
+
 ## Quality checks
 
 ```powershell
@@ -36,3 +51,7 @@ npm test
 npm run lint
 npm run build
 ```
+
+## License
+
+GenoCap is licensed under the [GNU Affero General Public License v3.0](LICENSE).
