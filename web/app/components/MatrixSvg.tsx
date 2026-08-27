@@ -76,7 +76,6 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
 
   return (
     <><svg ref={svgRef} viewBox={`0 0 ${layout.width} ${layout.height}`} width={layout.width * settings.zoom} height={layout.height * settings.zoom} role="img" aria-label={`${matrix.mode} presence matrix with ${matrix.rows.length} features across ${genomeOrder.length} genomes`} className="block max-w-none bg-white" onPointerMove={handlePointerMove} onPointerLeave={hideTooltip}>
-      <title>GenoCap {matrix.mode} functional matrix</title>
       <desc>KEGG feature completeness grouped by metabolism across uploaded genomes.</desc>
       <rect width={layout.width} height={layout.height} fill="#ffffff" />
       <g className="export-header"><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} /></g>
