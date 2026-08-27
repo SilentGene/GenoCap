@@ -23,7 +23,7 @@ code, .font-mono { font-family: var(--font-jetbrains-mono), ui-monospace, Menlo,
 }
 .panfunc-brand { border-bottom: 1px solid #f0f0f0; background: #ffffff; }
 .brand-row { display: flex; align-items: center; height: 56px; padding: 0 16px; gap: 12px; }
-.brand-mark { display: grid; width: 36px; height: 36px; flex: 0 0 auto; place-items: center; border-radius: 8px; background: #1677ff; color: #fff; font-size: 18px; font-weight: 600; box-shadow: 0 2px 8px rgba(22,119,255,0.28); }
+.brand-mark { display: block; width: 38px; height: 38px; flex: 0 0 auto; object-fit: contain; }
 .brand-copy { min-width: 0; }
 .brand-row h1 { margin: 0; color: #1f1f1f; font-size: 18px; font-weight: 600; line-height: 24px; }
 .brand-row p { margin: 0; color: #8c8c8c; font-size: 11px; line-height: 16px; }

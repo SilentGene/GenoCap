@@ -15,6 +15,9 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'GenoCap · Explore Genome Capabilities',
   description: 'Explore genome capabilities from KEGG functional profiles in your browser.',
+  icons: {
+    icon: './favicon.svg',
+  },
   openGraph: {
     title: 'GenoCap',
     description: 'Explore Genome Capabilities',
