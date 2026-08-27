@@ -1,3 +1,5 @@
+<img src="doc/logo.svg" alt="GenoCap Logo" width="200" />
+
 # GenoCap
 
 GenoCap is a browser-based tool for exploring genome capabilities from KEGG annotations across genome collections. Files are processed locally and are never uploaded.
@@ -64,9 +66,12 @@ npm run lint
 npm run build
 ```
 
-## License
+## Example visualization
 
-GenoCap is licensed under the [GNU Affero General Public License v3.0](LICENSE).
+Here is an example visualization generated from the provided `doc/input_annotation.tsv` file:
+
+![Example visualization](doc/genocap-result-example.png)
+
 
 ## Citation
 
