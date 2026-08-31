@@ -1,20 +1,9 @@
 import Papa from 'papaparse';
 import type { AnnotationRecord, DatabaseEntry, FileKind, InputValidationError, ParsedAnnotations } from './types';
+import { splitKoCell } from './ko';
 
 const REQUIRED_HEADERS = ['gene', 'genome', 'ko'] as const;
-const KO_PATTERN = /^K\d{5}$/;
-
-export function splitKoCell(raw: string): { kos: string[]; reason?: string } {
-  const value = raw.trim();
-  if (!value) return { kos: [] };
-  const tokens = value.split(/[;,|]/).map((token) => token.trim());
-  if (tokens.some((token) => token.length === 0)) {
-    return { kos: [], reason: 'Empty KO between separators or after a trailing separator.' };
-  }
-  const invalid = tokens.find((token) => !KO_PATTERN.test(token));
-  if (invalid) return { kos: [], reason: `Unrecognized KO token “${invalid}”. Expected K followed by five digits.` };
-  return { kos: [...new Set(tokens)] };
-}
+export { splitKoCell } from './ko';
 
 export function parseAnnotations(text: string, kind: FileKind, database: DatabaseEntry[]): ParsedAnnotations {
   const cleanText = text.replace(/^\uFEFF/, '');
@@ -81,7 +70,7 @@ export function parseAnnotations(text: string, kind: FileKind, database: Databas
   if (!errors.length && genomes.length === 0) {
     errors.push({ line: 1, field: 'file', value: '', reason: 'No genome records were found.' });
   }
-  const databaseKos = new Set(database.map((entry) => entry.ko));
+  const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
   const matchedKos = [...uniqueKos].filter((ko) => databaseKos.has(ko)).length;
   return { records, genomes, errors, summary: { records: records.length, genomes: genomes.length, uniqueKos: uniqueKos.size, matchedKos } };
 }

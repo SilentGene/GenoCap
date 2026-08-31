@@ -45,6 +45,7 @@ describe('parseAnnotations', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const result = parseAnnotations(sample, 'tsv', database);
     expect(result.errors).toEqual([]);
-    expect(result.summary).toEqual({ records: 98869, genomes: 40, uniqueKos: 3027, matchedKos: 168 });
+    expect(result.summary).toEqual({ records: 98869, genomes: 40, uniqueKos: 3027, matchedKos: 201 });
+    expect(database.some((entry) => entry.ko === 'K01183, K13381')).toBe(true);
   });
 });

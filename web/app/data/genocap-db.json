@@ -1,6 +1,6 @@
 [
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "Nitrate -> Nitrite (narG)",
     "ko": "K00370",
@@ -9,7 +9,7 @@
     "sourceIndex": 0
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "Nitrate -> Nitrite (napAB)",
     "ko": "K02567",
@@ -18,7 +18,7 @@
     "sourceIndex": 1
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "Nitrate -> Nitrite (napAB)",
     "ko": "K02568",
@@ -27,7 +27,7 @@
     "sourceIndex": 2
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification;Anammox",
     "module": "Nitrite-> N2O (nirSK)",
     "ko": "K15864",
@@ -36,7 +36,7 @@
     "sourceIndex": 3
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "Nitrite-> N2O (nirSK)",
     "ko": "K00368",
@@ -45,7 +45,7 @@
     "sourceIndex": 4
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "NO -> N2O (norBC)",
     "ko": "K02305",
@@ -54,7 +54,7 @@
     "sourceIndex": 5
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "NO -> N2O (norBC)",
     "ko": "K04561",
@@ -63,7 +63,7 @@
     "sourceIndex": 6
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
     "module": "N2O -> N2 (nosZ)",
     "ko": "K00376",
@@ -72,7 +72,7 @@
     "sourceIndex": 7
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
     "module": "Nitrite -> Ammonia (nirBD)",
     "ko": "K00362",
@@ -81,7 +81,7 @@
     "sourceIndex": 8
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
     "module": "Nitrite -> Ammonia (nirBD)",
     "ko": "K00363",
@@ -90,7 +90,7 @@
     "sourceIndex": 9
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
     "module": "Nitrite -> Ammonia (nrfAHD)",
     "ko": "K03385",
@@ -99,7 +99,7 @@
     "sourceIndex": 10
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
     "module": "Nitrite -> Ammonia (nrfAHD)",
     "ko": "K15876",
@@ -108,7 +108,7 @@
     "sourceIndex": 11
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
     "module": "Nitrite -> Ammonia (nrfAHD)",
     "ko": "K04015",
@@ -117,25 +117,25 @@
     "sourceIndex": 12
   },
   {
-    "metabolism": "Nitrogen cycling",
-    "pathway": "N Fixation (MoFe)",
-    "module": "N Fixation (nifHDK)",
-    "ko": "K02586",
-    "geneName": "nifD",
-    "isKey": false,
-    "sourceIndex": 13
-  },
-  {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "N Fixation (MoFe)",
     "module": "N Fixation (nifHDK)",
     "ko": "K02588",
     "geneName": "nifH",
     "isKey": true,
+    "sourceIndex": 13
+  },
+  {
+    "metabolism": "Nitrogen cycle",
+    "pathway": "N Fixation (MoFe)",
+    "module": "N Fixation (nifHDK)",
+    "ko": "K02586",
+    "geneName": "nifD",
+    "isKey": false,
     "sourceIndex": 14
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "N Fixation (MoFe)",
     "module": "N Fixation (nifHDK)",
     "ko": "K02591",
@@ -144,7 +144,7 @@
     "sourceIndex": 15
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "N Fixation (FeFe)",
     "module": "N Fixation (anfHDGK)",
     "ko": "K00531",
@@ -153,52 +153,52 @@
     "sourceIndex": 19
   },
   {
-    "metabolism": "Nitrogen cycling",
-    "pathway": "N Fixation (Vfe)",
-    "module": "N Fixation (vnfHDGK)",
-    "ko": "K22896",
-    "geneName": "vnfD",
-    "isKey": false,
-    "sourceIndex": 20
-  },
-  {
-    "metabolism": "Nitrogen cycling",
-    "pathway": "N Fixation (Vfe)",
-    "module": "N Fixation (vnfHDGK)",
-    "ko": "K22897",
-    "geneName": "vnfK",
-    "isKey": false,
-    "sourceIndex": 21
-  },
-  {
-    "metabolism": "Nitrogen cycling",
-    "pathway": "N Fixation (Vfe)",
-    "module": "N Fixation (vnfHDGK)",
-    "ko": "K22898",
-    "geneName": "vnfG",
-    "isKey": false,
-    "sourceIndex": 22
-  },
-  {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "N Fixation (Vfe)",
     "module": "N Fixation (vnfHDGK)",
     "ko": "K22899",
     "geneName": "vnfH",
     "isKey": true,
+    "sourceIndex": 20
+  },
+  {
+    "metabolism": "Nitrogen cycle",
+    "pathway": "N Fixation (Vfe)",
+    "module": "N Fixation (vnfHDGK)",
+    "ko": "K22896",
+    "geneName": "vnfD",
+    "isKey": false,
+    "sourceIndex": 21
+  },
+  {
+    "metabolism": "Nitrogen cycle",
+    "pathway": "N Fixation (Vfe)",
+    "module": "N Fixation (vnfHDGK)",
+    "ko": "K22897",
+    "geneName": "vnfK",
+    "isKey": false,
+    "sourceIndex": 22
+  },
+  {
+    "metabolism": "Nitrogen cycle",
+    "pathway": "N Fixation (Vfe)",
+    "module": "N Fixation (vnfHDGK)",
+    "ko": "K22898",
+    "geneName": "vnfG",
+    "isKey": false,
     "sourceIndex": 23
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Nitrification",
     "module": "Nitrification (hao)",
     "ko": "K10535",
     "geneName": "hao",
     "isKey": true,
-    "sourceIndex": 24
+    "sourceIndex": 27
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Anammox",
     "module": "Anammox (hzs, hdh, hzoA)",
     "ko": "K20932",
@@ -207,7 +207,7 @@
     "sourceIndex": 28
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "Anammox",
     "module": "Anammox (hzs, hdh, hzoA)",
     "ko": "K20935",
@@ -216,7 +216,7 @@
     "sourceIndex": 29
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "Ammonia <=> Glutamate (gdh)",
     "ko": "K00261",
@@ -225,7 +225,7 @@
     "sourceIndex": 30
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "Ammonia <=> Glutamate (gdh)",
     "ko": "K00262",
@@ -234,7 +234,7 @@
     "sourceIndex": 31
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "Ammonia <=> Glutamate (gdh)",
     "ko": "K15371",
@@ -243,7 +243,7 @@
     "sourceIndex": 32
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "Ammonia -> Glutamine (glnA)",
     "ko": "K01915",
@@ -252,7 +252,7 @@
     "sourceIndex": 33
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "Glutamin -> Glutamate (gls)",
     "ko": "K01425",
@@ -261,7 +261,7 @@
     "sourceIndex": 34
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "urease (ureAC)",
     "ko": "K01430",
@@ -270,7 +270,7 @@
     "sourceIndex": 35
   },
   {
-    "metabolism": "Nitrogen cycling",
+    "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
     "module": "urease (ureAC)",
     "ko": "K01428",
@@ -279,7 +279,7 @@
     "sourceIndex": 36
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
     "module": "sulfide -> sulfur (fccAB)",
     "ko": "K17229",
@@ -288,7 +288,7 @@
     "sourceIndex": 37
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
     "module": "sulfide -> sulfur (fccAB)",
     "ko": "K17230",
@@ -297,7 +297,7 @@
     "sourceIndex": 38
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
     "module": "sulfide -> sulfur (sqr)",
     "ko": "K17218",
@@ -306,205 +306,205 @@
     "sourceIndex": 39
   },
   {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfite reduction",
-    "module": "Sulfite reduction (asrABC)",
-    "ko": "K16950",
-    "geneName": "asrA",
-    "isKey": true,
-    "sourceIndex": 40
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfite reduction",
-    "module": "Sulfite reduction (asrABC)",
-    "ko": "K16951",
-    "geneName": "asrB",
-    "isKey": false,
-    "sourceIndex": 41
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfite reduction",
-    "module": "Sulfite reduction (asrABC)",
-    "ko": "K00385",
-    "geneName": "asrC",
-    "isKey": false,
-    "sourceIndex": 42
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (sat)",
-    "ko": "K00958",
-    "geneName": "sat",
-    "isKey": true,
-    "sourceIndex": 43
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (aprAB)",
-    "ko": "K00394",
-    "geneName": "aprA",
-    "isKey": true,
-    "sourceIndex": 44
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (aprAB)",
-    "ko": "K00395",
-    "geneName": "aprB",
-    "isKey": false,
-    "sourceIndex": 45
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (dsrABC)",
-    "ko": "K11179",
-    "geneName": "dsrC",
-    "isKey": false,
-    "sourceIndex": 46
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (dsrABC)",
-    "ko": "K11180",
-    "geneName": "dsrA",
-    "isKey": true,
-    "sourceIndex": 47
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfate reduction",
-    "module": "Sulfate reduction (dsrABC)",
-    "ko": "K11181",
-    "geneName": "dsrB",
-    "isKey": false,
-    "sourceIndex": 48
-  },
-  {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "Sulfur oxidation",
     "module": "Sulfur oxidation (sdo)",
     "ko": "K17725",
     "geneName": "sdo",
     "isKey": true,
-    "sourceIndex": 49
+    "sourceIndex": 40
   },
   {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfur oxidation/reduction",
-    "module": "Sulfur oxidation/reduction (sor)",
-    "ko": "K16952",
-    "geneName": "sor",
-    "isKey": true,
-    "sourceIndex": 50
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfur reduction",
-    "module": "Sulfur reduction (sreABC)",
-    "ko": "K17219",
-    "geneName": "sreA",
-    "isKey": true,
-    "sourceIndex": 51
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfur reduction",
-    "module": "Sulfur reduction (sreABC)",
-    "ko": "K17220",
-    "geneName": "sreB",
-    "isKey": false,
-    "sourceIndex": 52
-  },
-  {
-    "metabolism": "Sulfur cycling",
-    "pathway": "Sulfur reduction",
-    "module": "Sulfur reduction (sreABC)",
-    "ko": "K17221",
-    "geneName": "sreC",
-    "isKey": false,
-    "sourceIndex": 53
-  },
-  {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17222",
     "geneName": "soxA",
     "isKey": true,
-    "sourceIndex": 54
+    "sourceIndex": 41
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17224",
     "geneName": "soxB",
     "isKey": false,
-    "sourceIndex": 55
+    "sourceIndex": 42
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17225",
     "geneName": "soxC",
     "isKey": false,
-    "sourceIndex": 56
+    "sourceIndex": 43
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K08738",
     "geneName": "soxD",
     "isKey": false,
-    "sourceIndex": 57
+    "sourceIndex": 44
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17223",
     "geneName": "soxX",
     "isKey": false,
-    "sourceIndex": 58
+    "sourceIndex": 45
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17226",
     "geneName": "soxY",
     "isKey": false,
-    "sourceIndex": 59
+    "sourceIndex": 46
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
     "pathway": "SOX system",
     "module": "SOX system (soxABCDXYZ)",
     "ko": "K17227",
     "geneName": "soxZ",
     "isKey": false,
-    "sourceIndex": 60
+    "sourceIndex": 47
   },
   {
-    "metabolism": "Sulfur cycling",
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfur oxidation/reduction",
+    "module": "Sulfur oxidation/reduction (sor)",
+    "ko": "K16952",
+    "geneName": "sor",
+    "isKey": true,
+    "sourceIndex": 48
+  },
+  {
+    "metabolism": "Sulfur cycle",
     "pathway": "Thiosulfate disproportionation",
     "module": "thiosulfate -> sulfite + H2S (phsA)",
     "ko": "K08352",
     "geneName": "phsA",
     "isKey": true,
+    "sourceIndex": 49
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (sat)",
+    "ko": "K00958",
+    "geneName": "sat",
+    "isKey": true,
+    "sourceIndex": 50
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (aprAB)",
+    "ko": "K00394",
+    "geneName": "aprA",
+    "isKey": true,
+    "sourceIndex": 51
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (aprAB)",
+    "ko": "K00395",
+    "geneName": "aprB",
+    "isKey": false,
+    "sourceIndex": 52
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (dsrABC)",
+    "ko": "K11180",
+    "geneName": "dsrA",
+    "isKey": true,
+    "sourceIndex": 53
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (dsrABC)",
+    "ko": "K11181",
+    "geneName": "dsrB",
+    "isKey": false,
+    "sourceIndex": 54
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfate reduction",
+    "module": "Sulfate reduction (dsrABC)",
+    "ko": "K11179",
+    "geneName": "dsrC",
+    "isKey": false,
+    "sourceIndex": 55
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfite reduction",
+    "module": "Sulfite reduction (asrABC)",
+    "ko": "K16950",
+    "geneName": "asrA",
+    "isKey": true,
+    "sourceIndex": 56
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfite reduction",
+    "module": "Sulfite reduction (asrABC)",
+    "ko": "K16951",
+    "geneName": "asrB",
+    "isKey": false,
+    "sourceIndex": 57
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfite reduction",
+    "module": "Sulfite reduction (asrABC)",
+    "ko": "K00385",
+    "geneName": "asrC",
+    "isKey": false,
+    "sourceIndex": 58
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfur reduction",
+    "module": "Sulfur reduction (sreABC)",
+    "ko": "K17219",
+    "geneName": "sreA",
+    "isKey": true,
+    "sourceIndex": 59
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfur reduction",
+    "module": "Sulfur reduction (sreABC)",
+    "ko": "K17220",
+    "geneName": "sreB",
+    "isKey": false,
+    "sourceIndex": 60
+  },
+  {
+    "metabolism": "Sulfur cycle",
+    "pathway": "Sulfur reduction",
+    "module": "Sulfur reduction (sreABC)",
+    "ko": "K17221",
+    "geneName": "sreC",
+    "isKey": false,
     "sourceIndex": 61
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Calvin Cycle",
     "module": "Calvin Cycle (prkB)",
     "ko": "K00855",
@@ -513,7 +513,7 @@
     "sourceIndex": 62
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Calvin Cycle",
     "module": "Calvin Cycle (rbcSL)",
     "ko": "K01601",
@@ -522,7 +522,7 @@
     "sourceIndex": 63
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Calvin Cycle",
     "module": "Calvin Cycle (rbcSL)",
     "ko": "K01602",
@@ -531,7 +531,7 @@
     "sourceIndex": 64
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "C4-Dicarboxylic acid cycle",
     "module": "C4-Dicarboxylic acid cycle (ppc)",
     "ko": "K01595",
@@ -540,7 +540,7 @@
     "sourceIndex": 65
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl formate -> CO2 (fdhAB)",
     "ko": "K05299",
@@ -549,7 +549,7 @@
     "sourceIndex": 66
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl formate -> CO2 (fdhAB)",
     "ko": "K15022",
@@ -558,7 +558,7 @@
     "sourceIndex": 67
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO2 -> CO (cooFS)",
     "ko": "K00196",
@@ -567,7 +567,7 @@
     "sourceIndex": 68
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO2 -> CO (cooFS)",
     "ko": "K00198",
@@ -576,7 +576,7 @@
     "sourceIndex": 69
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
     "ko": "K15023",
@@ -585,7 +585,7 @@
     "sourceIndex": 70
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
     "ko": "K14138",
@@ -594,7 +594,7 @@
     "sourceIndex": 71
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
     "ko": "K00194",
@@ -603,7 +603,7 @@
     "sourceIndex": 72
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
     "ko": "K00197",
@@ -612,7 +612,7 @@
     "sourceIndex": 73
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> CO2 (cdhAB)",
     "ko": "K00192",
@@ -621,7 +621,7 @@
     "sourceIndex": 74
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
     "module": "Wood-Ljungdahl CO -> CO2 (cdhAB)",
     "ko": "K00195",
@@ -630,7 +630,7 @@
     "sourceIndex": 75
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "C1 pool",
     "module": "One carbon pool by folate",
     "ko": "K01938",
@@ -639,7 +639,7 @@
     "sourceIndex": 76
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "3-hydroxypropionate bicycle",
     "module": "3-hydroxypropionate bicycle",
     "ko": "K14470",
@@ -648,7 +648,7 @@
     "sourceIndex": 77
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "DC-HB;HP-HB cycles",
     "module": "DC-HB;HP-HB cycles",
     "ko": "K14534",
@@ -657,7 +657,7 @@
     "sourceIndex": 78
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "DC-HB;HP-HB cycles",
     "module": "DC-HB;HP-HB cycles",
     "ko": "K15016",
@@ -666,7 +666,7 @@
     "sourceIndex": 79
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "rTCA",
     "module": "rTCA (aclAB)",
     "ko": "K15230",
@@ -675,7 +675,7 @@
     "sourceIndex": 80
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "rTCA",
     "module": "rTCA (aclAB)",
     "ko": "K15231",
@@ -684,7 +684,7 @@
     "sourceIndex": 81
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Pentose phosphate pathway - oxidative phase",
     "module": "Pentose phosphate pathway - oxidative phase (zwf)",
     "ko": "K00036",
@@ -693,7 +693,7 @@
     "sourceIndex": 82
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Pentose phosphate pathway - non-oxidative phase (rpiAB)",
     "module": "Pentose phosphate pathway - non-oxidative phase (rpiAB)",
     "ko": "K01807",
@@ -702,7 +702,7 @@
     "sourceIndex": 83
   },
   {
-    "metabolism": "Carbon fix",
+    "metabolism": "Carbon fixation",
     "pathway": "Pentose phosphate pathway - non-oxidative phase (rpiAB)",
     "module": "Pentose phosphate pathway - non-oxidative phase (rpiAB)",
     "ko": "K01808",
@@ -712,48 +712,12 @@
   },
   {
     "metabolism": "Fermentation and TCA",
-    "pathway": "Acetogenesis",
-    "module": "Acetogenesis (acdA, ack, pta)",
-    "ko": "K01905",
-    "geneName": "acdA",
-    "isKey": true,
-    "sourceIndex": 85
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Acetogenesis",
-    "module": "Acetogenesis (acdA, ack, pta)",
-    "ko": "K00925",
-    "geneName": "ack",
-    "isKey": true,
-    "sourceIndex": 86
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Acetogenesis",
-    "module": "Acetogenesis (acdA, ack, pta)",
-    "ko": "K00625",
-    "geneName": "pta",
-    "isKey": true,
-    "sourceIndex": 87
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Acetate to acetyl-CoA",
-    "module": "Acetate -> acetyl-CoA (ACS)",
-    "ko": "K01895",
-    "geneName": "acs",
-    "isKey": true,
-    "sourceIndex": 88
-  },
-  {
-    "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
     "module": "glycolysis",
     "ko": "K01568",
     "geneName": "pdc",
     "isKey": true,
-    "sourceIndex": 89
+    "sourceIndex": 85
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -762,7 +726,7 @@
     "ko": "K13951",
     "geneName": "ADH1_7",
     "isKey": false,
-    "sourceIndex": 90
+    "sourceIndex": 86
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -771,7 +735,7 @@
     "ko": "K00114",
     "geneName": "exaA",
     "isKey": false,
-    "sourceIndex": 91
+    "sourceIndex": 87
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -780,7 +744,7 @@
     "ko": "K00002",
     "geneName": "aKR1A1",
     "isKey": false,
-    "sourceIndex": 92
+    "sourceIndex": 88
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -789,7 +753,7 @@
     "ko": "K04022",
     "geneName": "eutG",
     "isKey": false,
-    "sourceIndex": 93
+    "sourceIndex": 89
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -798,7 +762,7 @@
     "ko": "K00128",
     "geneName": "aLDH",
     "isKey": true,
-    "sourceIndex": 94
+    "sourceIndex": 90
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -807,88 +771,7 @@
     "ko": "K00129",
     "geneName": "aLDH3",
     "isKey": false,
-    "sourceIndex": 95
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
-    "ko": "K00016",
-    "geneName": "ldh",
-    "isKey": true,
-    "sourceIndex": 96
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
-    "ko": "K00101",
-    "geneName": "lldD",
-    "isKey": false,
-    "sourceIndex": 97
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
-    "ko": "K00102",
-    "geneName": "dld",
-    "isKey": false,
-    "sourceIndex": 98
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "pyruvate metabolism",
-    "module": "pyruvate metabolism",
-    "ko": "K00656",
-    "geneName": "pflD",
-    "isKey": false,
-    "sourceIndex": 99
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Lysine biosynthesis",
-    "module": "Lysine biosynthesis",
-    "ko": "K00825",
-    "geneName": "AADAT",
-    "isKey": false,
-    "sourceIndex": 100
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Butanoate metabolism",
-    "module": "Butanoate metabolism",
-    "ko": "K00004",
-    "geneName": "butB",
-    "isKey": true,
-    "sourceIndex": 101
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Butanoate metabolism",
-    "module": "Butanoate metabolism",
-    "ko": "K00929",
-    "geneName": "buk",
-    "isKey": false,
-    "sourceIndex": 102
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Butanoate metabolism",
-    "module": "Butanoate metabolism",
-    "ko": "K00248",
-    "geneName": "bcd",
-    "isKey": false,
-    "sourceIndex": 103
-  },
-  {
-    "metabolism": "Fermentation and TCA",
-    "pathway": "Pyruvate oxidation",
-    "module": "Pyruvate oxidation",
-    "ko": "K00169",
-    "geneName": "porA",
-    "isKey": true,
-    "sourceIndex": 104
+    "sourceIndex": 91
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -897,7 +780,52 @@
     "ko": "K00001",
     "geneName": "adh",
     "isKey": true,
-    "sourceIndex": 105
+    "sourceIndex": 92
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "pyruvate metabolism",
+    "module": "lactate fermentation",
+    "ko": "K00016",
+    "geneName": "ldh",
+    "isKey": true,
+    "sourceIndex": 93
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "pyruvate metabolism",
+    "module": "lactate fermentation",
+    "ko": "K00101",
+    "geneName": "lldD",
+    "isKey": false,
+    "sourceIndex": 94
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "pyruvate metabolism",
+    "module": "lactate fermentation",
+    "ko": "K00102",
+    "geneName": "dld",
+    "isKey": false,
+    "sourceIndex": 95
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "pyruvate metabolism",
+    "module": "pyruvate metabolism",
+    "ko": "K00656",
+    "geneName": "pflD",
+    "isKey": false,
+    "sourceIndex": 96
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Pyruvate oxidation",
+    "module": "Pyruvate oxidation",
+    "ko": "K00169",
+    "geneName": "porA",
+    "isKey": true,
+    "sourceIndex": 97
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -906,7 +834,7 @@
     "ko": "K01676",
     "geneName": "fumA",
     "isKey": true,
-    "sourceIndex": 106
+    "sourceIndex": 98
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -915,7 +843,7 @@
     "ko": "K00239",
     "geneName": "sdhA, frdA",
     "isKey": true,
-    "sourceIndex": 107
+    "sourceIndex": 99
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -924,7 +852,7 @@
     "ko": "K00240",
     "geneName": "sdhB, frdB",
     "isKey": false,
-    "sourceIndex": 108
+    "sourceIndex": 100
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -933,7 +861,7 @@
     "ko": "K01647",
     "geneName": "cs",
     "isKey": true,
-    "sourceIndex": 109
+    "sourceIndex": 101
   },
   {
     "metabolism": "Fermentation and TCA",
@@ -941,6 +869,78 @@
     "module": "TCA cycle",
     "ko": "K05942",
     "geneName": "k05942",
+    "isKey": false,
+    "sourceIndex": 102
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Acetogenesis",
+    "module": "Acetogenesis (acdA, ack, pta)",
+    "ko": "K01905",
+    "geneName": "acdA",
+    "isKey": true,
+    "sourceIndex": 103
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Acetogenesis",
+    "module": "Acetogenesis (acdA, ack, pta)",
+    "ko": "K00925",
+    "geneName": "ack",
+    "isKey": true,
+    "sourceIndex": 104
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Acetogenesis",
+    "module": "Acetogenesis (acdA, ack, pta)",
+    "ko": "K00625",
+    "geneName": "pta",
+    "isKey": true,
+    "sourceIndex": 105
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Acetate to acetyl-CoA",
+    "module": "Acetate -> acetyl-CoA (ACS)",
+    "ko": "K01895",
+    "geneName": "acs",
+    "isKey": true,
+    "sourceIndex": 106
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Butanoate metabolism",
+    "module": "Butanoate metabolism",
+    "ko": "K00004",
+    "geneName": "butB",
+    "isKey": true,
+    "sourceIndex": 107
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Butanoate metabolism",
+    "module": "Butanoate metabolism",
+    "ko": "K00929",
+    "geneName": "buk",
+    "isKey": false,
+    "sourceIndex": 108
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Butanoate metabolism",
+    "module": "Butanoate metabolism",
+    "ko": "K00248",
+    "geneName": "bcd",
+    "isKey": false,
+    "sourceIndex": 109
+  },
+  {
+    "metabolism": "Fermentation and TCA",
+    "pathway": "Lysine biosynthesis",
+    "module": "Lysine biosynthesis",
+    "ko": "K00825",
+    "geneName": "AADAT",
     "isKey": false,
     "sourceIndex": 110
   },
@@ -991,12 +991,30 @@
   },
   {
     "metabolism": "Photosynthesis",
+    "pathway": "Anoxygenic photosystem II",
+    "module": "Anoxygenic photosystem II (pufLM)",
+    "ko": "K08928",
+    "geneName": "pufL",
+    "isKey": true,
+    "sourceIndex": 116
+  },
+  {
+    "metabolism": "Photosynthesis",
+    "pathway": "Anoxygenic photosystem II",
+    "module": "Anoxygenic photosystem II (pufLM)",
+    "ko": "K08929",
+    "geneName": "pufM",
+    "isKey": false,
+    "sourceIndex": 117
+  },
+  {
+    "metabolism": "Photosynthesis",
     "pathway": "Anoxygenic Photosynthesis (Green Non Sulfur)",
     "module": "Anoxygenic Photosynthesis (Green Non Sulfur)",
     "ko": "K04040",
     "geneName": "bchG",
     "isKey": true,
-    "sourceIndex": 116
+    "sourceIndex": 118
   },
   {
     "metabolism": "Photosynthesis",
@@ -1005,7 +1023,7 @@
     "ko": "K10960",
     "geneName": "bchP",
     "isKey": false,
-    "sourceIndex": 117
+    "sourceIndex": 119
   },
   {
     "metabolism": "Photosynthesis",
@@ -1014,7 +1032,7 @@
     "ko": "K08944",
     "geneName": "fomA",
     "isKey": true,
-    "sourceIndex": 118
+    "sourceIndex": 120
   },
   {
     "metabolism": "Photosynthesis",
@@ -1023,7 +1041,7 @@
     "ko": "K13603",
     "geneName": "bchV",
     "isKey": false,
-    "sourceIndex": 119
+    "sourceIndex": 121
   },
   {
     "metabolism": "Photosynthesis",
@@ -1031,24 +1049,6 @@
     "module": "Anoxygenic Photosynthesis (Green Sulfur)",
     "ko": "K13605",
     "geneName": "bchK",
-    "isKey": false,
-    "sourceIndex": 120
-  },
-  {
-    "metabolism": "Photosynthesis",
-    "pathway": "Anoxygenic photosystem II",
-    "module": "Anoxygenic photosystem II (pufLM)",
-    "ko": "K08928",
-    "geneName": "pufL",
-    "isKey": true,
-    "sourceIndex": 121
-  },
-  {
-    "metabolism": "Photosynthesis",
-    "pathway": "Anoxygenic photosystem II",
-    "module": "Anoxygenic photosystem II (pufLM)",
-    "ko": "K08929",
-    "geneName": "pufM",
     "isKey": false,
     "sourceIndex": 122
   },
@@ -1681,6 +1681,24 @@
     "geneName": "mttC (Trimethylamine)",
     "isKey": false,
     "sourceIndex": 197
+  },
+  {
+    "metabolism": "C1 and methane metabolism",
+    "pathway": "Methanogenesis;methane oxidation",
+    "module": "Energy Conservation (echABCDE)",
+    "ko": "K14086, K14087, K14088, K14089, K14090, K14091",
+    "geneName": "echABCDEF",
+    "isKey": true,
+    "sourceIndex": 198
+  },
+  {
+    "metabolism": "C1 and methane metabolism",
+    "pathway": "Methanogenesis;methane oxidation",
+    "module": "Energy Conservation (fpoABCDFHIJKLMNO)",
+    "ko": "K22158, K22159, K22160, K22161, K22162, K22163, K22164, K22165, K22166, K22167, K22168, K22169, K22170",
+    "geneName": "fpoABCDFHIJKLMNO",
+    "isKey": true,
+    "sourceIndex": 199
   },
   {
     "metabolism": "C1 and methane metabolism",
@@ -2423,6 +2441,15 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Amino acid utilization",
+    "module": "4-aminobutyrate and related aminotransferases",
+    "ko": "K00823, K07250, K13524, K14268, K03918",
+    "geneName": "NA",
+    "isKey": false,
+    "sourceIndex": 282
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Amino acid utilization",
     "module": "Aminotransferase class I and II",
     "ko": "K05825",
     "geneName": "NA",
@@ -2441,11 +2468,38 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Amino acid utilization",
+    "module": "Ornithine/acetylornithine aminotransferase",
+    "ko": "K00819, K00821, K05830, K00840",
+    "geneName": "NA",
+    "isKey": false,
+    "sourceIndex": 285
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Amino acid utilization",
     "module": "Branched-chain amino acid aminotransferase",
     "ko": "K00826",
     "geneName": "NA",
     "isKey": false,
     "sourceIndex": 286
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Amino acid utilization",
+    "module": "4-amino-4-deoxychorismate lyase",
+    "ko": "K02619, K03342",
+    "geneName": "NA",
+    "isKey": false,
+    "sourceIndex": 287
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Amino acid utilization",
+    "module": "Aspartate/tyrosine/aromatic aminotransferase",
+    "ko": "K00812, K00813, K11358, K00832",
+    "geneName": "NA",
+    "isKey": false,
+    "sourceIndex": 288
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2521,7 +2575,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Laccase",
     "ko": "K05909",
     "geneName": "Laccase",
@@ -2530,7 +2584,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Peroxidase (DyP-type)",
     "ko": "K15733",
     "geneName": "Peroxidase (DyP-type)",
@@ -2539,7 +2593,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Vanillate monooxygenase",
     "ko": "K03862",
     "geneName": "vanA",
@@ -2548,7 +2602,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Vanillate monooxygenase ferredoxin",
     "ko": "K03863",
     "geneName": "vanB",
@@ -2557,7 +2611,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Protocatechuate 3,4-dioxygenase",
     "ko": "K00448",
     "geneName": "pcaG",
@@ -2566,7 +2620,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Protocatechuate 3,4-dioxygenase",
     "ko": "K00449",
     "geneName": "pcaH",
@@ -2575,7 +2629,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Catechol 1,2-dioxygenase",
     "ko": "K03381",
     "geneName": "catA",
@@ -2584,7 +2638,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Catechol 2,3-dioxygenase",
     "ko": "K07104",
     "geneName": "catE",
@@ -2593,7 +2647,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Gallate dioxygenase",
     "ko": "K04099",
     "geneName": "galA",
@@ -2602,7 +2656,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Feruloyl esterase",
     "ko": "K09252",
     "geneName": "FaeB",
@@ -2611,7 +2665,7 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
+    "pathway": "Aromatics degradation",
     "module": "Tannase (tannin acyl hydrolase)",
     "ko": "K10759",
     "geneName": "tannase",
@@ -2620,102 +2674,12 @@
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "xyloglucan",
-    "ko": "K18576",
-    "geneName": "XEG",
-    "isKey": false,
-    "sourceIndex": 309
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "xylanase",
-    "ko": "K01181",
-    "geneName": "Xyn",
+    "pathway": "Aromatics degradation",
+    "module": "polyphenol degradation (queD)",
+    "ko": "K06911",
+    "geneName": "queD",
     "isKey": true,
-    "sourceIndex": 310
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "xylanase",
-    "ko": "K20845",
-    "geneName": "txyA",
-    "isKey": false,
-    "sourceIndex": 311
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "Cellulose degrading",
-    "ko": "K19668",
-    "geneName": "cbhA",
-    "isKey": true,
-    "sourceIndex": 312
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "pectin lyase",
-    "ko": "K01728",
-    "geneName": "pel",
-    "isKey": false,
-    "sourceIndex": 315
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "pectate lyase",
-    "ko": "K01731",
-    "geneName": "pelW",
-    "isKey": false,
-    "sourceIndex": 316
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "polygalacturonase",
-    "ko": "K01184",
-    "geneName": "polygalacturonase",
-    "isKey": false,
-    "sourceIndex": 317
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "pectinesterase",
-    "ko": "K01051",
-    "geneName": "pectinesterase",
-    "isKey": false,
-    "sourceIndex": 318
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "Amylolytic enzymes",
-    "ko": "K01178",
-    "geneName": "sGA1",
-    "isKey": false,
-    "sourceIndex": 320
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "Amylolytic enzymes",
-    "ko": "K01200",
-    "geneName": "pullulanase",
-    "isKey": false,
-    "sourceIndex": 321
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Polysaccharides degradation",
-    "module": "Amylolytic enzymes",
-    "ko": "K01214",
-    "geneName": "iSA",
-    "isKey": false,
-    "sourceIndex": 322
+    "sourceIndex": 308
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2724,7 +2688,7 @@
     "ko": "K21573",
     "geneName": "susC",
     "isKey": true,
-    "sourceIndex": 325
+    "sourceIndex": 309
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2733,7 +2697,79 @@
     "ko": "K21572",
     "geneName": "susD",
     "isKey": false,
-    "sourceIndex": 326
+    "sourceIndex": 310
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Cellulose degrading",
+    "ko": "K19668",
+    "geneName": "cbhA",
+    "isKey": true,
+    "sourceIndex": 311
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Cellulose degrading",
+    "ko": "K01179, K20542",
+    "geneName": "cellulase",
+    "isKey": false,
+    "sourceIndex": 312
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Cellulose degrading",
+    "ko": "K01188, K05349, K05350",
+    "geneName": "beta-glucosidase",
+    "isKey": false,
+    "sourceIndex": 313
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Mannanase",
+    "ko": "K01218, K19355",
+    "geneName": "mannan endo-1,4-beta-mannosidase",
+    "isKey": true,
+    "sourceIndex": 314
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "xyloglucan",
+    "ko": "K18576",
+    "geneName": "XEG",
+    "isKey": false,
+    "sourceIndex": 315
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "xylanase",
+    "ko": "K01181",
+    "geneName": "Xyn",
+    "isKey": true,
+    "sourceIndex": 316
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "xylanase",
+    "ko": "K20845",
+    "geneName": "txyA",
+    "isKey": false,
+    "sourceIndex": 317
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Hemicullulose debranching",
+    "ko": "K01209, K15921",
+    "geneName": "arabinosidase",
+    "isKey": false,
+    "sourceIndex": 318
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2742,7 +2778,7 @@
     "ko": "K01195",
     "geneName": "beta-glucuronidase",
     "isKey": false,
-    "sourceIndex": 328
+    "sourceIndex": 319
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2751,7 +2787,7 @@
     "ko": "K05989",
     "geneName": "alpha-L-rhamnosidase",
     "isKey": false,
-    "sourceIndex": 329
+    "sourceIndex": 320
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2760,178 +2796,97 @@
     "ko": "K01811",
     "geneName": "alpha-D-xyloside xylohydrolase",
     "isKey": false,
+    "sourceIndex": 321
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Amylolytic enzymes",
+    "ko": "K01176, K05343, K07405",
+    "geneName": "alpha-amylase",
+    "isKey": false,
+    "sourceIndex": 322
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Amylolytic enzymes",
+    "ko": "K01178",
+    "geneName": "sGA1",
+    "isKey": false,
+    "sourceIndex": 323
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Amylolytic enzymes",
+    "ko": "K01200",
+    "geneName": "pullulanase",
+    "isKey": false,
+    "sourceIndex": 324
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Amylolytic enzymes",
+    "ko": "K01214",
+    "geneName": "iSA",
+    "isKey": false,
+    "sourceIndex": 325
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Chitin degrading",
+    "ko": "K01183, K13381",
+    "geneName": "chitinase",
+    "isKey": true,
+    "sourceIndex": 326
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "Chitin degrading",
+    "ko": "K01207, K12373, K14459",
+    "geneName": "hexosaminidase",
+    "isKey": false,
+    "sourceIndex": 327
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "pectin lyase",
+    "ko": "K01728",
+    "geneName": "pel",
+    "isKey": false,
+    "sourceIndex": 328
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "pectate lyase",
+    "ko": "K01731",
+    "geneName": "pelW",
+    "isKey": false,
+    "sourceIndex": 329
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Polysaccharides degradation",
+    "module": "polygalacturonase",
+    "ko": "K01184",
+    "geneName": "polygalacturonase",
+    "isKey": false,
     "sourceIndex": 330
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Sucrose degradation",
-    "module": "sucrose degradation",
-    "ko": "K01193",
-    "geneName": "sacA",
-    "isKey": true,
+    "pathway": "Polysaccharides degradation",
+    "module": "pectinesterase",
+    "ko": "K01051",
+    "geneName": "pectinesterase",
+    "isKey": false,
     "sourceIndex": 331
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Sucrose degradation",
-    "module": "sucrose degradation",
-    "ko": "K00690",
-    "geneName": "sucrose phosphorylase",
-    "isKey": false,
-    "sourceIndex": 332
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Mannose degradation",
-    "module": "mannose degradation",
-    "ko": "K01809",
-    "geneName": "manA",
-    "isKey": false,
-    "sourceIndex": 333
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K01785",
-    "geneName": "galM",
-    "isKey": true,
-    "sourceIndex": 334
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K00849",
-    "geneName": "galK",
-    "isKey": false,
-    "sourceIndex": 335
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K00965",
-    "geneName": "galT",
-    "isKey": false,
-    "sourceIndex": 336
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Fucose degradation",
-    "module": "fucose degradation",
-    "ko": "K01818",
-    "geneName": "fucI",
-    "isKey": false,
-    "sourceIndex": 337
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (isomerase pathway)",
-    "ko": "K01805",
-    "geneName": "xylA",
-    "isKey": true,
-    "sourceIndex": 338
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (isomerase pathway)",
-    "ko": "K00854",
-    "geneName": "xylB",
-    "isKey": false,
-    "sourceIndex": 339
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
-    "ko": "K17743",
-    "geneName": "XYL1",
-    "isKey": true,
-    "sourceIndex": 340
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
-    "ko": "K05351",
-    "geneName": "D-xylose reductase",
-    "isKey": false,
-    "sourceIndex": 341
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
-    "ko": "K00011",
-    "geneName": "AKR1B",
-    "isKey": false,
-    "sourceIndex": 342
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (xylonate hydratase pathway)",
-    "ko": "K14275",
-    "geneName": "xad",
-    "isKey": true,
-    "sourceIndex": 343
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
-    "ko": "K14273",
-    "geneName": "xdh",
-    "isKey": true,
-    "sourceIndex": 344
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
-    "ko": "K00078",
-    "geneName": "DHDH",
-    "isKey": false,
-    "sourceIndex": 345
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
-    "ko": "K14274",
-    "geneName": "xylC",
-    "isKey": false,
-    "sourceIndex": 346
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Xylosidase",
-    "module": "xylosidase",
-    "ko": "K01198",
-    "geneName": "beta-xylosidase",
-    "isKey": false,
-    "sourceIndex": 347
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Mannosidase",
-    "module": "mannosidase",
-    "ko": "K01192",
-    "geneName": "beta-mannosidase",
-    "isKey": true,
-    "sourceIndex": 348
-  },
-  {
-    "metabolism": "Carbon source utilization",
-    "pathway": "Fructose degradation",
-    "module": "fructose degradation",
-    "ko": "K00847",
-    "geneName": "scrK",
-    "isKey": false,
-    "sourceIndex": 350
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2940,7 +2895,7 @@
     "ko": "K01812",
     "geneName": "uxaC",
     "isKey": false,
-    "sourceIndex": 351
+    "sourceIndex": 332
   },
   {
     "metabolism": "Carbon source utilization",
@@ -2949,214 +2904,196 @@
     "ko": "K00874",
     "geneName": "kdgK",
     "isKey": false,
+    "sourceIndex": 333
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Sucrose degradation",
+    "module": "sucrose degradation",
+    "ko": "K01193",
+    "geneName": "sacA",
+    "isKey": true,
+    "sourceIndex": 334
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Sucrose degradation",
+    "module": "sucrose degradation",
+    "ko": "K00690",
+    "geneName": "sucrose phosphorylase",
+    "isKey": false,
+    "sourceIndex": 335
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Fructose degradation",
+    "module": "fructose degradation",
+    "ko": "K00847",
+    "geneName": "scrK",
+    "isKey": false,
+    "sourceIndex": 336
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Mannose degradation",
+    "module": "mannose degradation",
+    "ko": "K01809",
+    "geneName": "manA",
+    "isKey": false,
+    "sourceIndex": 337
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Mannosidase",
+    "module": "mannosidase",
+    "ko": "K01192",
+    "geneName": "beta-mannosidase",
+    "isKey": true,
+    "sourceIndex": 338
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Galactose degradation",
+    "module": "galactose degradation",
+    "ko": "K01785",
+    "geneName": "galM",
+    "isKey": true,
+    "sourceIndex": 339
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Galactose degradation",
+    "module": "galactose degradation",
+    "ko": "K00849",
+    "geneName": "galK",
+    "isKey": false,
+    "sourceIndex": 340
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Galactose degradation",
+    "module": "galactose degradation",
+    "ko": "K00965",
+    "geneName": "galT",
+    "isKey": false,
+    "sourceIndex": 341
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Galactosidase",
+    "module": "galactosidase",
+    "ko": "K01190, K12111, K12308",
+    "geneName": "beta-galactosidase",
+    "isKey": false,
+    "sourceIndex": 342
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Fucose degradation",
+    "module": "fucose degradation",
+    "ko": "K01818",
+    "geneName": "fucI",
+    "isKey": false,
+    "sourceIndex": 343
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (isomerase pathway)",
+    "ko": "K01805",
+    "geneName": "xylA",
+    "isKey": true,
+    "sourceIndex": 344
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (isomerase pathway)",
+    "ko": "K00854",
+    "geneName": "xylB",
+    "isKey": false,
+    "sourceIndex": 345
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (oxidoreductase pathway)",
+    "ko": "K17743",
+    "geneName": "XYL1",
+    "isKey": true,
+    "sourceIndex": 346
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (oxidoreductase pathway)",
+    "ko": "K05351",
+    "geneName": "D-xylose reductase",
+    "isKey": false,
+    "sourceIndex": 347
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (oxidoreductase pathway)",
+    "ko": "K00011",
+    "geneName": "AKR1B",
+    "isKey": false,
+    "sourceIndex": 348
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (xylonate hydratase pathway)",
+    "ko": "K14275",
+    "geneName": "xad",
+    "isKey": true,
+    "sourceIndex": 349
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (weimburg/dahms)",
+    "ko": "K14273",
+    "geneName": "xdh",
+    "isKey": true,
+    "sourceIndex": 350
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (weimburg/dahms)",
+    "ko": "K00078",
+    "geneName": "DHDH",
+    "isKey": false,
+    "sourceIndex": 351
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylose degradation",
+    "module": "xylose degrading (weimburg/dahms)",
+    "ko": "K14274",
+    "geneName": "xylC",
+    "isKey": false,
     "sourceIndex": 352
   },
   {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K00514",
-    "geneName": "crtQ",
+    "metabolism": "Carbon source utilization",
+    "pathway": "Xylosidase",
+    "module": "xylosidase",
+    "ko": "K01198",
+    "geneName": "beta-xylosidase",
+    "isKey": false,
+    "sourceIndex": 353
+  },
+  {
+    "metabolism": "Carbon source utilization",
+    "pathway": "Fatty acid degradation",
+    "module": "Fatty acid degradation",
+    "ko": "K00249, K00255, K06445, K06446, K09456, K09478, K11410, K15980, K18244",
+    "geneName": "acyl-CoA dehydrogenase",
     "isKey": true,
     "sourceIndex": 357
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K02291",
-    "geneName": "crtB",
-    "isKey": false,
-    "sourceIndex": 358
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K02293",
-    "geneName": "crtP",
-    "isKey": false,
-    "sourceIndex": 359
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K02294",
-    "geneName": "crtR",
-    "isKey": false,
-    "sourceIndex": 360
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K06443",
-    "geneName": "crtY",
-    "isKey": false,
-    "sourceIndex": 361
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K06444",
-    "geneName": "lycE",
-    "isKey": false,
-    "sourceIndex": 362
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09835",
-    "geneName": "crtH",
-    "isKey": false,
-    "sourceIndex": 363
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09836",
-    "geneName": "crtW",
-    "isKey": false,
-    "sourceIndex": 364
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09844",
-    "geneName": "crtC",
-    "isKey": false,
-    "sourceIndex": 365
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09845",
-    "geneName": "crtD",
-    "isKey": false,
-    "sourceIndex": 366
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09846",
-    "geneName": "crtF",
-    "isKey": false,
-    "sourceIndex": 367
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K09879",
-    "geneName": "crtU",
-    "isKey": false,
-    "sourceIndex": 368
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K10027",
-    "geneName": "crtI",
-    "isKey": false,
-    "sourceIndex": 369
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K10210",
-    "geneName": "crtP",
-    "isKey": false,
-    "sourceIndex": 370
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K10211",
-    "geneName": "crtQ",
-    "isKey": false,
-    "sourceIndex": 371
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K10212",
-    "geneName": "crtO",
-    "isKey": false,
-    "sourceIndex": 372
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K14605",
-    "geneName": "cruA",
-    "isKey": false,
-    "sourceIndex": 373
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K14606",
-    "geneName": "cruP",
-    "isKey": false,
-    "sourceIndex": 374
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Carotenoid biosynthesis",
-    "module": "Carotenoid biosynthesis",
-    "ko": "K15746",
-    "geneName": "crtZ",
-    "isKey": false,
-    "sourceIndex": 375
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "NiFe Hydrogenases",
-    "module": "NiFe Hydrogenases",
-    "ko": "K00437",
-    "geneName": "hydB",
-    "isKey": false,
-    "sourceIndex": 376
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "NiFe Hydrogenases",
-    "module": "NiFe Hydrogenases",
-    "ko": "K18008",
-    "geneName": "hydA",
-    "isKey": true,
-    "sourceIndex": 377
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "NiFe Hydrogenases",
-    "module": "NiFe Hydrogenases",
-    "ko": "K18005",
-    "geneName": "hoxF",
-    "isKey": true,
-    "sourceIndex": 378
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "NiFe Hydrogenases",
-    "module": "NiFe Hydrogenases",
-    "ko": "K18006",
-    "geneName": "hoxU",
-    "isKey": false,
-    "sourceIndex": 379
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3165,7 +3102,7 @@
     "ko": "K28466",
     "geneName": "arrA",
     "isKey": true,
-    "sourceIndex": 380
+    "sourceIndex": 358
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3174,16 +3111,7 @@
     "ko": "K28467",
     "geneName": "arrB",
     "isKey": false,
-    "sourceIndex": 381
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "As methylation",
-    "module": "Arsenite methylation (arsM)",
-    "ko": "K07755",
-    "geneName": "arsM",
-    "isKey": true,
-    "sourceIndex": 382
+    "sourceIndex": 359
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3192,7 +3120,7 @@
     "ko": "K00537",
     "geneName": "arsC_grx",
     "isKey": true,
-    "sourceIndex": 383
+    "sourceIndex": 360
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3201,88 +3129,7 @@
     "ko": "K03741",
     "geneName": "arsC_trx",
     "isKey": true,
-    "sourceIndex": 384
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Arsenite oxidation",
-    "module": "Arsenite oxidation (aioA)",
-    "ko": "K08356",
-    "geneName": "aioA",
-    "isKey": true,
-    "sourceIndex": 386
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Arsenite transport",
-    "module": "Arsenite transport (arsB)",
-    "ko": "K03325",
-    "geneName": "arsB",
-    "isKey": true,
-    "sourceIndex": 387
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "MeHg -> Hg(II)",
-    "module": "MeHg -> Hg(II) (merB)",
-    "ko": "K00221",
-    "geneName": "merB",
-    "isKey": true,
-    "sourceIndex": 388
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Hg(II) -> Hg(0)",
-    "module": "Hg(II) -> Hg(0) (merA)",
-    "ko": "K00520",
-    "geneName": "merA",
-    "isKey": true,
-    "sourceIndex": 389
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Manganese oxidation",
-    "module": "Manganese oxidation",
-    "ko": "K06324",
-    "geneName": "cotA",
-    "isKey": true,
-    "sourceIndex": 391
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Manganese oxidation",
-    "module": "Manganese oxidation",
-    "ko": "K22348",
-    "geneName": "moxA",
-    "isKey": true,
-    "sourceIndex": 392
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Manganese oxidation",
-    "module": "Manganese oxidation",
-    "ko": "K22349",
-    "geneName": "mnxG",
-    "isKey": false,
-    "sourceIndex": 393
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Manganese oxidation",
-    "module": "Manganese oxidation",
-    "ko": "K22350",
-    "geneName": "mcoA",
-    "isKey": false,
-    "sourceIndex": 394
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Fe oxidation",
-    "module": "Fe oxidation (cyc2)",
-    "ko": "K20150",
-    "geneName": "cyc2",
-    "isKey": true,
-    "sourceIndex": 395
+    "sourceIndex": 361
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3291,7 +3138,7 @@
     "ko": "K09162",
     "geneName": "cld",
     "isKey": true,
-    "sourceIndex": 400
+    "sourceIndex": 365
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3300,7 +3147,7 @@
     "ko": "K12529",
     "geneName": "ygfM",
     "isKey": false,
-    "sourceIndex": 401
+    "sourceIndex": 366
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3309,7 +3156,7 @@
     "ko": "K12528",
     "geneName": "xdhD",
     "isKey": false,
-    "sourceIndex": 402
+    "sourceIndex": 367
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3318,34 +3165,178 @@
     "ko": "K12527",
     "geneName": "ygfK",
     "isKey": true,
-    "sourceIndex": 403
+    "sourceIndex": 368
   },
   {
     "metabolism": "Others",
-    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
-    "module": "Polyhydroxyalkanoates (PHA) synthesis",
-    "ko": "K00626",
-    "geneName": "atoB",
-    "isKey": false,
-    "sourceIndex": 404
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
-    "module": "Polyhydroxyalkanoates (PHA) synthesis",
-    "ko": "K00059",
-    "geneName": "fabG",
-    "isKey": false,
-    "sourceIndex": 405
-  },
-  {
-    "metabolism": "Others",
-    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
-    "module": "Polyhydroxyalkanoates (PHA) synthesis",
-    "ko": "K03821",
-    "geneName": "phaC",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K00514",
+    "geneName": "crtQ",
     "isKey": true,
-    "sourceIndex": 406
+    "sourceIndex": 369
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K02291",
+    "geneName": "crtB",
+    "isKey": false,
+    "sourceIndex": 370
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K02293",
+    "geneName": "crtP",
+    "isKey": false,
+    "sourceIndex": 371
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K02294",
+    "geneName": "crtR",
+    "isKey": false,
+    "sourceIndex": 372
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K06443",
+    "geneName": "crtY",
+    "isKey": false,
+    "sourceIndex": 373
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K06444",
+    "geneName": "lycE",
+    "isKey": false,
+    "sourceIndex": 374
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09835",
+    "geneName": "crtH",
+    "isKey": false,
+    "sourceIndex": 375
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09836",
+    "geneName": "crtW",
+    "isKey": false,
+    "sourceIndex": 376
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09844",
+    "geneName": "crtC",
+    "isKey": false,
+    "sourceIndex": 377
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09845",
+    "geneName": "crtD",
+    "isKey": false,
+    "sourceIndex": 378
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09846",
+    "geneName": "crtF",
+    "isKey": false,
+    "sourceIndex": 379
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K09879",
+    "geneName": "crtU",
+    "isKey": false,
+    "sourceIndex": 380
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K10027",
+    "geneName": "crtI",
+    "isKey": false,
+    "sourceIndex": 381
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K10210",
+    "geneName": "crtP",
+    "isKey": false,
+    "sourceIndex": 382
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K10211",
+    "geneName": "crtQ",
+    "isKey": false,
+    "sourceIndex": 383
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K10212",
+    "geneName": "crtO",
+    "isKey": false,
+    "sourceIndex": 384
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K14605",
+    "geneName": "cruA",
+    "isKey": false,
+    "sourceIndex": 385
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K14606",
+    "geneName": "cruP",
+    "isKey": false,
+    "sourceIndex": 386
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Carotenoid biosynthesis",
+    "module": "Carotenoid biosynthesis",
+    "ko": "K15746",
+    "geneName": "crtZ",
+    "isKey": false,
+    "sourceIndex": 387
   },
   {
     "metabolism": "Others",
@@ -3354,7 +3345,7 @@
     "ko": "K06045",
     "geneName": "shc",
     "isKey": true,
-    "sourceIndex": 407
+    "sourceIndex": 388
   },
   {
     "metabolism": "Others",
@@ -3363,7 +3354,7 @@
     "ko": "K21677",
     "geneName": "hpnE",
     "isKey": true,
-    "sourceIndex": 408
+    "sourceIndex": 389
   },
   {
     "metabolism": "Others",
@@ -3372,7 +3363,7 @@
     "ko": "K21678",
     "geneName": "hpnD",
     "isKey": false,
-    "sourceIndex": 409
+    "sourceIndex": 390
   },
   {
     "metabolism": "Others",
@@ -3381,14 +3372,158 @@
     "ko": "K21679",
     "geneName": "hpnC",
     "isKey": false,
+    "sourceIndex": 391
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "NiFe Hydrogenases",
+    "module": "NiFe Hydrogenases",
+    "ko": "K00437",
+    "geneName": "hydB",
+    "isKey": false,
+    "sourceIndex": 392
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "NiFe Hydrogenases",
+    "module": "NiFe Hydrogenases",
+    "ko": "K18008",
+    "geneName": "hydA",
+    "isKey": true,
+    "sourceIndex": 393
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "NiFe Hydrogenases",
+    "module": "NiFe Hydrogenases",
+    "ko": "K18005",
+    "geneName": "hoxF",
+    "isKey": true,
+    "sourceIndex": 394
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "NiFe Hydrogenases",
+    "module": "NiFe Hydrogenases",
+    "ko": "K18006",
+    "geneName": "hoxU",
+    "isKey": false,
+    "sourceIndex": 395
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "As methylation",
+    "module": "Arsenite methylation (arsM)",
+    "ko": "K07755",
+    "geneName": "arsM",
+    "isKey": true,
+    "sourceIndex": 396
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Arsenite oxidation",
+    "module": "Arsenite oxidation (aioA)",
+    "ko": "K08356",
+    "geneName": "aioA",
+    "isKey": true,
+    "sourceIndex": 398
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Arsenite transport",
+    "module": "Arsenite transport (arsB)",
+    "ko": "K03325",
+    "geneName": "arsB",
+    "isKey": true,
+    "sourceIndex": 399
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "MeHg -> Hg(II)",
+    "module": "MeHg -> Hg(II) (merB)",
+    "ko": "K00221",
+    "geneName": "merB",
+    "isKey": true,
+    "sourceIndex": 400
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Hg(II) -> Hg(0)",
+    "module": "Hg(II) -> Hg(0) (merA)",
+    "ko": "K00520",
+    "geneName": "merA",
+    "isKey": true,
+    "sourceIndex": 401
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Manganese oxidation",
+    "module": "Manganese oxidation",
+    "ko": "K06324",
+    "geneName": "cotA",
+    "isKey": true,
+    "sourceIndex": 403
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Manganese oxidation",
+    "module": "Manganese oxidation",
+    "ko": "K22348",
+    "geneName": "moxA",
+    "isKey": true,
+    "sourceIndex": 404
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Manganese oxidation",
+    "module": "Manganese oxidation",
+    "ko": "K22349",
+    "geneName": "mnxG",
+    "isKey": false,
+    "sourceIndex": 405
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Manganese oxidation",
+    "module": "Manganese oxidation",
+    "ko": "K22350",
+    "geneName": "mcoA",
+    "isKey": false,
+    "sourceIndex": 406
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Fe oxidation",
+    "module": "Fe oxidation (cyc2)",
+    "ko": "K20150",
+    "geneName": "cyc2",
+    "isKey": true,
+    "sourceIndex": 407
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
+    "module": "Polyhydroxyalkanoates (PHA) synthesis",
+    "ko": "K00626",
+    "geneName": "atoB",
+    "isKey": false,
+    "sourceIndex": 409
+  },
+  {
+    "metabolism": "Others",
+    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
+    "module": "Polyhydroxyalkanoates (PHA) synthesis",
+    "ko": "K00059",
+    "geneName": "fabG",
+    "isKey": false,
     "sourceIndex": 410
   },
   {
     "metabolism": "Others",
-    "pathway": "polyphenol degradation",
-    "module": "polyphenol degradation (queD)",
-    "ko": "K06911",
-    "geneName": "queD",
+    "pathway": "Polyhydroxyalkanoates (PHA) synthesis",
+    "module": "Polyhydroxyalkanoates (PHA) synthesis",
+    "ko": "K03821",
+    "geneName": "phaC",
     "isKey": true,
     "sourceIndex": 411
   },

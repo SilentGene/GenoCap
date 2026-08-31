@@ -37,7 +37,24 @@ describe('matrix construction', () => {
     const db: DatabaseEntry[] = [{ metabolism: 'M', pathway: 'P', module: 'Nitrate reduction', ko: 'K00370', geneName: 'narG', isKey: true, sourceIndex: 0 }];
     const records = [{ gene: 'contig_12_gene_4', genome: 'A', kos: ['K00370'], sourceLine: 2 }];
     const matrix = buildMatrix(db, records, ['A'], 'module', true);
-    expect(matrix.rows[0].cells.A.matchedGenes).toEqual([{ geneId: 'contig_12_gene_4', geneName: 'narG' }]);
+    expect(matrix.rows[0].cells.A.matchedGenes).toEqual([{ geneId: 'contig_12_gene_4', ko: 'K00370', geneName: 'narG' }]);
+  });
+
+  it('treats multiple KOs in one database cell as alternatives and reports the matched KO', () => {
+    const db: DatabaseEntry[] = [
+      { metabolism: 'M', pathway: 'P', module: 'Chitin degrading', ko: 'K01183, K13381', geneName: 'chitinase', isKey: true, sourceIndex: 0 },
+      { metabolism: 'M', pathway: 'P', module: 'Chitin degrading', ko: 'K00001', geneName: 'helper', isKey: true, sourceIndex: 1 },
+    ];
+    const records = [
+      { gene: 'gene_chitinase', genome: 'A', kos: ['K01183'], sourceLine: 2 },
+      { gene: 'gene_helper', genome: 'A', kos: ['K00001'], sourceLine: 3 },
+    ];
+    const cell = buildMatrix(db, records, ['A'], 'module', true).rows[0].cells.A;
+    expect(cell).toMatchObject({ hits: 2, total: 2, rawValue: 1, value: 1 });
+    expect(cell.matchedGenes).toEqual([
+      { geneId: 'gene_chitinase', ko: 'K01183', geneName: 'chitinase' },
+      { geneId: 'gene_helper', ko: 'K00001', geneName: 'helper' },
+    ]);
   });
 
   it('omits unchecked metabolism groups from the matrix', () => {
@@ -58,7 +75,7 @@ describe('matrix construction', () => {
       buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
-    expect(rowCounts).toEqual([161, 376, 139, 94]);
+    expect(rowCounts).toEqual([171, 391, 144, 104]);
   });
 
   it('exports current display values in genome order', () => {

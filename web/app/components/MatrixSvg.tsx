@@ -154,14 +154,14 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
 
 interface TooltipPlacement { x: number; y: number; flip: boolean; }
 type TooltipData =
-  | ({ kind: 'cell'; genome: string; feature: string; matchedGenes: { geneId: string; geneName: string }[]; hits: number; total: number } & TooltipPlacement)
+  | ({ kind: 'cell'; genome: string; feature: string; matchedGenes: { geneId: string; ko: string; geneName: string }[]; hits: number; total: number } & TooltipPlacement)
   | ({ kind: 'feature'; feature: string; module: string; pathway: string } & TooltipPlacement)
   | ({ kind: 'metabolism'; metabolism: string; featureCount: number } & TooltipPlacement);
 
 function TooltipCard({ tooltip, tooltipRef, pinned, onClose }: { tooltip: TooltipData; tooltipRef: RefObject<HTMLDivElement | null>; pinned: boolean; onClose: () => void }) {
   return <div ref={tooltipRef} role="tooltip" className={`cell-tooltip fixed z-50 max-w-[480px] rounded-lg border border-[#cdd8d1] bg-[#fbfdf9] px-3.5 py-3 text-xs leading-5 text-[#263a33] shadow-[0_12px_36px_rgb(24_48_38/20%)] ${pinned ? 'pointer-events-auto' : 'pointer-events-none'}`} style={{ left: tooltip.x, top: tooltip.y, transform: tooltip.flip ? 'translateY(-100%)' : 'none' }}>
     {pinned ? <button type="button" className="tooltip-close" aria-label="Close pinned details" onClick={onClose}>×</button> : null}
-    {tooltip.kind === 'cell' ? <><p><strong>Genome:</strong> {tooltip.genome}</p><p><strong>Feature:</strong> {tooltip.feature}</p><p className="mt-1 font-semibold">Present genes (gene ID — gene_name):</p>{tooltip.matchedGenes.length ? <div>{tooltip.matchedGenes.map(({ geneId, geneName }) => <p key={`${geneId}-${geneName}`}>{geneId} — {geneName}</p>)}</div> : <p>None</p>}<p className="mt-1"><strong>KO completeness:</strong> {tooltip.hits}/{tooltip.total}</p></> : tooltip.kind === 'feature' ? <><p><strong>Feature:</strong> {tooltip.feature}</p><p><strong>Module:</strong> {tooltip.module}</p><p><strong>Pathway:</strong> {tooltip.pathway || 'NA'}</p></> : <><p><strong>Metabolism:</strong> {tooltip.metabolism}</p><p><strong>Displayed features:</strong> {tooltip.featureCount}</p></>}
+    {tooltip.kind === 'cell' ? <><p><strong>Genome:</strong> {tooltip.genome}</p><p><strong>Feature:</strong> {tooltip.feature}</p><p className="mt-1 font-semibold">Present genes (gene ID — matched KO — gene_name):</p>{tooltip.matchedGenes.length ? <div>{tooltip.matchedGenes.map(({ geneId, ko, geneName }) => <p key={`${geneId}-${ko}-${geneName}`}>{geneId} — {ko} — {geneName}</p>)}</div> : <p>None</p>}<p className="mt-1"><strong>KO requirement completeness:</strong> {tooltip.hits}/{tooltip.total}</p></> : tooltip.kind === 'feature' ? <><p><strong>Feature:</strong> {tooltip.feature}</p><p><strong>Module:</strong> {tooltip.module}</p><p><strong>Pathway:</strong> {tooltip.pathway || 'NA'}</p></> : <><p><strong>Metabolism:</strong> {tooltip.metabolism}</p><p><strong>Displayed features:</strong> {tooltip.featureCount}</p></>}
   </div>;
 }
 
@@ -254,7 +254,7 @@ interface CellProps { cx: number; cy: number; size: number; value: number; hits:
 function Cell({ cx, cy, size, value, hits, total, genome, feature, settings, presentColor = settings.presentColor, rowIndex, columnIndex }: CellProps) {
   const radius = size / 2;
   const stroke = settings.border ? '#263a33' : 'none';
-  const dataProps = genome ? { 'data-cell-tooltip': 'true', 'data-row-index': rowIndex, 'data-column-index': columnIndex, 'aria-label': `${feature}, ${genome}, ${hits} of ${total} KOs` } : {};
+  const dataProps = genome ? { 'data-cell-tooltip': 'true', 'data-row-index': rowIndex, 'data-column-index': columnIndex, 'aria-label': `${feature}, ${genome}, ${hits} of ${total} KO requirements` } : {};
   if (settings.shape === 'square') return <g {...dataProps} className={genome ? 'matrix-cell' : undefined}><rect x={cx - radius} y={cy - radius} width={size} height={size} fill={settings.absentColor} />{value > 0 ? <rect x={cx - radius} y={cy + radius - size * value} width={size} height={size * value} fill={presentColor} /> : null}<rect x={cx - radius} y={cy - radius} width={size} height={size} fill="none" stroke={stroke} strokeWidth={1.2} /></g>;
   return <g {...dataProps} className={genome ? 'matrix-cell' : undefined}><circle cx={cx} cy={cy} r={radius} fill={settings.absentColor} />{value >= 1 ? <circle cx={cx} cy={cy} r={radius} fill={presentColor} /> : value > 0 ? <path d={sectorPath(cx, cy, radius, value)} fill={presentColor} /> : null}<circle cx={cx} cy={cy} r={radius} fill="none" stroke={stroke} strokeWidth={1.2} data-cell={`${rowIndex}-${columnIndex}`} /></g>;
 }

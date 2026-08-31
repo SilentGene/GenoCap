@@ -41,6 +41,10 @@ Open `http://localhost:3000` in a browser.
 
 The database JSON is regenerated automatically from [db/GenoCap_db.tsv](db/GenoCap_db.tsv) whenever the development server or production build starts. Users are encouraged to edit the TSV file directly to add or remove KEGG modules, genes, or KOs.
 
+The database panel in the application also accepts a user-supplied TSV database. Choose **Append** to add rows to the current in-browser database (exact duplicates are removed), or **Replace** to use only the uploaded rows. GenoCap validates the complete file before changing the active database. Required headers are `Metabolism`, `Pathway`, `Module`, `KO`, `gene_name`, and `if_key`; a KO cell accepts one or more `K00000` identifiers separated by commas, semicolons, or pipes. Multiple identifiers in one database cell are alternatives: any one match satisfies that row. `if_key` accepts `yes`, `no`, or a blank value. Extra columns are allowed. These changes remain local to the current page session.
+
+Use **View database** to open the active database in a searchable table in a separate window, where it can be downloaded as `GenoCap_db.tsv`.
+
 ## GitHub Pages deployment
 
 The application is exported as a fully static site. Every push to `main` runs the checks, builds `web/out`, and deploys it through GitHub Pages.

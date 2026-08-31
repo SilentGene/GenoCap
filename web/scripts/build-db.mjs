@@ -22,6 +22,12 @@ const indexes = {
 };
 
 const cleanLabel = (value = '') => value.replaceAll('"', '').trim();
+const splitKoCell = (value = '') => {
+  const tokens = cleanLabel(value).split(/[;,|]/).map((token) => token.trim());
+  return tokens.length > 0 && tokens.every((token) => /^K\d{5}$/.test(token))
+    ? [...new Set(tokens)]
+    : [];
+};
 
 const entries = lines.slice(1).map((line, sourceIndex) => {
   const fields = line.split('\t');
@@ -29,12 +35,12 @@ const entries = lines.slice(1).map((line, sourceIndex) => {
     metabolism: cleanLabel(fields[indexes.metabolism]),
     pathway: cleanLabel(fields[indexes.pathway]),
     module: cleanLabel(fields[indexes.module]),
-    ko: fields[indexes.ko]?.trim() ?? '',
+    ko: cleanLabel(fields[indexes.ko]),
     geneName: cleanLabel(fields[indexes.geneName]),
     isKey: (fields[indexes.isKey]?.trim().toLowerCase() ?? '') === 'yes',
     sourceIndex,
   };
-}).filter((entry) => /^K\d{5}$/.test(entry.ko));
+}).filter((entry) => splitKoCell(entry.ko).length > 0);
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(entries, null, 2)}\n`, 'utf8');

@@ -1,6 +1,18 @@
 'use client';
 
-import { QuestionCircleFilled } from '@ant-design/icons';
+import {
+  CodeOutlined,
+  DownloadOutlined,
+  EditOutlined,
+  MinusOutlined,
+  PictureOutlined,
+  PlusOutlined,
+  QuestionCircleFilled,
+  ReloadOutlined,
+  RotateRightOutlined,
+  SwapOutlined,
+  TableOutlined,
+} from '@ant-design/icons';
 import {
   Alert,
   App as AntApp,
@@ -18,7 +30,6 @@ import {
   Segmented,
   Select,
   Slider,
-  Space,
   Statistic,
   Switch,
   Tag,
@@ -28,18 +39,16 @@ import Image from 'next/image';
 import { useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
 import databaseJson from '../data/genocap-db.json';
 import { clusterGenomes } from '../lib/cluster';
+import { mergeDatabaseEntries, parseDatabaseTsv, type DatabaseValidationError } from '../lib/database';
+import { openDatabaseViewer } from '../lib/database-viewer';
 import { downloadPng, downloadSvg, downloadText, matrixToCsv } from '../lib/export';
 import { parseAnnotations } from '../lib/input';
+import { splitKoCell } from '../lib/ko';
 import { buildMatrix, DEFAULT_METABOLISM_COLORS, DEFAULT_METABOLISM_ORDER } from '../lib/matrix';
 import type { DatabaseEntry, FeatureRow, FigureRotation, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
 import MatrixSvg, { MatrixStickyHeader } from './MatrixSvg';
 
-const database = databaseJson as DatabaseEntry[];
-const metabolisms = [...new Set(database.map((entry) => entry.metabolism))];
-const defaultMetabolismOrder = [
-  ...DEFAULT_METABOLISM_ORDER.filter((metabolism) => metabolisms.includes(metabolism)),
-  ...metabolisms.filter((metabolism) => !DEFAULT_METABOLISM_ORDER.includes(metabolism as typeof DEFAULT_METABOLISM_ORDER[number])),
-];
+const builtInDatabase = databaseJson as DatabaseEntry[];
 const theme = {
   token: {
     colorPrimary: '#1677ff',
@@ -57,13 +66,22 @@ const theme = {
   },
 };
 
-const initialSettings: VisualizationSettings = {
+function createInitialSettings(database: DatabaseEntry[]): VisualizationSettings {
+  const metabolisms = [...new Set(database.map((entry) => entry.metabolism))];
+  const defaultMetabolismOrder = [
+    ...DEFAULT_METABOLISM_ORDER.filter((metabolism) => metabolisms.includes(metabolism)),
+    ...metabolisms.filter((metabolism) => !DEFAULT_METABOLISM_ORDER.includes(metabolism as typeof DEFAULT_METABOLISM_ORDER[number])),
+  ];
+  return {
   mode: 'module', shape: 'circle', spacing: 4, border: true, metabolismColorTarget: 'background', quarterFill: true, showAllRows: false,
   clustering: false, cellSize: 17, fontSize: 11, zoom: 1, rotation: 0, swapSideLabels: false,
   presentColor: '#636363', absentColor: '#ffffff', metabolismColors: { ...DEFAULT_METABOLISM_COLORS }, metabolismOrder: [...defaultMetabolismOrder],
   visibleMetabolisms: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])),
   visibleFeatures: {},
-};
+  };
+}
+
+const initialSettings = createInitialSettings(builtInDatabase);
 
 export default function GenoCapApp() {
   const mounted = useSyncExternalStore(() => () => undefined, () => true, () => false);
@@ -72,7 +90,14 @@ export default function GenoCapApp() {
 }
 
 function GenoCapWorkspace() {
+  const { message } = AntApp.useApp();
   const [fileKind, setFileKind] = useState<FileKind>('tsv');
+  const [currentDatabase, setCurrentDatabase] = useState<DatabaseEntry[]>(builtInDatabase);
+  const [databaseMode, setDatabaseMode] = useState<'append' | 'replace'>('append');
+  const [databaseName, setDatabaseName] = useState('Built-in database');
+  const [databaseLoading, setDatabaseLoading] = useState(false);
+  const [databaseErrors, setDatabaseErrors] = useState<DatabaseValidationError[]>([]);
+  const [databaseErrorFileName, setDatabaseErrorFileName] = useState('');
   const [result, setResult] = useState<ParsedAnnotations | null>(null);
   const [fileName, setFileName] = useState('');
   const [usingExample, setUsingExample] = useState(false);
@@ -84,15 +109,17 @@ function GenoCapWorkspace() {
   const [draggingMetabolism, setDraggingMetabolism] = useState<string | null>(null);
   const draggedMetabolismRef = useRef<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const databaseFileRef = useRef<HTMLInputElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const metabolisms = useMemo(() => [...new Set(currentDatabase.map((entry) => entry.metabolism))], [currentDatabase]);
 
   const baseMatrix = useMemo(() => {
     if (!result || result.errors.length) return null;
     const visible = new Set(Object.entries(settings.visibleMetabolisms).filter(([, isVisible]) => isVisible).map(([metabolism]) => metabolism));
-    const nextMatrix = buildMatrix(database, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
+    const nextMatrix = buildMatrix(currentDatabase, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
     const ranks = new Map(settings.metabolismOrder.map((metabolism, index) => [metabolism, index]));
     return { ...nextMatrix, rows: nextMatrix.rows.toSorted((a, b) => (ranks.get(a.metabolism) ?? Number.MAX_SAFE_INTEGER) - (ranks.get(b.metabolism) ?? Number.MAX_SAFE_INTEGER) || a.sourceIndex - b.sourceIndex) };
-  }, [result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms, settings.metabolismOrder]);
+  }, [currentDatabase, result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms, settings.metabolismOrder]);
 
   const matrix = useMemo(() => {
     if (!baseMatrix) return null;
@@ -149,7 +176,7 @@ function GenoCapWorkspace() {
   async function loadAnnotations(name: string, readText: () => Promise<string>, isExample = false, kind: FileKind = fileKind) {
     setLoading(true); setCopied(false); setFileName(name); setUsingExample(isExample); setResult(null);
     await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
-    try { setResult(parseAnnotations(await readText(), kind, database)); }
+    try { setResult(parseAnnotations(await readText(), kind, currentDatabase)); }
     catch (error) {
       setResult({ records: [], genomes: [], summary: { records: 0, genomes: 0, uniqueKos: 0, matchedKos: 0 }, errors: [{ line: 1, field: 'file', value: '', reason: error instanceof Error ? error.message : 'Unable to read this file.' }] });
     } finally { setLoading(false); }
@@ -159,6 +186,38 @@ function GenoCapWorkspace() {
     const file = event.target.files?.[0];
     if (!file) return;
     await loadAnnotations(file.name, () => file.text());
+  }
+
+  async function handleDatabaseFile(event: ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setDatabaseLoading(true);
+    setDatabaseErrors([]);
+    setDatabaseErrorFileName(file.name);
+    await new Promise<void>((resolve) => requestAnimationFrame(() => resolve()));
+    try {
+      const parsed = parseDatabaseTsv(await file.text());
+      if (parsed.errors.length) {
+        setDatabaseErrors(parsed.errors);
+        return;
+      }
+      const merged = mergeDatabaseEntries(currentDatabase, parsed.entries, databaseMode);
+      setCurrentDatabase(merged.entries);
+      setDatabaseName(databaseMode === 'append' ? `${file.name} + existing` : file.name);
+      setSettings((current) => reconcileSettingsWithDatabase(current, merged.entries));
+      setResult((current) => current ? refreshDatabaseMatches(current, merged.entries) : current);
+      const duplicateNote = merged.duplicatesRemoved ? ` ${merged.duplicatesRemoved.toLocaleString()} duplicate record${merged.duplicatesRemoved === 1 ? '' : 's'} removed.` : '';
+      void message.success(`Database updated with ${merged.entries.length.toLocaleString()} records.${duplicateNote}`, 4);
+    } catch (error) {
+      setDatabaseErrors([{ line: 1, field: 'file', value: '', reason: error instanceof Error ? error.message : 'Unable to read this database file.' }]);
+    } finally {
+      setDatabaseLoading(false);
+      event.target.value = '';
+    }
+  }
+
+  function viewCurrentDatabase() {
+    if (!openDatabaseViewer(currentDatabase)) void message.error('The database window was blocked. Allow pop-ups for this site and try again.');
   }
 
   async function loadExampleFile() {
@@ -217,6 +276,7 @@ function GenoCapWorkspace() {
         </header>
 
         <input ref={fileRef} id="annotation-file" aria-label="Annotation file" type="file" accept={fileKind === 'tsv' ? '.tsv,text/tab-separated-values' : '.csv,text/csv'} onChange={handleFile} className="sr-only" />
+        <input ref={databaseFileRef} id="database-file" aria-label="Database TSV file" type="file" accept=".tsv,text/tab-separated-values" onChange={handleDatabaseFile} className="sr-only" />
 
         <div className="sidebar-stack">
           {result && !result.errors.length ? <Card size="small" title={<SectionTitle>Loaded dataset</SectionTitle>}>
@@ -241,6 +301,21 @@ function GenoCapWorkspace() {
             {fileName ? <p className="file-name mt-2" title={fileName}>{fileName}</p> : null}
           </Card>}
 
+          <Card size="small" title={<SectionTitle>Database</SectionTitle>} extra={<Button type="link" size="small" onClick={viewCurrentDatabase}>View database</Button>}>
+            <Flex align="center" justify="space-between" gap={8}>
+              <div className="database-summary">
+                <strong>{currentDatabase.length.toLocaleString()} records</strong>
+                <span title={databaseName}>{databaseName}</span>
+              </div>
+              <Popover title="Database TSV format" content={<DatabaseFormatExample />} trigger={['hover', 'click']} placement="rightTop">
+                <Button type="text" size="small" className="annotation-help-button" icon={<QuestionCircleFilled />} aria-label="Show database file format" />
+              </Popover>
+            </Flex>
+            <Segmented className="database-mode" block value={databaseMode} options={[{ label: 'Append', value: 'append' }, { label: 'Replace', value: 'replace' }]} onChange={(value) => setDatabaseMode(value as 'append' | 'replace')} />
+            <Button block type="primary" onClick={() => databaseFileRef.current?.click()} loading={databaseLoading}>Upload database TSV</Button>
+            <p className="database-mode-hint">{databaseMode === 'append' ? 'Add valid rows to the current database; exact duplicates are removed.' : 'Use only the uploaded rows after validation succeeds.'}</p>
+          </Card>
+
           <Card size="small" title={<SectionTitle>View mode</SectionTitle>}>
             <Segmented block value={settings.mode} options={[{ label: 'Module', value: 'module' }, { label: 'Gene', value: 'gene' }, { label: 'Key gene', value: 'key' }]} onChange={(value) => update('mode', value as ViewMode)} />
             <div className="settings-list">
@@ -250,7 +325,7 @@ function GenoCapWorkspace() {
             </div>
           </Card>
 
-          <Card size="small" title={<SectionTitle>Appearance</SectionTitle>} extra={<Button type="link" size="small" onClick={() => setSettings(initialSettings)}>Reset</Button>}>
+          <Card size="small" title={<SectionTitle>Appearance</SectionTitle>} extra={<Button type="link" size="small" onClick={() => setSettings(createInitialSettings(currentDatabase))}>Reset</Button>}>
             <Field label="Cell shape"><Select value={settings.shape} onChange={(value) => update('shape', value)} options={[{ label: 'Circle', value: 'circle' }, { label: 'Square', value: 'square' }]} /></Field>
             <Field label="Metabolism colors"><Select value={settings.metabolismColorTarget} onChange={(value) => update('metabolismColorTarget', value)} options={[{ label: 'Background', value: 'background' }, { label: 'Cell fill', value: 'cell' }]} /></Field>
             <Range label="Cell size" value={settings.cellSize} min={10} max={28} suffix="px" onChange={(value) => update('cellSize', value)} />
@@ -266,22 +341,31 @@ function GenoCapWorkspace() {
 
       <section className="genocap-workspace">
         {result?.errors.length ? <ErrorPanel fileName={fileName} result={result} copied={copied} onCopy={copyErrors} /> : null}
-        <Card className="matrix-card" title={<div><SectionTitle>Functional matrix</SectionTitle><h2>{matrix ? `${modeTitle(settings.mode)} · ${matrix.rows.length.toLocaleString()} rows` : 'Genome feature landscape'}</h2></div>} extra={matrix ? <Flex wrap gap={8} align="center">
-          <Tooltip title="Zoom out"><Button onClick={() => update('zoom', Math.max(0.5, +(settings.zoom - 0.1).toFixed(1)))} aria-label="Zoom out">−</Button></Tooltip>
-          <Tag className="zoom-tag">{Math.round(settings.zoom * 100)}%</Tag>
-          <Tooltip title="Zoom in"><Button onClick={() => update('zoom', Math.min(2, +(settings.zoom + 0.1).toFixed(1)))} aria-label="Zoom in">+</Button></Tooltip>
-          <Button onClick={() => update('zoom', 1)}>Reset view</Button>
-          <Divider orientation="vertical" className="toolbar-divider" />
-          <Tooltip title={`Current rotation: ${settings.rotation}°`}><Button onClick={rotateFigure} aria-label="Rotate figure clockwise 90 degrees">Rotate 90°</Button></Tooltip>
-          <Tooltip title="Exchange feature and metabolism labels between the two sides"><Button type={settings.swapSideLabels ? 'primary' : 'default'} onClick={() => update('swapSideLabels', !settings.swapSideLabels)} aria-pressed={settings.swapSideLabels}>Swap labels</Button></Tooltip>
-          <Divider orientation="vertical" className="toolbar-divider" />
-          <Button onClick={() => setFeatureEditorOpen(true)}>Feature Editor</Button>
-          <Divider orientation="vertical" className="toolbar-divider" />
-          <Button onClick={exportCsv}>CSV</Button>
-          <Button onClick={() => svgRef.current && downloadSvg(svgRef.current, `genocap-${settings.mode}-matrix.svg`)}>SVG</Button>
-          <Button onClick={exportPng} loading={exporting}>PNG</Button>
-        </Flex> : null}>
-          {!result ? <EmptyState fileKind={fileKind} /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} featureFilterEmpty={Boolean(baseMatrix?.rows.length)} />}
+        <Card className="matrix-card" title={<div><SectionTitle>Functional matrix</SectionTitle><h2>{matrix ? `${modeTitle(settings.mode)} · ${matrix.rows.length.toLocaleString()} rows` : 'Genome feature landscape'}</h2></div>} extra={matrix ? <div className="matrix-toolbar" aria-label="Matrix tools">
+          <div className="toolbar-group toolbar-group-zoom" role="group" aria-label="View zoom">
+            <Tooltip title="Zoom out"><Button className="toolbar-icon-button" icon={<MinusOutlined />} onClick={() => update('zoom', Math.max(0.5, +(settings.zoom - 0.1).toFixed(1)))} aria-label="Zoom out" /></Tooltip>
+            <Tag className="zoom-tag" aria-label={`Current zoom ${Math.round(settings.zoom * 100)} percent`}>{Math.round(settings.zoom * 100)}%</Tag>
+            <Tooltip title="Zoom in"><Button className="toolbar-icon-button" icon={<PlusOutlined />} onClick={() => update('zoom', Math.min(2, +(settings.zoom + 0.1).toFixed(1)))} aria-label="Zoom in" /></Tooltip>
+            <Button icon={<ReloadOutlined />} onClick={() => update('zoom', 1)}>Reset</Button>
+          </div>
+
+          <div className="toolbar-group" role="group" aria-label="Figure layout">
+            <Tooltip title={`Rotate clockwise · Current rotation ${settings.rotation}°`}><Button icon={<RotateRightOutlined />} onClick={rotateFigure} aria-label="Rotate figure clockwise 90 degrees">Rotate</Button></Tooltip>
+            <Tooltip title="Exchange feature and metabolism labels between the two sides"><Button type={settings.swapSideLabels ? 'primary' : 'default'} icon={<SwapOutlined />} onClick={() => update('swapSideLabels', !settings.swapSideLabels)} aria-pressed={settings.swapSideLabels}>Swap labels</Button></Tooltip>
+          </div>
+
+          <div className="toolbar-group" role="group" aria-label="Edit matrix content">
+            <Button icon={<EditOutlined />} onClick={() => setFeatureEditorOpen(true)}>Features</Button>
+          </div>
+
+          <div className="toolbar-group toolbar-group-export" role="group" aria-label="Export matrix">
+            <span className="toolbar-group-label"><DownloadOutlined /> Export</span>
+            <Tooltip title="Export matrix data as CSV"><Button icon={<TableOutlined />} onClick={exportCsv}>CSV</Button></Tooltip>
+            <Tooltip title="Export scalable vector image"><Button icon={<CodeOutlined />} onClick={() => svgRef.current && downloadSvg(svgRef.current, `genocap-${settings.mode}-matrix.svg`)}>SVG</Button></Tooltip>
+            <Tooltip title="Export high-resolution image"><Button icon={<PictureOutlined />} onClick={exportPng} loading={exporting}>PNG</Button></Tooltip>
+          </div>
+        </div> : null}>
+          {!result ? <EmptyState /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} featureFilterEmpty={Boolean(baseMatrix?.rows.length)} />}
         </Card>
       </section>
       <FeatureEditor
@@ -291,6 +375,7 @@ function GenoCapWorkspace() {
         onVisibilityChange={updateFeatureVisibility}
         onClose={() => setFeatureEditorOpen(false)}
       />
+      <DatabaseErrorModal errors={databaseErrors} fileName={databaseErrorFileName} onClose={() => setDatabaseErrors([])} />
     </div>
   </main>;
 }
@@ -313,6 +398,26 @@ function AnnotationFormatExample() {
     </table>
     <p>The file must include the headers shown above.</p>
   </div>;
+}
+
+function DatabaseFormatExample() {
+  return <div className="annotation-format-example database-format-example">
+    <table className="annotation-example-table">
+      <thead><tr><th>Metabolism</th><th>Pathway</th><th>Module</th><th>KO</th><th>gene_name</th><th>if_key</th></tr></thead>
+      <tbody>
+        <tr><td>Nitrogen cycle</td><td>Denitrification</td><td>Nitrate → Nitrite</td><td>K00370</td><td>narG</td><td>yes</td></tr>
+        <tr><td>Carbon source utilization</td><td>Polysaccharides degradation</td><td>Chitin degrading</td><td>K01183, K13381</td><td>chitinase</td><td>yes</td></tr>
+      </tbody>
+    </table>
+    <p>All six headers are required. A KO cell accepts one or more K plus five-digit identifiers separated by commas, semicolons, or pipes. Multiple KOs in one cell are alternatives, so any one match satisfies that database requirement. <code>if_key</code> accepts yes, no, or blank. Extra columns are allowed.</p>
+  </div>;
+}
+
+function DatabaseErrorModal({ errors, fileName, onClose }: { errors: DatabaseValidationError[]; fileName: string; onClose: () => void }) {
+  return <Modal title="Database validation failed" open={errors.length > 0} onCancel={onClose} footer={<Button type="primary" onClick={onClose}>Close</Button>} width={760}>
+    <Alert type="error" showIcon title={`${errors.length} ${errors.length === 1 ? 'issue' : 'issues'} found${fileName ? ` in ${fileName}` : ''}`} description="The current database was not changed. Fix every issue, then upload the TSV file again." />
+    <div className="database-error-list">{errors.map((error, index) => <div className="database-error-item" key={`${error.line}-${error.field}-${index}`}><Flex gap={12} align="flex-start"><Tag color="error">Line {error.line}</Tag><div><strong>{error.field}</strong><p>{error.reason}</p>{error.value ? <code>{error.value}</code> : null}</div></Flex></div>)}</div>
+  </Modal>;
 }
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
@@ -396,10 +501,64 @@ function ErrorPanel({ fileName, result, copied, onCopy }: { fileName: string; re
   return <Alert className="error-panel" type="error" showIcon message={`We found ${result.errors.length.toLocaleString()} formatting ${result.errors.length === 1 ? 'issue' : 'issues'} in ${fileName}`} description={<><p>Analysis is paused. Correct every listed row and upload the file again.</p><Button danger size="small" onClick={onCopy}>{copied ? 'Copied' : 'Copy error list'}</Button><List size="small" className="error-list" dataSource={result.errors} renderItem={(error) => <List.Item><Flex gap={12} align="flex-start"><Tag color="error">Line {error.line}</Tag><div><strong>{error.field}</strong><p>{error.reason}</p>{error.value ? <code>{error.value}</code> : null}</div></Flex></List.Item>} /></>} />;
 }
 
-function EmptyState({ fileKind }: { fileKind: FileKind }) {
-  return <div className="empty-state"><Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<div><h2>Bring your KEGG annotations into view</h2><p>Upload a {fileKind.toUpperCase()} file to compare modules, genes and key metabolic features across every genome—without sending data anywhere.</p><Space wrap><Tag>LF + CRLF</Tag><Tag>Multiple KOs</Tag><Tag>SVG · PNG · CSV</Tag></Space></div>} /></div>;
+function EmptyState() {
+  return <div className="empty-state welcome-state">
+    <div className="welcome-state-content">
+      <h2>Explore genome capabilities from KEGG annotations</h2>
+      <p>Upload a TSV/CSV table to compare genes and pathways across genomes</p>
+      <div className="welcome-example-flow">
+        <div className="welcome-example-column">
+          <div className="flow-panel-heading">
+            <h3 id="example-input-title" className="flow-panel-title">Example input</h3>
+            <span className="flow-format-tag">TSV/CSV</span>
+          </div>
+          <section className="welcome-example-card welcome-example-input" aria-labelledby="example-input-title">
+            <AnnotationFormatExample />
+          </section>
+        </div>
+        <div className="example-flow-arrow" aria-hidden="true">
+          <svg viewBox="0 0 48 24"><path d="M3 12h39m-8-8 8 8-8 8" /></svg>
+        </div>
+        <div className="welcome-example-column">
+          <div className="flow-panel-heading">
+            <h3 id="example-output-title" className="flow-panel-title">Example output</h3>
+            <span className="flow-format-tag">PNG/SVG</span>
+          </div>
+          <figure className="welcome-example-card welcome-result-preview" aria-labelledby="example-output-title">
+            <div className="result-preview-frame">
+              <Image src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/genocap-result-example_2048.jpg`} alt="Preview of a GenoCap metabolic capability matrix" width={1284} height={2048} loading="eager" />
+              <div className="result-preview-fade" aria-hidden="true" />
+            </div>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>;
 }
 
 function BlockedState() { return <div className="empty-state"><Empty description={<div><h2>Visualization paused</h2><p>Resolve the file issues listed above, then upload it again.</p></div>} /></div>; }
 function NoFeatures({ showAll, noMetabolismSelected, featureFilterEmpty }: { showAll: boolean; noMetabolismSelected: boolean; featureFilterEmpty: boolean }) { return <div className="empty-state"><Empty description={<div><h2>No features to display</h2><p>{noMetabolismSelected ? 'Select at least one metabolism group in Appearance.' : featureFilterEmpty ? 'All features are hidden. Open Feature Editor to select the features you want to display.' : showAll ? 'The selected database view contains no evaluable rows.' : 'No uploaded KO matched this view. Try including unmatched features, or choose another mode.'}</p></div>} /></div>; }
+
+function reconcileSettingsWithDatabase(current: VisualizationSettings, database: DatabaseEntry[]): VisualizationSettings {
+  const metabolisms = [...new Set(database.map((entry) => entry.metabolism))];
+  const existingOrder = current.metabolismOrder.filter((metabolism) => metabolisms.includes(metabolism));
+  const preferredNew = DEFAULT_METABOLISM_ORDER.filter((metabolism) => metabolisms.includes(metabolism) && !existingOrder.includes(metabolism));
+  const remainingNew = metabolisms.filter((metabolism) => !existingOrder.includes(metabolism) && !preferredNew.includes(metabolism as typeof DEFAULT_METABOLISM_ORDER[number]));
+  return {
+    ...current,
+    metabolismOrder: [...existingOrder, ...preferredNew, ...remainingNew],
+    metabolismColors: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, current.metabolismColors[metabolism] ?? DEFAULT_METABOLISM_COLORS[metabolism] ?? '#d3d3d3'])),
+    visibleMetabolisms: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, current.visibleMetabolisms[metabolism] ?? true])),
+    visibleFeatures: {},
+  };
+}
+
+function refreshDatabaseMatches(result: ParsedAnnotations, database: DatabaseEntry[]): ParsedAnnotations {
+  if (result.errors.length) return result;
+  const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
+  const uploadedKos = new Set(result.records.flatMap((record) => record.kos));
+  const matchedKos = [...uploadedKos].filter((ko) => databaseKos.has(ko)).length;
+  return { ...result, summary: { ...result.summary, matchedKos } };
+}
+
 function modeTitle(mode: ViewMode) { return mode === 'module' ? 'Module completeness' : mode === 'gene' ? 'Gene presence' : 'Key gene presence'; }

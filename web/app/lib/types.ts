@@ -47,7 +47,7 @@ export interface MatrixCell {
   rawValue: number;
   hits: number;
   total: number;
-  matchedGenes: { geneId: string; geneName: string }[];
+  matchedGenes: { geneId: string; ko: string; geneName: string }[];
 }
 
 export interface FeatureRow {
