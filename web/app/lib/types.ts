@@ -95,4 +95,5 @@ export interface VisualizationSettings {
   metabolismColors: Record<string, string>;
   metabolismOrder: string[];
   visibleMetabolisms: Record<string, boolean>;
+  visibleFeatures: Partial<Record<ViewMode, Record<string, boolean>>>;
 }

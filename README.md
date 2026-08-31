@@ -51,6 +51,16 @@ Select TSV or CSV in the interface, then upload a file containing the exact head
 
 The supplied [doc/input_annotation.tsv](doc/input_annotation.tsv) file can be used as a complete example.
 
+| gene | genome | ko |
+| --- | --- | --- |
+| NC_019977.1_1 | GCF_000328665.1 | K10725 |
+| NC_019977.1_2 | GCF_000328665.1 | K13280 |
+| NC_019977.1_3 | GCF_000328665.1 | K00936; K07718 |
+| contig01_1 | MAG_001 | K06176 |
+| contig01_2 | MAG_001 | |
+| contig01_3 | MAG_001 | K01531, K01537 |
+
+
 ## Project structure
 
 - `web/` — Next.js and Ant Design application.
@@ -85,4 +95,4 @@ Lin, H. (2026). GenoCap (Version 0.5) [Web application]. Available at https://gi
 ...🧙‍♂️🧬
 
 [link]: https://silentgene.github.io/GenoCap/ 'Open GenoCap Online App'
-[Button Click]: https://img.shields.io/badge/Open_GenoCap!-37a779?style=for-the-badge
+[Button Click]: https://img.shields.io/badge/Run_GenoCap!-37a779?style=for-the-badge

@@ -88,6 +88,18 @@ code, .font-mono { font-family: var(--font-jetbrains-mono), ui-monospace, Menlo,
 .metabolism-drag-handle svg { width: 12px; height: 18px; }
 .zoom-tag { min-width: 52px; margin: 0; text-align: center; font-family: var(--font-jetbrains-mono), monospace; }
 
+.feature-editor-description { margin: 0 0 14px; color: #595959; font-size: 13px; }
+.feature-editor-list { max-height: min(62vh, 620px); overflow-y: auto; padding-right: 6px; scrollbar-color: #bfbfbf #f5f5f5; scrollbar-width: thin; }
+.feature-editor-group { padding: 12px 0; border-top: 1px solid #f0f0f0; }
+.feature-editor-group:first-child { padding-top: 2px; border-top: 0; }
+.feature-editor-parent { display: flex; align-items: flex-start; color: #262626; }
+.feature-editor-parent > span:last-child { display: flex; min-width: 0; flex: 1; align-items: baseline; justify-content: space-between; gap: 12px; }
+.feature-editor-parent strong { line-height: 20px; }
+.feature-editor-parent span span { flex: 0 0 auto; color: #8c8c8c; font-size: 11px; font-weight: 400; }
+.feature-editor-children { display: grid; margin: 9px 0 0 24px; gap: 7px; }
+.feature-editor-children .ant-checkbox-wrapper { align-items: flex-start; color: #434343; font-size: 13px; line-height: 19px; }
+.feature-editor-children .ant-checkbox-wrapper > span:last-child { overflow-wrap: anywhere; }
+
 .panfunc-workspace { min-width: 0; padding: 12px; }
 .matrix-card { min-height: calc(100vh - 24px); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.04); }
 .matrix-card > .ant-card-head { min-height: 72px; padding: 0 20px; }

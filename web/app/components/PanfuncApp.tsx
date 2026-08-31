@@ -13,6 +13,7 @@ import {
   Empty,
   Flex,
   List,
+  Modal,
   Popover,
   Segmented,
   Select,
@@ -23,13 +24,14 @@ import {
   Tag,
   Tooltip,
 } from 'antd';
+import Image from 'next/image';
 import { useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
 import databaseJson from '../data/panfunc-db.json';
 import { clusterGenomes } from '../lib/cluster';
 import { downloadPng, downloadSvg, downloadText, matrixToCsv } from '../lib/export';
 import { parseAnnotations } from '../lib/input';
 import { buildMatrix, DEFAULT_METABOLISM_COLORS, DEFAULT_METABOLISM_ORDER } from '../lib/matrix';
-import type { DatabaseEntry, FigureRotation, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
+import type { DatabaseEntry, FeatureRow, FigureRotation, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
 import MatrixSvg, { MatrixStickyHeader } from './MatrixSvg';
 
 const database = databaseJson as DatabaseEntry[];
@@ -60,6 +62,7 @@ const initialSettings: VisualizationSettings = {
   clustering: false, cellSize: 17, fontSize: 11, zoom: 1, rotation: 0, swapSideLabels: false,
   presentColor: '#636363', absentColor: '#ffffff', metabolismColors: { ...DEFAULT_METABOLISM_COLORS }, metabolismOrder: [...defaultMetabolismOrder],
   visibleMetabolisms: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])),
+  visibleFeatures: {},
 };
 
 export default function PanfuncApp() {
@@ -76,19 +79,26 @@ function PanfuncWorkspace() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
   const [exporting, setExporting] = useState(false);
+  const [featureEditorOpen, setFeatureEditorOpen] = useState(false);
   const [settings, setSettings] = useState<VisualizationSettings>(initialSettings);
   const [draggingMetabolism, setDraggingMetabolism] = useState<string | null>(null);
   const draggedMetabolismRef = useRef<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
-  const matrix = useMemo(() => {
+  const baseMatrix = useMemo(() => {
     if (!result || result.errors.length) return null;
     const visible = new Set(Object.entries(settings.visibleMetabolisms).filter(([, isVisible]) => isVisible).map(([metabolism]) => metabolism));
     const nextMatrix = buildMatrix(database, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
     const ranks = new Map(settings.metabolismOrder.map((metabolism, index) => [metabolism, index]));
     return { ...nextMatrix, rows: nextMatrix.rows.toSorted((a, b) => (ranks.get(a.metabolism) ?? Number.MAX_SAFE_INTEGER) - (ranks.get(b.metabolism) ?? Number.MAX_SAFE_INTEGER) || a.sourceIndex - b.sourceIndex) };
   }, [result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms, settings.metabolismOrder]);
+
+  const matrix = useMemo(() => {
+    if (!baseMatrix) return null;
+    const visibility = settings.visibleFeatures[settings.mode] ?? {};
+    return { ...baseMatrix, rows: baseMatrix.rows.filter((row) => visibility[row.id] !== false) };
+  }, [baseMatrix, settings.mode, settings.visibleFeatures]);
 
   const clustered = useMemo(() => {
     if (!matrix || !settings.clustering) return { order: matrix?.genomes ?? [], root: undefined };
@@ -99,6 +109,13 @@ function PanfuncWorkspace() {
   const rotateFigure = () => setSettings((current) => ({ ...current, rotation: ((current.rotation + 90) % 360) as FigureRotation }));
   const chooseFile = () => fileRef.current?.click();
   const changeFileKind = (kind: FileKind) => { setFileKind(kind); if (fileRef.current) fileRef.current.value = ''; };
+
+  function updateFeatureVisibility(visibility: Record<string, boolean>) {
+    setSettings((current) => ({
+      ...current,
+      visibleFeatures: { ...current.visibleFeatures, [current.mode]: visibility },
+    }));
+  }
 
   function reorderMetabolism(source: string, target: string) {
     if (source === target) return;
@@ -191,7 +208,7 @@ function PanfuncWorkspace() {
       <aside className="panfunc-sidebar">
         <header className="panfunc-brand">
           <div className="brand-row">
-            <img className="brand-mark" src="./favicon.svg" alt="" />
+            <Image className="brand-mark" src="/favicon.svg" alt="" width={38} height={38} priority />
             <div className="brand-copy"><h1>GenoCap</h1><p>Explore Genome Capabilities</p></div>
             <a className="github-link" href="https://github.com/SilentGene/GenoCap" target="_blank" rel="noreferrer" aria-label="View GenoCap on GitHub" title="View source on GitHub">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.41-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.94 10.94 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.38-5.29 5.67.42.36.78 1.06.78 2.14v3.27c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg>
@@ -258,13 +275,22 @@ function PanfuncWorkspace() {
           <Tooltip title={`Current rotation: ${settings.rotation}°`}><Button onClick={rotateFigure} aria-label="Rotate figure clockwise 90 degrees">Rotate 90°</Button></Tooltip>
           <Tooltip title="Exchange feature and metabolism labels between the two sides"><Button type={settings.swapSideLabels ? 'primary' : 'default'} onClick={() => update('swapSideLabels', !settings.swapSideLabels)} aria-pressed={settings.swapSideLabels}>Swap labels</Button></Tooltip>
           <Divider orientation="vertical" className="toolbar-divider" />
+          <Button onClick={() => setFeatureEditorOpen(true)}>Feature Editor</Button>
+          <Divider orientation="vertical" className="toolbar-divider" />
           <Button onClick={exportCsv}>CSV</Button>
           <Button onClick={() => svgRef.current && downloadSvg(svgRef.current, `genocap-${settings.mode}-matrix.svg`)}>SVG</Button>
           <Button onClick={exportPng} loading={exporting}>PNG</Button>
         </Flex> : null}>
-          {!result ? <EmptyState fileKind={fileKind} /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} />}
+          {!result ? <EmptyState fileKind={fileKind} /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} featureFilterEmpty={Boolean(baseMatrix?.rows.length)} />}
         </Card>
       </section>
+      <FeatureEditor
+        open={featureEditorOpen}
+        rows={baseMatrix?.rows ?? []}
+        visibility={settings.visibleFeatures[settings.mode] ?? {}}
+        onVisibilityChange={updateFeatureVisibility}
+        onClose={() => setFeatureEditorOpen(false)}
+      />
     </div>
   </main>;
 }
@@ -305,6 +331,46 @@ function ColorInput({ label, value, onChange }: { label: string; value: string; 
   return <Flex align="center" gap={8}><span className="color-label">{label}</span><ColorPicker value={value} format="hex" onChangeComplete={(color) => onChange(color.toHexString())} aria-label={`${label} color`} /></Flex>;
 }
 
+function FeatureEditor({ open, rows, visibility, onVisibilityChange, onClose }: { open: boolean; rows: FeatureRow[]; visibility: Record<string, boolean>; onVisibilityChange: (visibility: Record<string, boolean>) => void; onClose: () => void }) {
+  const groups = useMemo(() => {
+    const byMetabolism = new Map<string, FeatureRow[]>();
+    for (const row of rows) {
+      const group = byMetabolism.get(row.metabolism);
+      if (group) group.push(row);
+      else byMetabolism.set(row.metabolism, [row]);
+    }
+    return [...byMetabolism.entries()];
+  }, [rows]);
+  const isChecked = (id: string) => visibility[id] !== false;
+
+  function setFeature(id: string, checked: boolean) {
+    onVisibilityChange({ ...visibility, [id]: checked });
+  }
+
+  function setGroup(groupRows: FeatureRow[], checked: boolean) {
+    const next = { ...visibility };
+    for (const row of groupRows) next[row.id] = checked;
+    onVisibilityChange(next);
+  }
+
+  return <Modal title="Feature Editor" open={open} width={680} okText="Done" cancelButtonProps={{ style: { display: 'none' } }} onOk={onClose} onCancel={onClose}>
+    <p className="feature-editor-description">Choose which metabolisms and features appear in the current figure.</p>
+    <div className="feature-editor-list">
+      {groups.map(([metabolism, groupRows]) => {
+        const selectedCount = groupRows.filter((row) => isChecked(row.id)).length;
+        return <section className="feature-editor-group" key={metabolism}>
+          <Checkbox className="feature-editor-parent" checked={selectedCount === groupRows.length} indeterminate={selectedCount > 0 && selectedCount < groupRows.length} onChange={(event) => setGroup(groupRows, event.target.checked)}>
+            <strong>{metabolism}</strong><span>{selectedCount}/{groupRows.length}</span>
+          </Checkbox>
+          <div className="feature-editor-children">
+            {groupRows.map((row) => <Checkbox key={row.id} checked={isChecked(row.id)} onChange={(event) => setFeature(row.id, event.target.checked)}>{row.feature}</Checkbox>)}
+          </div>
+        </section>;
+      })}
+    </div>
+  </Modal>;
+}
+
 function MetabolismControl({ metabolism, checked, color, dragging, onDragStart, onDragMove, onDragEnd, onMove, onChecked, onColor }: { metabolism: string; checked: boolean; color: string; dragging: boolean; onDragStart: () => void; onDragMove: (target: string) => void; onDragEnd: () => void; onMove: (direction: -1 | 1) => void; onChecked: (checked: boolean) => void; onColor: (color: string) => void }) {
   function movePointer(event: ReactPointerEvent<HTMLButtonElement>) {
     if (!event.currentTarget.hasPointerCapture(event.pointerId)) return;
@@ -335,5 +401,5 @@ function EmptyState({ fileKind }: { fileKind: FileKind }) {
 }
 
 function BlockedState() { return <div className="empty-state"><Empty description={<div><h2>Visualization paused</h2><p>Resolve the file issues listed above, then upload it again.</p></div>} /></div>; }
-function NoFeatures({ showAll, noMetabolismSelected }: { showAll: boolean; noMetabolismSelected: boolean }) { return <div className="empty-state"><Empty description={<div><h2>No features to display</h2><p>{noMetabolismSelected ? 'Select at least one metabolism group in Appearance.' : showAll ? 'The selected database view contains no evaluable rows.' : 'No uploaded KO matched this view. Try including unmatched features, or choose another mode.'}</p></div>} /></div>; }
+function NoFeatures({ showAll, noMetabolismSelected, featureFilterEmpty }: { showAll: boolean; noMetabolismSelected: boolean; featureFilterEmpty: boolean }) { return <div className="empty-state"><Empty description={<div><h2>No features to display</h2><p>{noMetabolismSelected ? 'Select at least one metabolism group in Appearance.' : featureFilterEmpty ? 'All features are hidden. Open Feature Editor to select the features you want to display.' : showAll ? 'The selected database view contains no evaluable rows.' : 'No uploaded KO matched this view. Try including unmatched features, or choose another mode.'}</p></div>} /></div>; }
 function modeTitle(mode: ViewMode) { return mode === 'module' ? 'Module completeness' : mode === 'gene' ? 'Gene presence' : 'Key gene presence'; }
