@@ -1,5 +1,5 @@
-import PanfuncApp from './components/PanfuncApp';
+import GenoCapApp from './components/GenoCapApp';
 
 export default function Home() {
-  return <PanfuncApp />;
+  return <GenoCapApp />;
 }

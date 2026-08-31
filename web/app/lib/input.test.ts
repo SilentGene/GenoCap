@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import databaseJson from '../data/panfunc-db.json';
+import databaseJson from '../data/genocap-db.json';
 import { parseAnnotations, splitKoCell } from './input';
 import type { DatabaseEntry } from './types';
 

@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const sourcePath = resolve(here, '../../db/GenoCap_db.tsv');
-const outputPath = resolve(here, '../app/data/panfunc-db.json');
+const outputPath = resolve(here, '../app/data/genocap-db.json');
 const exampleSourcePath = resolve(here, '../../doc/input_annotation.tsv');
 const exampleOutputPath = resolve(here, '../public/input_annotation.tsv');
 const source = await readFile(sourcePath, 'utf8');

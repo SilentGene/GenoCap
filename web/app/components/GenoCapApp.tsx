@@ -26,7 +26,7 @@ import {
 } from 'antd';
 import Image from 'next/image';
 import { useMemo, useRef, useState, useSyncExternalStore, type ChangeEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react';
-import databaseJson from '../data/panfunc-db.json';
+import databaseJson from '../data/genocap-db.json';
 import { clusterGenomes } from '../lib/cluster';
 import { downloadPng, downloadSvg, downloadText, matrixToCsv } from '../lib/export';
 import { parseAnnotations } from '../lib/input';
@@ -65,13 +65,13 @@ const initialSettings: VisualizationSettings = {
   visibleFeatures: {},
 };
 
-export default function PanfuncApp() {
+export default function GenoCapApp() {
   const mounted = useSyncExternalStore(() => () => undefined, () => true, () => false);
   if (!mounted) return null;
-  return <ConfigProvider theme={theme}><AntApp><PanfuncWorkspace /></AntApp></ConfigProvider>;
+  return <ConfigProvider theme={theme}><AntApp><GenoCapWorkspace /></AntApp></ConfigProvider>;
 }
 
-function PanfuncWorkspace() {
+function GenoCapWorkspace() {
   const [fileKind, setFileKind] = useState<FileKind>('tsv');
   const [result, setResult] = useState<ParsedAnnotations | null>(null);
   const [fileName, setFileName] = useState('');
@@ -203,12 +203,12 @@ function PanfuncWorkspace() {
       </div>
     </section>;
 
-  return <main className="panfunc-app">
-    <div className="panfunc-layout">
-      <aside className="panfunc-sidebar">
-        <header className="panfunc-brand">
+  return <main className="genocap-app">
+    <div className="genocap-layout">
+      <aside className="genocap-sidebar">
+        <header className="genocap-brand">
           <div className="brand-row">
-            <Image className="brand-mark" src="/favicon.svg" alt="" width={38} height={38} priority />
+            <Image className="brand-mark" src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}/favicon.svg`} alt="" width={38} height={38} priority />
             <div className="brand-copy"><h1>GenoCap</h1><p>Explore Genome Capabilities</p></div>
             <a className="github-link" href="https://github.com/SilentGene/GenoCap" target="_blank" rel="noreferrer" aria-label="View GenoCap on GitHub" title="View source on GitHub">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .7a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.22.7-3.9-1.37-3.9-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.78 1.2 1.78 1.2 1.04 1.78 2.72 1.27 3.38.97.1-.75.41-1.27.74-1.56-2.57-.29-5.27-1.28-5.27-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.94 10.94 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.71 5.38-5.29 5.67.42.36.78 1.06.78 2.14v3.27c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .7Z" /></svg>
@@ -264,7 +264,7 @@ function PanfuncWorkspace() {
         </div>
       </aside>
 
-      <section className="panfunc-workspace">
+      <section className="genocap-workspace">
         {result?.errors.length ? <ErrorPanel fileName={fileName} result={result} copied={copied} onCopy={copyErrors} /> : null}
         <Card className="matrix-card" title={<div><SectionTitle>Functional matrix</SectionTitle><h2>{matrix ? `${modeTitle(settings.mode)} · ${matrix.rows.length.toLocaleString()} rows` : 'Genome feature landscape'}</h2></div>} extra={matrix ? <Flex wrap gap={8} align="center">
           <Tooltip title="Zoom out"><Button onClick={() => update('zoom', Math.max(0.5, +(settings.zoom - 0.1).toFixed(1)))} aria-label="Zoom out">−</Button></Tooltip>
