@@ -2,7 +2,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "Nitrate -> Nitrite (narG)",
+    "module": "Nitrate => Nitrite (narG)",
     "ko": "K00370",
     "geneName": "narG",
     "isKey": true,
@@ -11,7 +11,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "Nitrate -> Nitrite (napAB)",
+    "module": "Nitrate => Nitrite (napAB)",
     "ko": "K02567",
     "geneName": "napA",
     "isKey": true,
@@ -20,7 +20,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "Nitrate -> Nitrite (napAB)",
+    "module": "Nitrate => Nitrite (napAB)",
     "ko": "K02568",
     "geneName": "napB",
     "isKey": false,
@@ -29,7 +29,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification;Anammox",
-    "module": "Nitrite-> N2O (nirSK)",
+    "module": "Nitrite=> N2O (nirSK)",
     "ko": "K15864",
     "geneName": "nirS",
     "isKey": true,
@@ -38,7 +38,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "Nitrite-> N2O (nirSK)",
+    "module": "Nitrite=> N2O (nirSK)",
     "ko": "K00368",
     "geneName": "nirK",
     "isKey": false,
@@ -47,7 +47,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "NO -> N2O (norBC)",
+    "module": "NO => N2O (norBC)",
     "ko": "K02305",
     "geneName": "norC",
     "isKey": true,
@@ -56,7 +56,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "NO -> N2O (norBC)",
+    "module": "NO => N2O (norBC)",
     "ko": "K04561",
     "geneName": "norB",
     "isKey": false,
@@ -65,7 +65,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Denitrification",
-    "module": "N2O -> N2 (nosZ)",
+    "module": "N2O => N2 (nosZ)",
     "ko": "K00376",
     "geneName": "nosZ",
     "isKey": true,
@@ -74,7 +74,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
-    "module": "Nitrite -> Ammonia (nirBD)",
+    "module": "Nitrite => Ammonia (nirBD)",
     "ko": "K00362",
     "geneName": "nirB",
     "isKey": true,
@@ -83,7 +83,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
-    "module": "Nitrite -> Ammonia (nirBD)",
+    "module": "Nitrite => Ammonia (nirBD)",
     "ko": "K00363",
     "geneName": "nirD",
     "isKey": false,
@@ -92,7 +92,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
-    "module": "Nitrite -> Ammonia (nrfAHD)",
+    "module": "Nitrite => Ammonia (nrfAHD)",
     "ko": "K03385",
     "geneName": "nrfA",
     "isKey": true,
@@ -101,7 +101,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
-    "module": "Nitrite -> Ammonia (nrfAHD)",
+    "module": "Nitrite => Ammonia (nrfAHD)",
     "ko": "K15876",
     "geneName": "nrfH",
     "isKey": false,
@@ -110,7 +110,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "Nitrite reduction to ammonia",
-    "module": "Nitrite -> Ammonia (nrfAHD)",
+    "module": "Nitrite => Ammonia (nrfAHD)",
     "ko": "K04015",
     "geneName": "nrfD",
     "isKey": false,
@@ -245,7 +245,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
-    "module": "Ammonia -> Glutamine (glnA)",
+    "module": "Ammonia => Glutamine (glnA)",
     "ko": "K01915",
     "geneName": "glnA",
     "isKey": true,
@@ -254,7 +254,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
-    "module": "Glutamin -> Glutamate (gls)",
+    "module": "Glutamin => Glutamate (gls)",
     "ko": "K01425",
     "geneName": "glsA",
     "isKey": false,
@@ -263,7 +263,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
-    "module": "urease (ureAC)",
+    "module": "Urease (ureAC)",
     "ko": "K01430",
     "geneName": "ureA",
     "isKey": true,
@@ -272,7 +272,7 @@
   {
     "metabolism": "Nitrogen cycle",
     "pathway": "organic N metanolism",
-    "module": "urease (ureAC)",
+    "module": "Urease (ureAC)",
     "ko": "K01428",
     "geneName": "ureC",
     "isKey": false,
@@ -281,7 +281,7 @@
   {
     "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
-    "module": "sulfide -> sulfur (fccAB)",
+    "module": "Sulfide => Sulfur (fccAB)",
     "ko": "K17229",
     "geneName": "fccB",
     "isKey": false,
@@ -290,7 +290,7 @@
   {
     "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
-    "module": "sulfide -> sulfur (fccAB)",
+    "module": "Sulfide => Sulfur (fccAB)",
     "ko": "K17230",
     "geneName": "fccA",
     "isKey": true,
@@ -299,7 +299,7 @@
   {
     "metabolism": "Sulfur cycle",
     "pathway": "Sulfide oxidation",
-    "module": "sulfide -> sulfur (sqr)",
+    "module": "Sulfide => Sulfur (sqr)",
     "ko": "K17218",
     "geneName": "sqr",
     "isKey": true,
@@ -389,7 +389,7 @@
   {
     "metabolism": "Sulfur cycle",
     "pathway": "Thiosulfate disproportionation",
-    "module": "thiosulfate -> sulfite + H2S (phsA)",
+    "module": "Thiosulfate => Sulfite + H2S (phsA)",
     "ko": "K08352",
     "geneName": "phsA",
     "isKey": true,
@@ -542,7 +542,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl formate -> CO2 (fdhAB)",
+    "module": "Wood-Ljungdahl formate => CO2 (fdhAB)",
     "ko": "K05299",
     "geneName": "fdhA",
     "isKey": true,
@@ -551,7 +551,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl formate -> CO2 (fdhAB)",
+    "module": "Wood-Ljungdahl formate => CO2 (fdhAB)",
     "ko": "K15022",
     "geneName": "fdhB",
     "isKey": false,
@@ -560,7 +560,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO2 -> CO (cooFS)",
+    "module": "Wood-Ljungdahl CO2 => CO (cooFS)",
     "ko": "K00196",
     "geneName": "cooF",
     "isKey": false,
@@ -569,7 +569,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO2 -> CO (cooFS)",
+    "module": "Wood-Ljungdahl CO2 => CO (cooFS)",
     "ko": "K00198",
     "geneName": "cooS",
     "isKey": true,
@@ -578,7 +578,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
+    "module": "Wood-Ljungdahl CO => Acetyl-CoA (acsCBDE)",
     "ko": "K15023",
     "geneName": "acsE",
     "isKey": false,
@@ -587,7 +587,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
+    "module": "Wood-Ljungdahl CO => Acetyl-CoA (acsCBDE)",
     "ko": "K14138",
     "geneName": "acsB",
     "isKey": true,
@@ -596,7 +596,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
+    "module": "Wood-Ljungdahl CO => Acetyl-CoA (acsCBDE)",
     "ko": "K00194",
     "geneName": "cdhD/ascD",
     "isKey": true,
@@ -605,7 +605,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> Acetyl-CoA (acsCBDE)",
+    "module": "Wood-Ljungdahl CO => Acetyl-CoA (acsCBDE)",
     "ko": "K00197",
     "geneName": "cdhE/ascC",
     "isKey": false,
@@ -614,7 +614,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> CO2 (cdhAB)",
+    "module": "Wood-Ljungdahl CO => CO2 (cdhAB)",
     "ko": "K00192",
     "geneName": "cdhA",
     "isKey": true,
@@ -623,7 +623,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "Wood-Ljungdahl",
-    "module": "Wood-Ljungdahl CO -> CO2 (cdhAB)",
+    "module": "Wood-Ljungdahl CO => CO2 (cdhAB)",
     "ko": "K00195",
     "geneName": "cdhB",
     "isKey": false,
@@ -650,7 +650,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "DC-HB;HP-HB cycles",
-    "module": "DC-HB;HP-HB cycles",
+    "module": "DC-HB; HP-HB cycles",
     "ko": "K14534",
     "geneName": "abfD",
     "isKey": true,
@@ -659,7 +659,7 @@
   {
     "metabolism": "Carbon fixation",
     "pathway": "DC-HB;HP-HB cycles",
-    "module": "DC-HB;HP-HB cycles",
+    "module": "DC-HB; HP-HB cycles",
     "ko": "K15016",
     "geneName": "k15016",
     "isKey": false,
@@ -713,7 +713,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K01568",
     "geneName": "pdc",
     "isKey": true,
@@ -722,7 +722,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K13951",
     "geneName": "ADH1_7",
     "isKey": false,
@@ -731,7 +731,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K00114",
     "geneName": "exaA",
     "isKey": false,
@@ -740,7 +740,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K00002",
     "geneName": "aKR1A1",
     "isKey": false,
@@ -749,7 +749,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K04022",
     "geneName": "eutG",
     "isKey": false,
@@ -758,7 +758,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K00128",
     "geneName": "aLDH",
     "isKey": true,
@@ -767,7 +767,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "glycolysis",
-    "module": "glycolysis",
+    "module": "Glycolysis",
     "ko": "K00129",
     "geneName": "aLDH3",
     "isKey": false,
@@ -785,7 +785,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
+    "module": "Lactate fermentation",
     "ko": "K00016",
     "geneName": "ldh",
     "isKey": true,
@@ -794,7 +794,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
+    "module": "Lactate fermentation",
     "ko": "K00101",
     "geneName": "lldD",
     "isKey": false,
@@ -803,7 +803,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "pyruvate metabolism",
-    "module": "lactate fermentation",
+    "module": "Lactate fermentation",
     "ko": "K00102",
     "geneName": "dld",
     "isKey": false,
@@ -812,7 +812,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "pyruvate metabolism",
-    "module": "pyruvate metabolism",
+    "module": "Pyruvate metabolism",
     "ko": "K00656",
     "geneName": "pflD",
     "isKey": false,
@@ -902,7 +902,7 @@
   {
     "metabolism": "Fermentation and TCA",
     "pathway": "Acetate to acetyl-CoA",
-    "module": "Acetate -> acetyl-CoA (ACS)",
+    "module": "Acetate => acetyl-CoA (ACS)",
     "ko": "K01895",
     "geneName": "acs",
     "isKey": true,
@@ -1181,7 +1181,7 @@
   {
     "metabolism": "C1 and methane metabolism",
     "pathway": "Methyl amine -> formaldehyde",
-    "module": "Methyl amine -> formaldehyde (mauAB)",
+    "module": "Methyl amine => formaldehyde (mauAB)",
     "ko": "K15228",
     "geneName": "mauA",
     "isKey": true,
@@ -1190,7 +1190,7 @@
   {
     "metabolism": "C1 and methane metabolism",
     "pathway": "Methyl amine -> formaldehyde",
-    "module": "Methyl amine -> formaldehyde (mauAB)",
+    "module": "Methyl amine => formaldehyde (mauAB)",
     "ko": "K15229",
     "geneName": "mauB",
     "isKey": false,
@@ -1577,7 +1577,7 @@
   {
     "metabolism": "C1 and methane metabolism",
     "pathway": "Methanogenesis;methane oxidation",
-    "module": "Acetoclastic CO -> CO2 (cooFS)",
+    "module": "Acetoclastic CO => CO2 (cooFS)",
     "ko": "K00196",
     "geneName": "cooF",
     "isKey": false,
@@ -1586,7 +1586,7 @@
   {
     "metabolism": "C1 and methane metabolism",
     "pathway": "Methanogenesis;methane oxidation",
-    "module": "Acetoclastic CO -> CO2 (cooFS)",
+    "module": "Acetoclastic CO => CO2 (cooFS)",
     "ko": "K00198",
     "geneName": "cooS",
     "isKey": true,
@@ -1838,7 +1838,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NADH-quinone oxidoreductase)",
-    "module": "Complex I (NADH-quinone oxidoreductase) (nuoABC)",
+    "module": "Complex I (nuoABC)",
     "ko": "K00330",
     "geneName": "nuoA",
     "isKey": true,
@@ -1847,7 +1847,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NADH-quinone oxidoreductase)",
-    "module": "Complex I (NADH-quinone oxidoreductase) (nuoABC)",
+    "module": "Complex I (nuoABC)",
     "ko": "K00331",
     "geneName": "nuoB",
     "isKey": false,
@@ -1856,7 +1856,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NADH-quinone oxidoreductase)",
-    "module": "Complex I (NADH-quinone oxidoreductase) (nuoABC)",
+    "module": "Complex I (nuoABC)",
     "ko": "K00332",
     "geneName": "nuoC",
     "isKey": false,
@@ -1865,7 +1865,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NAD(P)H-quinone oxidoreductase)",
-    "module": "Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)",
+    "module": "Complex I (ndhABC)",
     "ko": "K05572",
     "geneName": "ndhA",
     "isKey": true,
@@ -1874,7 +1874,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NAD(P)H-quinone oxidoreductase)",
-    "module": "Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)",
+    "module": "Complex I (ndhABC)",
     "ko": "K05573",
     "geneName": "ndhB",
     "isKey": false,
@@ -1883,7 +1883,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Complex I (NAD(P)H-quinone oxidoreductase)",
-    "module": "Complex I (NAD(P)H-quinone oxidoreductase) (ndhABC)",
+    "module": "Complex I (ndhABC)",
     "ko": "K05574",
     "geneName": "ndhC",
     "isKey": false,
@@ -1973,7 +1973,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02262",
     "geneName": "cOX3",
     "isKey": true,
@@ -1982,7 +1982,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02256",
     "geneName": "cOX1",
     "isKey": false,
@@ -1991,7 +1991,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02261",
     "geneName": "cOX2",
     "isKey": false,
@@ -2000,7 +2000,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02263",
     "geneName": "cOX4",
     "isKey": false,
@@ -2009,7 +2009,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02264",
     "geneName": "cOX5A",
     "isKey": false,
@@ -2018,7 +2018,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02265",
     "geneName": "cOX5B",
     "isKey": false,
@@ -2027,7 +2027,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02266",
     "geneName": "cOX6A",
     "isKey": false,
@@ -2036,7 +2036,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02267",
     "geneName": "cOX6B",
     "isKey": false,
@@ -2045,7 +2045,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02268",
     "geneName": "cOX6C",
     "isKey": false,
@@ -2054,7 +2054,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02269",
     "geneName": "cOX7",
     "isKey": false,
@@ -2063,7 +2063,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02271",
     "geneName": "cOX7B",
     "isKey": false,
@@ -2072,7 +2072,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02272",
     "geneName": "cOX7C",
     "isKey": false,
@@ -2081,7 +2081,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (Mitochondria)",
+    "module": "Cytochrome c oxidase (Mitochondria)",
     "ko": "K02273",
     "geneName": "cOX8",
     "isKey": false,
@@ -2090,7 +2090,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase assembly",
+    "module": "Cytochrome c oxidase assembly",
     "ko": "K02258",
     "geneName": "cOX11",
     "isKey": false,
@@ -2099,7 +2099,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase assembly",
+    "module": "Cytochrome c oxidase assembly",
     "ko": "K02259",
     "geneName": "cOX15",
     "isKey": false,
@@ -2108,7 +2108,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase assembly",
+    "module": "Cytochrome c oxidase assembly",
     "ko": "K02260",
     "geneName": "cOX17",
     "isKey": false,
@@ -2117,7 +2117,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome o ubiquinol oxidase (cyoABCD)",
+    "module": "Cytochrome o ubiquinol oxidase (cyoABCD)",
     "ko": "K02300",
     "geneName": "cyoD",
     "isKey": false,
@@ -2126,7 +2126,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome o ubiquinol oxidase (cyoABCD)",
+    "module": "Cytochrome o ubiquinol oxidase (cyoABCD)",
     "ko": "K02299",
     "geneName": "cyoC",
     "isKey": false,
@@ -2135,7 +2135,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome o ubiquinol oxidase (cyoABCD)",
+    "module": "Cytochrome o ubiquinol oxidase (cyoABCD)",
     "ko": "K02298",
     "geneName": "cyoB",
     "isKey": false,
@@ -2144,7 +2144,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome o ubiquinol oxidase (cyoABCD)",
+    "module": "Cytochrome o ubiquinol oxidase (cyoABCD)",
     "ko": "K02297",
     "geneName": "cyoA",
     "isKey": true,
@@ -2153,7 +2153,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (coxABCD)",
+    "module": "Cytochrome c oxidase (coxABCD)",
     "ko": "K02277",
     "geneName": "coxD, ctaF",
     "isKey": false,
@@ -2162,7 +2162,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (coxABCD)",
+    "module": "Cytochrome c oxidase (coxABCD)",
     "ko": "K02276",
     "geneName": "coxC",
     "isKey": false,
@@ -2171,7 +2171,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (coxABCD)",
+    "module": "Cytochrome c oxidase (coxABCD)",
     "ko": "K02274",
     "geneName": "coxA",
     "isKey": true,
@@ -2180,7 +2180,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome c oxidase (coxABCD)",
+    "module": "Cytochrome c oxidase (coxABCD)",
     "ko": "K02275",
     "geneName": "coxB",
     "isKey": false,
@@ -2189,7 +2189,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
+    "module": "Cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
     "ko": "K02829",
     "geneName": "qoxD",
     "isKey": false,
@@ -2198,7 +2198,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
+    "module": "Cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
     "ko": "K02828",
     "geneName": "qoxC",
     "isKey": false,
@@ -2207,7 +2207,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
+    "module": "Cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
     "ko": "K02827",
     "geneName": "qoxB",
     "isKey": false,
@@ -2216,7 +2216,7 @@
   {
     "metabolism": "Oxidative phosphorylation and stress",
     "pathway": "Oxidative Phosphorylation",
-    "module": "cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
+    "module": "Cytochrome aa3-600 menaquinol oxidase (qoxABCD)",
     "ko": "K02826",
     "geneName": "qoxA",
     "isKey": true,
@@ -2738,7 +2738,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "xyloglucan",
+    "module": "Xyloglucanase",
     "ko": "K18576",
     "geneName": "XEG",
     "isKey": false,
@@ -2747,7 +2747,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "xylanase",
+    "module": "Xylanase",
     "ko": "K01181",
     "geneName": "Xyn",
     "isKey": true,
@@ -2756,7 +2756,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "xylanase",
+    "module": "Xylanase",
     "ko": "K20845",
     "geneName": "txyA",
     "isKey": false,
@@ -2855,7 +2855,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "pectin lyase",
+    "module": "Pectin lyase",
     "ko": "K01728",
     "geneName": "pel",
     "isKey": false,
@@ -2864,7 +2864,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "pectate lyase",
+    "module": "Pectate lyase",
     "ko": "K01731",
     "geneName": "pelW",
     "isKey": false,
@@ -2873,7 +2873,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "polygalacturonase",
+    "module": "Polygalacturonase",
     "ko": "K01184",
     "geneName": "polygalacturonase",
     "isKey": false,
@@ -2882,7 +2882,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Polysaccharides degradation",
-    "module": "pectinesterase",
+    "module": "Pectinesterase",
     "ko": "K01051",
     "geneName": "pectinesterase",
     "isKey": false,
@@ -2891,7 +2891,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Galacturonic acid degradation",
-    "module": "galacturonic acid degradation",
+    "module": "Galacturonic acid degradation",
     "ko": "K01812",
     "geneName": "uxaC",
     "isKey": false,
@@ -2900,7 +2900,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Galacturonic acid degradation",
-    "module": "galacturonic acid degradation",
+    "module": "Galacturonic acid degradation",
     "ko": "K00874",
     "geneName": "kdgK",
     "isKey": false,
@@ -2909,7 +2909,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Sucrose degradation",
-    "module": "sucrose degradation",
+    "module": "Sucrose degradation",
     "ko": "K01193",
     "geneName": "sacA",
     "isKey": true,
@@ -2918,7 +2918,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Sucrose degradation",
-    "module": "sucrose degradation",
+    "module": "Sucrose degradation",
     "ko": "K00690",
     "geneName": "sucrose phosphorylase",
     "isKey": false,
@@ -2927,7 +2927,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Fructose degradation",
-    "module": "fructose degradation",
+    "module": "Fructose degradation",
     "ko": "K00847",
     "geneName": "scrK",
     "isKey": false,
@@ -2936,7 +2936,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Mannose degradation",
-    "module": "mannose degradation",
+    "module": "Mannose degradation",
     "ko": "K01809",
     "geneName": "manA",
     "isKey": false,
@@ -2945,52 +2945,52 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Mannosidase",
-    "module": "mannosidase",
+    "module": "Mannosidase",
     "ko": "K01192",
-    "geneName": "beta-mannosidase",
+    "geneName": "manB",
     "isKey": true,
     "sourceIndex": 338
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K01785",
-    "geneName": "galM",
-    "isKey": true,
+    "pathway": "Galactosidase",
+    "module": "Galactosidase",
+    "ko": "K01190, K12111, K12308",
+    "geneName": "beta-galactosidase",
+    "isKey": false,
     "sourceIndex": 339
   },
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K00849",
-    "geneName": "galK",
-    "isKey": false,
+    "module": "Galactose degradation (Leloir)",
+    "ko": "K01785",
+    "geneName": "galM",
+    "isKey": true,
     "sourceIndex": 340
   },
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Galactose degradation",
-    "module": "galactose degradation",
-    "ko": "K00965",
-    "geneName": "galT",
+    "module": "Galactose degradation (Leloir)",
+    "ko": "K00849",
+    "geneName": "galK",
     "isKey": false,
     "sourceIndex": 341
   },
   {
     "metabolism": "Carbon source utilization",
-    "pathway": "Galactosidase",
-    "module": "galactosidase",
-    "ko": "K01190, K12111, K12308",
-    "geneName": "beta-galactosidase",
+    "pathway": "Galactose degradation",
+    "module": "Galactose degradation (Leloir)",
+    "ko": "K00965",
+    "geneName": "galT",
     "isKey": false,
     "sourceIndex": 342
   },
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Fucose degradation",
-    "module": "fucose degradation",
+    "module": "Fucose degradation",
     "ko": "K01818",
     "geneName": "fucI",
     "isKey": false,
@@ -2999,7 +2999,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (isomerase pathway)",
+    "module": "Xylose degrading (isomerase pathway)",
     "ko": "K01805",
     "geneName": "xylA",
     "isKey": true,
@@ -3008,7 +3008,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (isomerase pathway)",
+    "module": "Xylose degrading (isomerase pathway)",
     "ko": "K00854",
     "geneName": "xylB",
     "isKey": false,
@@ -3017,7 +3017,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
+    "module": "Xylose degrading (oxidoreductase pathway)",
     "ko": "K17743",
     "geneName": "XYL1",
     "isKey": true,
@@ -3026,7 +3026,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
+    "module": "Xylose degrading (oxidoreductase pathway)",
     "ko": "K05351",
     "geneName": "D-xylose reductase",
     "isKey": false,
@@ -3035,7 +3035,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (oxidoreductase pathway)",
+    "module": "Xylose degrading (oxidoreductase pathway)",
     "ko": "K00011",
     "geneName": "AKR1B",
     "isKey": false,
@@ -3044,7 +3044,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (xylonate hydratase pathway)",
+    "module": "Xylose degrading (xylonate hydratase pathway)",
     "ko": "K14275",
     "geneName": "xad",
     "isKey": true,
@@ -3053,7 +3053,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
+    "module": "Xylose degrading (weimburg/dahms)",
     "ko": "K14273",
     "geneName": "xdh",
     "isKey": true,
@@ -3062,7 +3062,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
+    "module": "Xylose degrading (weimburg/dahms)",
     "ko": "K00078",
     "geneName": "DHDH",
     "isKey": false,
@@ -3071,7 +3071,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylose degradation",
-    "module": "xylose degrading (weimburg/dahms)",
+    "module": "Xylose degrading (weimburg/dahms)",
     "ko": "K14274",
     "geneName": "xylC",
     "isKey": false,
@@ -3080,7 +3080,7 @@
   {
     "metabolism": "Carbon source utilization",
     "pathway": "Xylosidase",
-    "module": "xylosidase",
+    "module": "Xylosidase",
     "ko": "K01198",
     "geneName": "beta-xylosidase",
     "isKey": false,
@@ -3093,7 +3093,7 @@
     "ko": "K00249, K00255, K06445, K06446, K09456, K09478, K11410, K15980, K18244",
     "geneName": "acyl-CoA dehydrogenase",
     "isKey": true,
-    "sourceIndex": 357
+    "sourceIndex": 355
   },
   {
     "metabolism": "Anaerobic Respiration",
@@ -3440,7 +3440,7 @@
   {
     "metabolism": "Others",
     "pathway": "MeHg -> Hg(II)",
-    "module": "MeHg -> Hg(II) (merB)",
+    "module": "MeHg => Hg(II) (merB)",
     "ko": "K00221",
     "geneName": "merB",
     "isKey": true,
@@ -3449,7 +3449,7 @@
   {
     "metabolism": "Others",
     "pathway": "Hg(II) -> Hg(0)",
-    "module": "Hg(II) -> Hg(0) (merA)",
+    "module": "Hg(II) => Hg(0) (merA)",
     "ko": "K00520",
     "geneName": "merA",
     "isKey": true,
@@ -3529,8 +3529,8 @@
   },
   {
     "metabolism": "Others",
-    "pathway": "heme biosynthesis",
-    "module": "heme biosynthesis",
+    "pathway": "Heme biosynthesis",
+    "module": "Heme biosynthesis",
     "ko": "K01772",
     "geneName": "hemH",
     "isKey": true,

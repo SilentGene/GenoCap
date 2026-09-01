@@ -95,6 +95,7 @@ function GenoCapWorkspace() {
   const [currentDatabase, setCurrentDatabase] = useState<DatabaseEntry[]>(builtInDatabase);
   const [databaseMode, setDatabaseMode] = useState<'append' | 'replace'>('append');
   const [databaseName, setDatabaseName] = useState('Built-in database');
+  const [databaseExpanded, setDatabaseExpanded] = useState(false);
   const [databaseLoading, setDatabaseLoading] = useState(false);
   const [databaseErrors, setDatabaseErrors] = useState<DatabaseValidationError[]>([]);
   const [databaseErrorFileName, setDatabaseErrorFileName] = useState('');
@@ -112,6 +113,7 @@ function GenoCapWorkspace() {
   const databaseFileRef = useRef<HTMLInputElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const metabolisms = useMemo(() => [...new Set(currentDatabase.map((entry) => entry.metabolism))], [currentDatabase]);
+  const databaseKoCount = useMemo(() => new Set(currentDatabase.flatMap((entry) => splitKoCell(entry.ko).kos)).size, [currentDatabase]);
 
   const baseMatrix = useMemo(() => {
     if (!result || result.errors.length) return null;
@@ -295,25 +297,29 @@ function GenoCapWorkspace() {
             </Flex>
             <Flex gap={8} className="file-actions mt-3">
               <Select className="file-kind-select" aria-label="Annotation file type" value={fileKind} options={[{ label: 'TSV', value: 'tsv' }, { label: 'CSV', value: 'csv' }]} onChange={(value) => changeFileKind(value as FileKind)} />
-              <Button type="primary" onClick={chooseFile} loading={loading}>Choose annotation file</Button>
+              <Button type="primary" onClick={chooseFile} loading={loading}>Choose file</Button>
             </Flex>
             <a className="example-file-link" href="./input_annotation.tsv" aria-disabled={loading} onClick={(event) => { event.preventDefault(); if (!loading) void loadExampleFile(); }}>{loading ? 'Loading example...' : 'Use example file...'}</a>
             {fileName ? <p className="file-name mt-2" title={fileName}>{fileName}</p> : null}
           </Card>}
 
-          <Card size="small" title={<SectionTitle>Database</SectionTitle>} extra={<Button type="link" size="small" onClick={viewCurrentDatabase}>View database</Button>}>
-            <Flex align="center" justify="space-between" gap={8}>
-              <div className="database-summary">
-                <strong>{currentDatabase.length.toLocaleString()} records</strong>
-                <span title={databaseName}>{databaseName}</span>
-              </div>
-              <Popover title="Database TSV format" content={<DatabaseFormatExample />} trigger={['hover', 'click']} placement="rightTop">
-                <Button type="text" size="small" className="annotation-help-button" icon={<QuestionCircleFilled />} aria-label="Show database file format" />
-              </Popover>
-            </Flex>
-            <Segmented className="database-mode" block value={databaseMode} options={[{ label: 'Append', value: 'append' }, { label: 'Replace', value: 'replace' }]} onChange={(value) => setDatabaseMode(value as 'append' | 'replace')} />
-            <Button block type="primary" onClick={() => databaseFileRef.current?.click()} loading={databaseLoading}>Upload database TSV</Button>
-            <p className="database-mode-hint">{databaseMode === 'append' ? 'Add valid rows to the current database; exact duplicates are removed.' : 'Use only the uploaded rows after validation succeeds.'}</p>
+          <Card size="small" title={<SectionTitle>Database</SectionTitle>} extra={<Button type="link" size="small" className="database-view-button" onClick={viewCurrentDatabase} aria-label="View database">View</Button>}>
+            <p className="database-loaded-message" title={databaseName}>
+              {databaseName} loaded with <strong>{databaseKoCount.toLocaleString()}</strong> KO {databaseKoCount === 1 ? 'ID' : 'IDs'}
+            </p>
+            <Button block onClick={() => setDatabaseExpanded((expanded) => !expanded)} aria-expanded={databaseExpanded}>
+              {databaseExpanded ? 'Hide database options' : 'Use a custom database'}
+            </Button>
+            {databaseExpanded ? <div className="database-options">
+              <Flex align="center" justify="flex-end" gap={8}>
+                <Popover title="Database TSV format" content={<DatabaseFormatExample />} trigger={['hover', 'click']} placement="rightTop">
+                  <Button type="text" size="small" className="annotation-help-button" icon={<QuestionCircleFilled />} aria-label="Show database file format" />
+                </Popover>
+              </Flex>
+              <Segmented className="database-mode" block value={databaseMode} options={[{ label: 'Append', value: 'append' }, { label: 'Replace', value: 'replace' }]} onChange={(value) => setDatabaseMode(value as 'append' | 'replace')} />
+              <Button block type="primary" onClick={() => databaseFileRef.current?.click()} loading={databaseLoading}>Upload database TSV</Button>
+              <p className="database-mode-hint">{databaseMode === 'append' ? 'Add valid rows to the current database; exact duplicates are removed.' : 'Use only the uploaded rows after validation succeeds.'}</p>
+            </div> : null}
           </Card>
 
           <Card size="small" title={<SectionTitle>View mode</SectionTitle>}>
