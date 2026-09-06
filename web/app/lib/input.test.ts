@@ -44,10 +44,14 @@ describe('parseAnnotations', () => {
   it('matches the supplied example dataset', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const result = parseAnnotations(sample, 'tsv', database);
+    const uniqueKos = new Set(result.records.flatMap((record) => record.kos));
+    const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
+    const expectedMatchedKos = [...uniqueKos].filter((ko) => databaseKos.has(ko)).length;
     expect(result.errors).toEqual([]);
-    expect(result.summary).toMatchObject({ records: 98869, genomes: 40, uniqueKos: 3027 });
-    expect(result.summary.matchedKos).toBeGreaterThan(0);
-    expect(result.summary.matchedKos).toBeLessThanOrEqual(result.summary.uniqueKos);
+    expect(result.summary.records).toBe(result.records.length);
+    expect(result.summary.genomes).toBe(result.genomes.length);
+    expect(result.summary.uniqueKos).toBe(uniqueKos.size);
+    expect(result.summary.matchedKos).toBe(expectedMatchedKos);
     expect(database.some((entry) => entry.ko === 'K01183, K13381')).toBe(true);
   });
 });

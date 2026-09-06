@@ -91,11 +91,12 @@ describe('matrix construction', () => {
       for (const entry of database) {
         if (mode === 'key' && !entry.isKey) continue;
         if (!splitKoCell(entry.ko).kos.length) continue;
-        const suffix = (mode === 'module' ? entry.geneCluster ?? '' : entry.geneName).trim();
-        const parts = mode === 'module'
-          ? [entry.metabolism, entry.module, suffix]
-          : [entry.metabolism, entry.module, entry.geneName];
-        ids.add(parts.join('\u001f'));
+        ids.add(
+          (mode === 'module'
+            ? [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()]
+            : [entry.metabolism, entry.module, entry.geneName])
+            .join('\u001f'),
+        );
       }
       return ids.size;
     };
