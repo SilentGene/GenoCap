@@ -63,8 +63,8 @@ export function parseAnnotations(text: string, kind: FileKind, database: Databas
     if (koResult.reason) errors.push({ line: sourceLine, field: 'ko', value: koRaw, reason: koResult.reason });
     const abundanceRaw = hasGeneAbundance ? row[index.gene_abundance].trim() : '';
     const geneAbundance = hasGeneAbundance ? Number(abundanceRaw) : undefined;
-    const invalidAbundance = hasGeneAbundance && (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(abundanceRaw) || !Number.isFinite(geneAbundance));
-    if (invalidAbundance) errors.push({ line: sourceLine, field: 'gene_abundance', value: abundanceRaw, reason: 'gene_abundance must be a finite number (integer or decimal); blank values are not allowed.' });
+    const invalidAbundance = hasGeneAbundance && abundanceRaw !== '' && (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(abundanceRaw) || !Number.isFinite(geneAbundance));
+    if (invalidAbundance) errors.push({ line: sourceLine, field: 'gene_abundance', value: abundanceRaw, reason: 'gene_abundance must be a finite number (integer or decimal); blank values are treated as 0.' });
     if (!gene || !genome || koResult.reason || invalidAbundance) continue;
 
     if (!seenGenomes.has(genome)) { seenGenomes.add(genome); genomes.push(genome); }

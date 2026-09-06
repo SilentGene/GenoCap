@@ -68,7 +68,15 @@ describe('optional gene_abundance', () => {
     expect(result.hasGeneAbundance).toBe(true);
     expect(result.records.map(row => row.geneAbundance)).toEqual([2, 0.25, -100]);
   });
-  it.each(['', 'abc', 'NaN', 'Infinity', '0x10', '1e999'])('rejects invalid abundance %s', (value) => {
+  it.each(['csv', 'tsv'] as const)('treats empty and whitespace-only abundance as zero in %s', (kind) => {
+    const separator = kind === 'csv' ? ',' : '\t';
+    const text = [['gene', 'genome', 'ko', 'gene_abundance'], ['g1', 'A', 'K00001', ''], ['g2', 'A', 'K00002', '   '], ['g3', 'B', '', '2.5']].map(row => row.join(separator)).join('\n');
+    const result = parseAnnotations(text, kind, database);
+    expect(result.errors).toEqual([]);
+    expect(result.hasGeneAbundance).toBe(true);
+    expect(result.records.map(row => row.geneAbundance)).toEqual([0, 0, 2.5]);
+  });
+  it.each(['abc', 'NaN', 'Infinity', '0x10', '1e999'])('rejects invalid abundance %s', (value) => {
     const result = parseAnnotations(`gene,genome,ko,gene_abundance\ng,A,K00001,${value}`, 'csv', database);
     expect(result.errors[0]).toMatchObject({ line: 2, field: 'gene_abundance' });
   });

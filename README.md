@@ -53,16 +53,18 @@ The application is exported as a fully static site. Every push to `main` runs th
 
 Select TSV or CSV in the interface, then upload a file containing the exact headers `gene`, `genome`, and `ko`. A KO cell may contain multiple identifiers separated by semicolons, commas, pipes, or a mixture of these. In CSV files, KO values containing commas must be quoted.
 
-The supplied [doc/input_annotation.tsv](doc/input_annotation.tsv) file can be used as a complete example. Its `gene_abundance` column contains reproducible simulated values for testing Heatmap in Gene and Key gene modes; these are not measured biological abundances.
+An optional `gene_abundance` column is also supported. It enables **Heatmap** in **Gene** and **Key gene** modes. Values must be finite numbers (integer, decimal, or scientific notation); blank or whitespace-only cells are treated as `0`.
 
-| gene | genome | ko |
-| --- | --- | --- |
-| NC_019977.1_1 | GCF_000328665.1 | K10725 |
-| NC_019977.1_2 | GCF_000328665.1 | K13280 |
-| NC_019977.1_3 | GCF_000328665.1 | K00936; K07718 |
-| contig01_1 | MAG_001 | K06176 |
-| contig01_2 | MAG_001 | |
-| contig01_3 | MAG_001 | K01531, K01537 |
+The supplied [doc/input_annotation.tsv](doc/input_annotation.tsv) file can be used as an complete example. 
+
+| gene | genome | ko | gene_abundance (optional) |
+| --- | --- | --- | --- |
+| NC_019977.1_1 | GCF_000328665.1 | K10725 | 10.5 |
+| NC_019977.1_2 | GCF_000328665.1 | K13280 | 15.2 |
+| NC_019977.1_3 | GCF_000328665.1 | K00936; K07718 | 8.7 |
+| contig01_1 | MAG_001 | K06176 | 12.3 |
+| contig01_2 | MAG_001 | | 0 |
+| contig01_3 | MAG_001 | K01531, K01537 | 9.1 |
 
 
 ## Project structure
