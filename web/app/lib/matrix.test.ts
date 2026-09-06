@@ -94,13 +94,25 @@ describe('matrix construction', () => {
       geneRows.add(id);
       if (entry.isKey) keyRows.add(id);
     }
+    const presentKos = new Set(parsed.records.flatMap((record) => record.kos));
+    const moduleRowGroups = new Map<string, Map<string, string[]>>();
+    for (const entry of database) {
+      const alternatives = splitKoCell(entry.ko).kos;
+      if (!alternatives.length) continue;
+      const id = [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()].join('\u001f');
+      const groupKey = [...alternatives].sort().join('\u001e');
+      const groups = moduleRowGroups.get(id) ?? new Map<string, string[]>();
+      groups.set(groupKey, groups.get(groupKey) ?? alternatives);
+      moduleRowGroups.set(id, groups);
+    }
+    const visibleModuleRows = [...moduleRowGroups.values()]
+      .filter((groups) => [...groups.values()].some((group) => group.some((ko) => presentKos.has(ko))))
+      .length;
     const moduleAll = buildMatrix(database, parsed.records, parsed.genomes, 'module', true);
     const moduleVisible = buildMatrix(database, parsed.records, parsed.genomes, 'module', false);
     const geneAll = buildMatrix(database, parsed.records, parsed.genomes, 'gene', true);
     const keyAll = buildMatrix(database, parsed.records, parsed.genomes, 'key', true);
-    const visibleModuleRows = moduleAll.rows
-      .filter((row) => parsed.genomes.some((genome) => row.cells[genome].hits > 0))
-      .length;
+    expect(moduleAll.rows).toHaveLength(moduleRowGroups.size);
     expect(geneAll.rows).toHaveLength(geneRows.size);
     expect(keyAll.rows).toHaveLength(keyRows.size);
     expect(moduleVisible.rows).toHaveLength(visibleModuleRows);

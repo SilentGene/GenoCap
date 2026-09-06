@@ -44,7 +44,10 @@ describe('parseAnnotations', () => {
   it('matches the supplied example dataset', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const result = parseAnnotations(sample, 'tsv', database);
-    const uniqueKos = new Set(result.records.flatMap((record) => record.kos));
+    const rows = sample.trim().split(/\r?\n/);
+    const header = rows[0].split('\t');
+    const koIndex = header.indexOf('ko');
+    const uniqueKos = new Set(rows.slice(1).flatMap((line) => splitKoCell(line.split('\t')[koIndex] ?? '').kos));
     const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
     const expectedMatchedKos = [...uniqueKos].filter((ko) => databaseKos.has(ko)).length;
     expect(result.errors).toEqual([]);
