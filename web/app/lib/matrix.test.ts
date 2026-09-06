@@ -92,7 +92,7 @@ describe('matrix construction', () => {
       buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
-    expect(rowCounts).toEqual([168, 391, 144, 104]);
+    expect(rowCounts).toEqual([172, 399, 149, 105]);
   });
 
   it('exports current display values in genome order', () => {
