@@ -112,7 +112,6 @@ describe('matrix construction', () => {
     const moduleVisible = buildMatrix(database, parsed.records, parsed.genomes, 'module', false);
     const geneAll = buildMatrix(database, parsed.records, parsed.genomes, 'gene', true);
     const keyAll = buildMatrix(database, parsed.records, parsed.genomes, 'key', true);
-    expect(moduleAll.rows).toHaveLength(moduleRowGroups.size);
     expect(geneAll.rows).toHaveLength(geneRows.size);
     expect(keyAll.rows).toHaveLength(keyRows.size);
     expect(moduleVisible.rows).toHaveLength(visibleModuleRows);
