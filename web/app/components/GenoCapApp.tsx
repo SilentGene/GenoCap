@@ -27,6 +27,7 @@ import {
   List,
   Modal,
   Popover,
+  Radio,
   Segmented,
   Select,
   Slider,
@@ -44,6 +45,7 @@ import { openDatabaseViewer } from '../lib/database-viewer';
 import { downloadPng, downloadSvg, downloadText, matrixToCsv } from '../lib/export';
 import { parseAnnotations } from '../lib/input';
 import { splitKoCell } from '../lib/ko';
+import { scaleHeatmapRows } from '../lib/heatmap';
 import { buildMatrix, DEFAULT_METABOLISM_COLORS, DEFAULT_METABOLISM_ORDER } from '../lib/matrix';
 import type { DatabaseEntry, FeatureRow, FigureRotation, FileKind, ParsedAnnotations, ViewMode, VisualizationSettings } from '../lib/types';
 import MatrixSvg, { MatrixStickyHeader } from './MatrixSvg';
@@ -73,7 +75,11 @@ function createInitialSettings(database: DatabaseEntry[]): VisualizationSettings
     ...metabolisms.filter((metabolism) => !DEFAULT_METABOLISM_ORDER.includes(metabolism as typeof DEFAULT_METABOLISM_ORDER[number])),
   ];
   return {
-  mode: 'module', shape: 'circle', spacing: 4, border: true, metabolismColorTarget: 'background', quarterFill: true, showAllRows: false,
+  mode: 'module', shape: 'circle', spacing: 4, border: true, metabolismColorTarget: 'background', showAllRows: false,
+  fillStyles: { module: 'quartile', gene: 'solid', key: 'solid' },
+  heatmapColors: { min: '#0000FF', mid: '#FFFFFF', max: '#FF0000', useMidpoint: true },
+  heatmapScaling: 'none',
+  heatmapMetabolismColorTarget: 'strip',
   clustering: false, cellSize: 17, fontSize: 11, zoom: 1, rotation: 0, swapSideLabels: false,
   presentColor: '#636363', absentColor: '#ffffff', metabolismColors: { ...DEFAULT_METABOLISM_COLORS }, metabolismOrder: [...defaultMetabolismOrder],
   visibleMetabolisms: Object.fromEntries(metabolisms.map((metabolism) => [metabolism, true])),
@@ -114,20 +120,27 @@ function GenoCapWorkspace() {
   const svgRef = useRef<SVGSVGElement>(null);
   const metabolisms = useMemo(() => [...new Set(currentDatabase.map((entry) => entry.metabolism))], [currentDatabase]);
   const databaseKoCount = useMemo(() => new Set(currentDatabase.flatMap((entry) => splitKoCell(entry.ko).kos)).size, [currentDatabase]);
+  const canUseHeatmap = Boolean(result?.hasGeneAbundance && !result.errors.length);
+  const fillStyle = settings.fillStyles[settings.mode] === 'heatmap' && !canUseHeatmap ? 'solid' : settings.fillStyles[settings.mode];
+  const metabolismColorTarget = fillStyle === 'heatmap' ? settings.heatmapMetabolismColorTarget : settings.metabolismColorTarget;
+  const figureSettings = useMemo(() => ({ ...settings, fillStyles: canUseHeatmap ? settings.fillStyles : { ...settings.fillStyles, gene: 'solid' as const, key: 'solid' as const }, metabolismColorTarget }), [settings, metabolismColorTarget, canUseHeatmap]);
 
   const baseMatrix = useMemo(() => {
     if (!result || result.errors.length) return null;
     const visible = new Set(Object.entries(settings.visibleMetabolisms).filter(([, isVisible]) => isVisible).map(([metabolism]) => metabolism));
-    const nextMatrix = buildMatrix(currentDatabase, result.records, result.genomes, settings.mode, settings.showAllRows, settings.quarterFill, visible);
+    const nextMatrix = buildMatrix(currentDatabase, result.records, result.genomes, settings.mode, settings.showAllRows, fillStyle, visible);
     const ranks = new Map(settings.metabolismOrder.map((metabolism, index) => [metabolism, index]));
     return { ...nextMatrix, rows: nextMatrix.rows.toSorted((a, b) => (ranks.get(a.metabolism) ?? Number.MAX_SAFE_INTEGER) - (ranks.get(b.metabolism) ?? Number.MAX_SAFE_INTEGER) || a.sourceIndex - b.sourceIndex) };
-  }, [currentDatabase, result, settings.mode, settings.showAllRows, settings.quarterFill, settings.visibleMetabolisms, settings.metabolismOrder]);
+  }, [currentDatabase, result, settings.mode, settings.showAllRows, fillStyle, settings.visibleMetabolisms, settings.metabolismOrder]);
 
   const matrix = useMemo(() => {
     if (!baseMatrix) return null;
     const visibility = settings.visibleFeatures[settings.mode] ?? {};
     return { ...baseMatrix, rows: baseMatrix.rows.filter((row) => visibility[row.id] !== false) };
   }, [baseMatrix, settings.mode, settings.visibleFeatures]);
+
+  const displayMatrix = useMemo(() => matrix && fillStyle === 'heatmap' && settings.heatmapScaling === 'row-zscore'
+    ? scaleHeatmapRows(matrix) : matrix, [matrix, fillStyle, settings.heatmapScaling]);
 
   const clustered = useMemo(() => {
     if (!matrix || !settings.clustering) return { order: matrix?.genomes ?? [], root: undefined };
@@ -240,8 +253,9 @@ function GenoCapWorkspace() {
   }
 
   function exportCsv() {
-    if (!matrix) return;
-    downloadText(matrixToCsv(matrix, clustered.order), `genocap-${settings.mode}-matrix.csv`, 'text/csv;charset=utf-8');
+    if (!displayMatrix) return;
+    const scalingSuffix = fillStyle === 'heatmap' && settings.heatmapScaling === 'row-zscore' ? '-row-zscore' : '';
+    downloadText(matrixToCsv(displayMatrix, clustered.order), `genocap-${settings.mode}${scalingSuffix}-matrix.csv`, 'text/csv;charset=utf-8');
   }
 
   async function exportPng() {
@@ -325,7 +339,6 @@ function GenoCapWorkspace() {
           <Card size="small" title={<SectionTitle>View mode</SectionTitle>}>
             <Segmented block value={settings.mode} options={[{ label: 'Module', value: 'module' }, { label: 'Gene', value: 'gene' }, { label: 'Key gene', value: 'key' }]} onChange={(value) => update('mode', value as ViewMode)} />
             <div className="settings-list">
-              {settings.mode === 'module' ? <Toggle label="Use quartile fill" checked={settings.quarterFill} onChange={(checked) => update('quarterFill', checked)} /> : null}
               <Toggle label="Include unmatched features" checked={settings.showAllRows} onChange={(checked) => update('showAllRows', checked)} />
               <Toggle label="Cluster genomes" checked={settings.clustering} onChange={(checked) => update('clustering', checked)} />
             </div>
@@ -333,13 +346,31 @@ function GenoCapWorkspace() {
 
           <Card size="small" title={<SectionTitle>Appearance</SectionTitle>} extra={<Button type="link" size="small" onClick={() => setSettings(createInitialSettings(currentDatabase))}>Reset</Button>}>
             <Field label="Cell shape"><Select value={settings.shape} onChange={(value) => update('shape', value)} options={[{ label: 'Circle', value: 'circle' }, { label: 'Square', value: 'square' }]} /></Field>
-            <Field label="Metabolism colors"><Select value={settings.metabolismColorTarget} onChange={(value) => update('metabolismColorTarget', value)} options={[{ label: 'Background', value: 'background' }, { label: 'Cell fill', value: 'cell' }]} /></Field>
+            <div className="field"><span id="fill-style-label">Fill style</span><Radio.Group role="radiogroup" aria-labelledby="fill-style-label" name="fill-style" value={fillStyle} onChange={(event) => setSettings((current) => ({ ...current, fillStyles: { ...current.fillStyles, [current.mode]: event.target.value } }))} options={settings.mode === 'module' ? [{ label: 'Solid', value: 'solid' }, { label: 'Quartile', value: 'quartile' }] : [{ label: 'Solid', value: 'solid' }, { label: <span>Heatmap <Tooltip title="Heatmap requires a numeric gene_abundance column in the uploaded file. Available in Gene and Key gene modes only."><QuestionCircleFilled style={{ color: '#8c8c8c' }} tabIndex={0} aria-label="Heatmap requires a numeric gene_abundance column" /></Tooltip></span>, value: 'heatmap', disabled: !canUseHeatmap }]} /></div>
+            {fillStyle === 'heatmap' ? <div className="heatmap-controls">
+              <section className="heatmap-colors" aria-labelledby="heatmap-colors-label">
+                <h3 id="heatmap-colors-label" className="heatmap-section-title">Heatmap colors</h3>
+                <ColorInput label="Maximum" value={settings.heatmapColors.max} onChange={(max) => setSettings((current) => ({ ...current, heatmapColors: { ...current.heatmapColors, max } }))} />
+                <Flex align="center" justify="space-between" gap={8}>
+                  <Checkbox checked={settings.heatmapColors.useMidpoint} onChange={(event) => setSettings((current) => ({ ...current, heatmapColors: { ...current.heatmapColors, useMidpoint: event.target.checked } }))}>Midpoint</Checkbox>
+                  <ColorPicker value={settings.heatmapColors.mid} format="hex" disabledAlpha disabled={!settings.heatmapColors.useMidpoint} onChangeComplete={(color) => setSettings((current) => ({ ...current, heatmapColors: { ...current.heatmapColors, mid: color.toHexString() } }))} aria-label="Midpoint color" />
+                </Flex>
+                <ColorInput label="Minimum" value={settings.heatmapColors.min} onChange={(min) => setSettings((current) => ({ ...current, heatmapColors: { ...current.heatmapColors, min } }))} />
+              </section>
+              <section className="heatmap-scaling" aria-labelledby="heatmap-scaling-label">
+                <div className="field"><span id="heatmap-scaling-label">Scaling</span><Radio.Group role="radiogroup" aria-labelledby="heatmap-scaling-label" name="heatmap-scaling" value={settings.heatmapScaling} onChange={(event) => update('heatmapScaling', event.target.value)} options={[{ label: 'None', value: 'none' }, { label: 'Row z-score', value: 'row-zscore' }]} /></div>
+                {settings.heatmapScaling === 'row-zscore' ? <p className="database-mode-hint">Use z-scores to find genomes with relatively higher or lower abundance of the same gene function.</p> : null}
+              </section>
+            </div> : null}
             <Range label="Cell size" value={settings.cellSize} min={10} max={28} suffix="px" onChange={(value) => update('cellSize', value)} />
             <Range label="Spacing" value={settings.spacing} min={0} max={12} suffix="px" onChange={(value) => update('spacing', value)} />
             <Range label="Label size" value={settings.fontSize} min={9} max={16} suffix="px" onChange={(value) => update('fontSize', value)} />
             <Toggle label="Cell borders" checked={settings.border} onChange={(checked) => update('border', checked)} />
-            <Divider className="my-3" />
-            <Flex gap={16} justify="space-between">{settings.metabolismColorTarget === 'background' ? <ColorInput label="Present" value={settings.presentColor} onChange={(value) => update('presentColor', value)} /> : null}<ColorInput label="Absent" value={settings.absentColor} onChange={(value) => update('absentColor', value)} /></Flex>
+            {fillStyle !== 'heatmap' ? <><Divider className="my-3" /><Flex gap={16} justify="space-between">{metabolismColorTarget !== 'cell' ? <ColorInput label="Present" value={settings.presentColor} onChange={(value) => update('presentColor', value)} /> : null}<ColorInput label="Absent" value={settings.absentColor} onChange={(value) => update('absentColor', value)} /></Flex></> : null}
+          </Card>
+
+          <Card size="small" className="metabolism-colors-card" title={<SectionTitle>Metabolism colors</SectionTitle>}>
+            <Field label="Apply colors to"><Select aria-label="Metabolism colors" value={metabolismColorTarget} onChange={(value) => { if (fillStyle === 'heatmap') { if (value !== 'cell') update('heatmapMetabolismColorTarget', value); } else update('metabolismColorTarget', value); }} options={[{ label: 'Background', value: 'background' }, ...(fillStyle === 'heatmap' ? [] : [{ label: 'Cell fill', value: 'cell' }]), { label: 'Strip', value: 'strip' }]} /></Field>
             {metabolismControls}
           </Card>
         </div>
@@ -371,7 +402,7 @@ function GenoCapWorkspace() {
             <Tooltip title="Export high-resolution image"><Button icon={<PictureOutlined />} onClick={exportPng} loading={exporting}>PNG</Button></Tooltip>
           </div>
         </div> : null}>
-          {!result ? <EmptyState /> : result.errors.length ? <BlockedState /> : matrix && matrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} /></div> : null}<MatrixSvg matrix={matrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={settings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} featureFilterEmpty={Boolean(baseMatrix?.rows.length)} />}
+          {!result ? <EmptyState /> : result.errors.length ? <BlockedState /> : displayMatrix && displayMatrix.rows.length ? <div className="matrix-scroll"><div className="relative min-w-max">{settings.rotation === 0 ? <div className="sticky top-0 z-10 h-px overflow-visible"><MatrixStickyHeader matrix={displayMatrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={figureSettings} /></div> : null}<MatrixSvg key={`${settings.mode}:${fillStyle}:${settings.heatmapScaling}`} matrix={displayMatrix} genomeOrder={clustered.order} clusterRoot={clustered.root} settings={figureSettings} svgRef={svgRef} /></div></div> : <NoFeatures showAll={settings.showAllRows} noMetabolismSelected={!Object.values(settings.visibleMetabolisms).some(Boolean)} featureFilterEmpty={Boolean(baseMatrix?.rows.length)} />}
         </Card>
       </section>
       <FeatureEditor
@@ -383,6 +414,7 @@ function GenoCapWorkspace() {
       />
       <DatabaseErrorModal errors={databaseErrors} fileName={databaseErrorFileName} onClose={() => setDatabaseErrors([])} />
     </div>
+    <footer className="genocap-copyright">© Developed by <a href="https://www.qut.edu.au/about/our-people/academic-profiles/heyu.lin" target="_blank" rel="noopener noreferrer">Heyu Lin</a> 2026</footer>
   </main>;
 }
 
@@ -390,32 +422,36 @@ function SectionTitle({ children }: { children: ReactNode }) { return <span clas
 
 function AnnotationFormatExample() {
   const rows = [
-    ['NC_019977.1_1', 'GCF_000328665.1', 'K10725'],
-    ['NC_019977.1_2', 'GCF_000328665.1', 'K13280'],
-    ['NC_019977.1_3', 'GCF_000328665.1', 'K00936; K07718'],
-    ['contig01_1', 'MAG_001', 'K06176'],
-    ['contig01_2', 'MAG_001', ''],
-    ['contig01_3', 'MAG_001', 'K01531, K01537'],
+    ['NC_019977.1_1', 'GCF_000328665.1', 'K10725', '24.50'],
+    ['NC_019977.1_2', 'GCF_000328665.1', 'K13280', '8.75'],
+    ['NC_019977.1_3', 'GCF_000328665.1', 'K00936; K07718', '63.20'],
+    ['contig01_1', 'MAG_001', 'K06176', '12.00'],
+    ['contig01_2', 'MAG_001', '', '3.40'],
+    ['contig01_3', 'MAG_001', 'K01531, K01537', '41.85'],
   ];
   return <div className="annotation-format-example">
+    <div className="annotation-table-scroll">
     <table className="annotation-example-table">
-      <thead><tr><th>gene</th><th>genome</th><th>ko</th></tr></thead>
-      <tbody>{rows.map(([gene, genome, ko]) => <tr key={gene}><td>{gene}</td><td>{genome}</td><td>{ko}</td></tr>)}</tbody>
+      <thead><tr><th scope="col">gene</th><th scope="col">genome</th><th scope="col">ko</th><th scope="col" className="abundance-example-header">
+        gene_abundance <span className="abundance-optional-tag">optional</span>
+      </th></tr></thead>
+      <tbody>{rows.map(([gene, genome, ko, abundance]) => <tr key={gene}><td>{gene}</td><td>{genome}</td><td>{ko}</td><td>{abundance}</td></tr>)}</tbody>
     </table>
-    <p>The file must include the headers shown above.</p>
+    </div>
+    <p>Required columns: gene, genome, and ko. The optional gene_abundance column enables Heatmap in Gene and Key gene modes.</p>
   </div>;
 }
 
 function DatabaseFormatExample() {
   return <div className="annotation-format-example database-format-example">
     <table className="annotation-example-table">
-      <thead><tr><th>Metabolism</th><th>Pathway</th><th>Module</th><th>KO</th><th>gene_name</th><th>if_key</th></tr></thead>
+      <thead><tr><th>Metabolism</th><th>Pathway</th><th>Module</th><th>Gene_cluster</th><th>KO</th><th>gene_name</th><th>if_key</th></tr></thead>
       <tbody>
-        <tr><td>Nitrogen cycle</td><td>Denitrification</td><td>Nitrate → Nitrite</td><td>K00370</td><td>narG</td><td>yes</td></tr>
-        <tr><td>Carbon source utilization</td><td>Polysaccharides degradation</td><td>Chitin degrading</td><td>K01183, K13381</td><td>chitinase</td><td>yes</td></tr>
+        <tr><td>Nitrogen cycle</td><td>Denitrification</td><td>Nitrate → Nitrite</td><td>narG</td><td>K00370</td><td>narG</td><td>yes</td></tr>
+        <tr><td>Carbon source utilization</td><td>Polysaccharides degradation</td><td>Chitin degrading</td><td></td><td>K01183, K13381</td><td>chitinase</td><td>yes</td></tr>
       </tbody>
     </table>
-    <p>All six headers are required. A KO cell accepts one or more K plus five-digit identifiers separated by commas, semicolons, or pipes. Multiple KOs in one cell are alternatives, so any one match satisfies that database requirement. <code>if_key</code> accepts yes, no, or blank. Extra columns are allowed.</p>
+    <p>Gene_cluster is optional for older databases; the other six headers are required. Gene_cluster and gene_name cells may be blank. Rows with KO set to NA are skipped. A KO cell accepts one or more K plus five-digit identifiers separated by commas, semicolons, or pipes. Multiple KOs in one cell are alternatives, so any one match satisfies that database requirement. <code>if_key</code> accepts yes, no, or blank. Extra columns are allowed.</p>
   </div>;
 }
 
@@ -427,7 +463,7 @@ function DatabaseErrorModal({ errors, fileName, onClose }: { errors: DatabaseVal
 }
 
 function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (checked: boolean) => void }) {
-  return <Flex align="center" justify="space-between" gap={12} className="setting-row"><span>{label}</span><Switch size="small" checked={checked} onChange={onChange} /></Flex>;
+  return <Flex align="center" justify="space-between" gap={12} className="setting-row"><span>{label}</span><Switch aria-label={label} size="small" checked={checked} onChange={onChange} /></Flex>;
 }
 
 function Field({ label, children }: { label: string; children: ReactNode }) {
@@ -439,7 +475,7 @@ function Range({ label, value, min, max, suffix, onChange }: { label: string; va
 }
 
 function ColorInput({ label, value, onChange }: { label: string; value: string; onChange: (value: string) => void }) {
-  return <Flex align="center" gap={8}><span className="color-label">{label}</span><ColorPicker value={value} format="hex" onChangeComplete={(color) => onChange(color.toHexString())} aria-label={`${label} color`} /></Flex>;
+  return <Flex align="center" gap={8}><span className="color-label">{label}</span><ColorPicker value={value} format="hex" disabledAlpha onChangeComplete={(color) => onChange(color.toHexString())} aria-label={`${label} color`} /></Flex>;
 }
 
 function FeatureEditor({ open, rows, visibility, onVisibilityChange, onClose }: { open: boolean; rows: FeatureRow[]; visibility: Record<string, boolean>; onVisibilityChange: (visibility: Record<string, boolean>) => void; onClose: () => void }) {

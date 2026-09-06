@@ -1,8 +1,9 @@
 'use client';
 
-import { memo, useLayoutEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactElement, type RefObject } from 'react';
+import { memo, useId, useLayoutEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactElement, type RefObject } from 'react';
 import { createPortal } from 'react-dom';
-import type { ClusterNode, MatrixModel, VisualizationSettings } from '../lib/types';
+import type { ClusterNode, MatrixCell, MatrixModel, VisualizationSettings } from '../lib/types';
+import { getHeatmapRange, getHeatmapValue, heatmapColor } from '../lib/heatmap';
 
 interface MatrixSvgProps {
   matrix: MatrixModel;
@@ -20,6 +21,9 @@ interface HeaderProps {
 }
 
 const GROUP_WIDTH = 205;
+const STRIP_WIDTH = 6;
+const STRIP_GAP = 8;
+const STRIP_SPACE = STRIP_WIDTH + STRIP_GAP;
 const FEATURE_LABEL_GAP = 12;
 const TREE_TOP = 18;
 const TREE_HEIGHT = 88;
@@ -35,6 +39,8 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
   const layout = getLayout(matrix, genomeOrder, settings, genomeLabelHeight, featureLabelWidth);
   const rotated = getRotatedCanvas(layout.width, layout.height, settings.rotation);
   const groups = metabolismGroups(matrix);
+  const isHeatmap = settings.fillStyles[settings.mode] === 'heatmap';
+  const heatmapRange = useMemo(() => getHeatmapRange(matrix, settings.heatmapScaling), [matrix, settings.heatmapScaling]);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const activeTooltipRef = useRef('');
   const pinnedTooltipRef = useRef('');
@@ -60,13 +66,13 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
       const cell = row?.cells[genome];
       if (!row || !genome || !cell) return;
       key = `cell-${rowIndex}-${columnIndex}`;
-      nextTooltip = { kind: 'cell', genome, feature: row.feature, matchedGenes: cell.matchedGenes, hits: cell.hits, total: cell.total, ...placement };
+      nextTooltip = { kind: 'cell', abundance: isHeatmap ? cell.value : undefined, genome, feature: row.feature, zScore: cell.zScore, zScoreUnavailable: cell.zScoreUnavailable, matchedGenes: cell.matchedGenes, hits: cell.hits, total: cell.total, ...placement };
     } else if (target.hasAttribute('data-feature-tooltip')) {
       const rowIndex = Number(target.dataset.rowIndex);
       const row = matrix.rows[rowIndex];
       if (!row) return;
       key = `feature-${rowIndex}`;
-      nextTooltip = { kind: 'feature', feature: row.feature, module: row.module, pathway: row.pathway, ...placement };
+      nextTooltip = { kind: 'feature', geneFunctions: matrix.mode === 'module' ? undefined : row.geneFunctions ?? [], feature: row.feature, module: row.module, pathway: row.pathway, ...placement };
     } else {
       key = `metabolism-${target.dataset.metabolismName}`;
       nextTooltip = { kind: 'metabolism', metabolism: target.dataset.metabolismName ?? '', featureCount: Number(target.dataset.featureCount), ...placement };
@@ -110,7 +116,7 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
     pinnedTooltipRef.current = key;
     activeTooltipRef.current = key;
     setTooltipPinned(true);
-    setTooltip({ kind: 'cell', genome, feature: row.feature, matchedGenes: cell.matchedGenes, hits: cell.hits, total: cell.total, x: event.clientX + 14, y: event.clientY + (flip ? -14 : 14), flip });
+    setTooltip({ kind: 'cell', abundance: isHeatmap ? cell.value : undefined, genome, feature: row.feature, zScore: cell.zScore, zScoreUnavailable: cell.zScoreUnavailable, matchedGenes: cell.matchedGenes, hits: cell.hits, total: cell.total, x: event.clientX + 14, y: event.clientY + (flip ? -14 : 14), flip });
   }
 
   return (
@@ -118,7 +124,7 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
       <desc>KEGG feature completeness grouped by metabolism across uploaded genomes.</desc>
       <g transform={rotated.transform}>
       <rect width={layout.width} height={layout.height} fill="#ffffff" />
-      <g className={settings.rotation === 0 ? 'export-header' : undefined}><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} /></g>
+      <g className={settings.rotation === 0 ? 'export-header' : undefined}><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} heatmapRange={heatmapRange} /></g>
 
       {groups.map((group) => {
         const y = layout.matrixTop + layout.rows[group.start].top;
@@ -126,10 +132,14 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
         const groupHeight = last.top + last.height - layout.rows[group.start].top;
         const color = settings.metabolismColors[group.name] ?? '#e8ebe7';
         const lines = wrapLabel(group.name, 24);
+        const showStrip = settings.metabolismColorTarget === 'strip';
+        const stripX = settings.swapSideLabels ? STRIP_GAP : layout.matrixLeft + layout.matrixWidth + STRIP_GAP;
+        const labelX = showStrip ? stripX + STRIP_SPACE : settings.swapSideLabels ? layout.matrixLeft - 14 : layout.matrixLeft + layout.matrixWidth + 14;
         return <g key={group.name}>
           {settings.metabolismColorTarget === 'background' ? <rect x={layout.matrixLeft} y={y + 1} width={layout.matrixWidth} height={Math.max(1, groupHeight - 2)} fill={color} /> : null}
           <g data-metabolism-tooltip="true" data-metabolism-name={group.name} data-feature-count={group.end - group.start + 1}>
-            <WrappedText lines={lines} x={settings.swapSideLabels ? layout.matrixLeft - 14 : layout.matrixLeft + layout.matrixWidth + 14} centerY={y + groupHeight / 2} fontSize={Math.max(11, settings.fontSize + 1)} anchor={settings.swapSideLabels ? 'end' : 'start'} weight={650} color="#273630" />
+            {showStrip ? <rect data-metabolism-strip={group.name} x={stripX} y={y + 1} width={STRIP_WIDTH} height={Math.max(1, groupHeight - 2)} fill={color} /> : null}
+            <WrappedText lines={lines} x={labelX} centerY={y + groupHeight / 2} fontSize={Math.max(11, settings.fontSize + 1)} anchor={settings.swapSideLabels && !showStrip ? 'end' : 'start'} weight={650} color="#273630" />
           </g>
         </g>;
       })}
@@ -142,7 +152,7 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
           {genomeOrder.map((genome, columnIndex) => {
             const cell = row.cells[genome];
             const cx = layout.matrixLeft + columnIndex * layout.pitch + layout.pitch / 2;
-            return <Cell key={genome} cx={cx} cy={cy} size={settings.cellSize} value={cell.value} hits={cell.hits} total={cell.total} genome={genome} feature={row.feature} settings={settings} presentColor={settings.metabolismColorTarget === 'cell' ? settings.metabolismColors[row.metabolism] : undefined} rowIndex={rowIndex} columnIndex={columnIndex} />;
+            return <Cell key={genome} cx={cx} cy={cy} size={settings.cellSize} value={cell.value} zScore={cell.zScore} heatmapFill={isHeatmap ? heatmapColor(getHeatmapValue(cell), heatmapRange.min, heatmapRange.max, settings.heatmapColors) : undefined} hits={cell.hits} total={cell.total} genome={genome} feature={row.feature} settings={settings} presentColor={settings.metabolismColorTarget === 'cell' ? settings.metabolismColors[row.metabolism] : undefined} rowIndex={rowIndex} columnIndex={columnIndex} />;
           })}
         </g>;
       })}
@@ -154,23 +164,24 @@ function MatrixSvg({ matrix, genomeOrder, clusterRoot, settings, svgRef }: Matri
 
 interface TooltipPlacement { x: number; y: number; flip: boolean; }
 type TooltipData =
-  | ({ kind: 'cell'; genome: string; feature: string; matchedGenes: { geneId: string; ko: string; geneName: string }[]; hits: number; total: number } & TooltipPlacement)
-  | ({ kind: 'feature'; feature: string; module: string; pathway: string } & TooltipPlacement)
+  | ({ kind: 'cell'; abundance?: number; genome: string; feature: string; matchedGenes: { geneId: string; ko: string; geneName: string }[]; hits: number; total: number } & Pick<MatrixCell, 'zScore' | 'zScoreUnavailable'> & TooltipPlacement)
+  | ({ kind: 'feature'; geneFunctions?: string[]; feature: string; module: string; pathway: string } & TooltipPlacement)
   | ({ kind: 'metabolism'; metabolism: string; featureCount: number } & TooltipPlacement);
 
 function TooltipCard({ tooltip, tooltipRef, pinned, onClose }: { tooltip: TooltipData; tooltipRef: RefObject<HTMLDivElement | null>; pinned: boolean; onClose: () => void }) {
   return <div ref={tooltipRef} role="tooltip" className={`cell-tooltip fixed z-50 max-w-[480px] rounded-lg border border-[#cdd8d1] bg-[#fbfdf9] px-3.5 py-3 text-xs leading-5 text-[#263a33] shadow-[0_12px_36px_rgb(24_48_38/20%)] ${pinned ? 'pointer-events-auto' : 'pointer-events-none'}`} style={{ left: tooltip.x, top: tooltip.y, transform: tooltip.flip ? 'translateY(-100%)' : 'none' }}>
     {pinned ? <button type="button" className="tooltip-close" aria-label="Close pinned details" onClick={onClose}>×</button> : null}
-    {tooltip.kind === 'cell' ? <><p><strong>Genome:</strong> {tooltip.genome}</p><p><strong>Feature:</strong> {tooltip.feature}</p><p className="mt-1 font-semibold">Present genes (gene ID — matched KO — gene_name):</p>{tooltip.matchedGenes.length ? <div>{tooltip.matchedGenes.map(({ geneId, ko, geneName }) => <p key={`${geneId}-${ko}-${geneName}`}>{geneId} — {ko} — {geneName}</p>)}</div> : <p>None</p>}<p className="mt-1"><strong>KO requirement completeness:</strong> {tooltip.hits}/{tooltip.total}</p></> : tooltip.kind === 'feature' ? <><p><strong>Feature:</strong> {tooltip.feature}</p><p><strong>Module:</strong> {tooltip.module}</p><p><strong>Pathway:</strong> {tooltip.pathway || 'NA'}</p></> : <><p><strong>Metabolism:</strong> {tooltip.metabolism}</p><p><strong>Displayed features:</strong> {tooltip.featureCount}</p></>}
+    {tooltip.kind === 'cell' ? <><p><strong>Genome:</strong> {tooltip.genome}</p><p><strong>Feature:</strong> {tooltip.feature}</p><p className="mt-1 font-semibold">Present genes (gene ID — matched KO — gene_name):</p>{tooltip.matchedGenes.length ? <div>{tooltip.matchedGenes.map(({ geneId, ko, geneName }) => <p key={`${geneId}-${ko}-${geneName}`}>{geneId} — {ko} — {geneName}</p>)}</div> : <p>None</p>}<p className="mt-1"><strong>Unique gene count:</strong> {new Set(tooltip.matchedGenes.map(({ geneId }) => geneId)).size}</p>{tooltip.abundance !== undefined ? <p><strong>Gene abundance:</strong> {tooltip.abundance}</p> : null}{tooltip.zScore !== undefined ? <p className="mt-1"><strong>Row z-score:</strong> {formatZScore(tooltip.zScore)}{tooltip.zScoreUnavailable ? <span> (displayed as 0: {tooltip.zScoreUnavailable === 'single-genome' ? 'only one genome' : 'no variation across genomes'})</span> : null}</p> : null}<p className="mt-1"><strong>KO requirement completeness:</strong> {tooltip.hits}/{tooltip.total}</p></> : tooltip.kind === 'feature' ? <><p><strong>Feature:</strong> {tooltip.feature}</p><p><strong>Module:</strong> {tooltip.module}</p><p><strong>Pathway:</strong> {tooltip.pathway || 'NA'}</p>{tooltip.geneFunctions !== undefined ? <p className="mt-1"><strong>Gene_function:</strong> {tooltip.geneFunctions.join('; ') || 'NA'}</p> : null}</> : <><p><strong>Metabolism:</strong> {tooltip.metabolism}</p><p><strong>Displayed features:</strong> {tooltip.featureCount}</p></>}
   </div>;
 }
 
 export function MatrixStickyHeader({ matrix, genomeOrder, clusterRoot, settings }: HeaderProps) {
+  const heatmapRange = useMemo(() => getHeatmapRange(matrix, settings.heatmapScaling), [matrix, settings.heatmapScaling]);
   const featureLabels = useMemo(() => matrix.rows.map((row) => row.feature), [matrix.rows]);
   const genomeLabelHeight = useTextWidth(genomeOrder, settings.fontSize);
   const featureLabelWidth = useTextWidth(featureLabels, settings.fontSize);
   const layout = getLayout(matrix, genomeOrder, settings, genomeLabelHeight, featureLabelWidth);
-  return <svg viewBox={`0 0 ${layout.width} ${layout.matrixTop}`} width={layout.width * settings.zoom} height={layout.matrixTop * settings.zoom} aria-hidden="true" className="block max-w-none bg-white"><rect width={layout.width} height={layout.matrixTop} fill="#ffffff" /><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} /></svg>;
+  return <svg viewBox={`0 0 ${layout.width} ${layout.matrixTop}`} width={layout.width * settings.zoom} height={layout.matrixTop * settings.zoom} aria-hidden="true" className="block max-w-none bg-white"><rect width={layout.width} height={layout.matrixTop} fill="#ffffff" /><HeaderContent layout={layout} genomeOrder={genomeOrder} clusterRoot={clusterRoot} settings={settings} heatmapRange={heatmapRange} /></svg>;
 }
 
 interface Layout {
@@ -183,7 +194,7 @@ function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: Visuali
   const pitch = settings.cellSize + settings.spacing;
   const treeHeight = settings.clustering ? TREE_HEIGHT : 0;
   const contentTop = settings.clustering ? TREE_TOP + treeHeight + TREE_LABEL_GAP : LABEL_TOP_GAP;
-  const matrixTop = contentTop + labelHeight + LABEL_MATRIX_GAP;
+  const matrixTop = Math.max(80, contentTop + labelHeight + LABEL_MATRIX_GAP);
   const matrixWidth = Math.max(1, genomeOrder.length * pitch);
   const featureLabelWidth = measuredFeatureWidth + FEATURE_LABEL_GAP * 2;
   let cursor = 0;
@@ -195,8 +206,9 @@ function getLayout(matrix: MatrixModel, genomeOrder: string[], settings: Visuali
     return value;
   });
   const matrixHeight = Math.max(pitch, cursor);
-  const matrixLeft = settings.swapSideLabels ? GROUP_WIDTH : featureLabelWidth;
-  const width = featureLabelWidth + matrixWidth + GROUP_WIDTH;
+  const groupWidth = GROUP_WIDTH + (settings.metabolismColorTarget === 'strip' ? STRIP_SPACE : 0);
+  const matrixLeft = settings.swapSideLabels ? groupWidth : featureLabelWidth;
+  const width = featureLabelWidth + matrixWidth + groupWidth + (settings.swapSideLabels ? Math.max(0, 195 - featureLabelWidth) : 0);
   return { pitch, treeHeight, matrixTop, matrixWidth, matrixHeight, matrixLeft, width, height: matrixTop + matrixHeight + BOTTOM_SPACE, xForGenome: new Map(genomeOrder.map((genome, index) => [genome, matrixLeft + index * pitch + pitch / 2])), rows };
 }
 
@@ -223,13 +235,53 @@ function useTextWidth(labels: string[], fontSize: number): number {
   return measurement?.key === measurementKey ? measurement.width : fallback;
 }
 
-function HeaderContent({ layout, genomeOrder, clusterRoot, settings }: { layout: Layout; genomeOrder: string[]; clusterRoot?: ClusterNode; settings: VisualizationSettings }) {
+function HeaderContent({ layout, genomeOrder, clusterRoot, settings, heatmapRange }: { layout: Layout; genomeOrder: string[]; clusterRoot?: ClusterNode; settings: VisualizationSettings; heatmapRange: { min: number; max: number } }) {
   const treeBottom = TREE_TOP + layout.treeHeight;
   const labelY = layout.matrixTop - LABEL_MATRIX_GAP;
   const dendrogram = settings.clustering && clusterRoot ? drawDendrogram(clusterRoot, layout.xForGenome, TREE_TOP, treeBottom) : [];
   const legendX = layout.matrixLeft + layout.matrixWidth + 22;
   const legendY = layout.matrixTop - 58;
-  return <>{dendrogram}{settings.clustering && clusterRoot ? genomeOrder.map((genome) => { const x = layout.xForGenome.get(genome) ?? 0; const labelOuterY = labelY - estimateTextWidth(genome, settings.fontSize); return <line key={`leader-${genome}`} x1={x} y1={treeBottom} x2={x} y2={labelOuterY - 3} stroke="#6b7772" strokeWidth={1} strokeDasharray="3 3" />; }) : null}{genomeOrder.map((genome) => { const x = layout.xForGenome.get(genome) ?? 0; return <text key={genome} x={x} y={labelY} transform={`rotate(-90 ${x} ${labelY})`} textAnchor="start" fontSize={settings.fontSize} fill="#42514b">{genome}</text>; })}<g transform={`translate(${legendX}, ${legendY})`}><Cell cx={8} cy={0} size={15} value={0} hits={0} total={1} genome="" feature="" settings={settings} rowIndex={-1} columnIndex={0} /><text x={22} y={0} dominantBaseline="middle" fontSize={11} fill="#52615b">Absent</text><Cell cx={8} cy={28} size={15} value={1} hits={1} total={1} genome="" feature="" settings={settings} rowIndex={-1} columnIndex={1} /><text x={22} y={28} dominantBaseline="middle" fontSize={11} fill="#52615b">Present</text></g></>;
+  return <>{dendrogram}{settings.clustering && clusterRoot ? genomeOrder.map((genome) => { const x = layout.xForGenome.get(genome) ?? 0; const labelOuterY = labelY - estimateTextWidth(genome, settings.fontSize); return <line key={`leader-${genome}`} x1={x} y1={treeBottom} x2={x} y2={labelOuterY - 3} stroke="#6b7772" strokeWidth={1} strokeDasharray="3 3" />; }) : null}{genomeOrder.map((genome) => { const x = layout.xForGenome.get(genome) ?? 0; return <text key={genome} x={x} y={labelY} transform={`rotate(-90 ${x} ${labelY})`} textAnchor="start" fontSize={settings.fontSize} fill="#42514b">{genome}</text>; })}<g transform={`translate(${legendX}, ${legendY})`}>{settings.fillStyles[settings.mode] === 'heatmap' ? <HeatmapLegend range={heatmapRange} settings={settings} /> : <><Cell cx={8} cy={0} size={15} value={0} hits={0} total={1} genome="" feature="" settings={settings} rowIndex={-1} columnIndex={0} /><text x={22} y={0} dominantBaseline="middle" fontSize={11} fill="#52615b">Absent</text><Cell cx={8} cy={28} size={15} value={1} hits={1} total={1} genome="" feature="" settings={settings} rowIndex={-1} columnIndex={1} /><text x={22} y={28} dominantBaseline="middle" fontSize={11} fill="#52615b">Present</text></>}</g></>;
+}
+
+function HeatmapLegend({ range, settings }: { range: { min: number; max: number }; settings: VisualizationSettings }) {
+  const gradientId = useId();
+  const { min, max } = range;
+  const colors = settings.heatmapColors;
+  const isZScore = settings.heatmapScaling === 'row-zscore';
+  const title = isZScore ? 'Row z-score' : 'Gene abundance';
+  const format = formatLegendValue;
+  const midpoint = min / 2 + max / 2;
+  const minWidth = estimateTextWidth(format(min), 10);
+  const maxWidth = estimateTextWidth(format(max), 10);
+  const midWidth = estimateTextWidth(format(midpoint), 10);
+  const showMidpoint = (colors.useMidpoint || isZScore)
+    && minWidth + midWidth / 2 + 8 < 70
+    && maxWidth + midWidth / 2 + 8 < 70;
+  return <g aria-label={`${title}: ${format(min)} to ${format(max)}`}>
+    <text x={0} y={0} fontSize={11} fill="#52615b">{title}</text>
+    <defs><linearGradient id={gradientId}>
+      <stop offset="0%" stopColor={colors.min} />
+      {colors.useMidpoint ? <stop offset="50%" stopColor={colors.mid} /> : null}
+      <stop offset="100%" stopColor={colors.max} />
+    </linearGradient></defs>
+    <rect x={0} y={10} width={140} height={12} fill={min === max ? colors.min : `url(#${gradientId})`} stroke="#bfbfbf" strokeWidth={0.5} />
+    <text x={0} y={37} fontSize={10} fill="#52615b">{format(min)}</text>
+    {min !== max ? <>
+      {showMidpoint ? <text x={70} y={37} textAnchor="middle" fontSize={10} fill="#52615b">{format(midpoint)}</text> : null}
+      <text x={140} y={37} textAnchor="end" fontSize={10} fill="#52615b">{format(max)}</text>
+    </> : null}
+  </g>;
+}
+
+function formatLegendValue(value: number): string {
+  if (value === 0) return '0';
+  const rounded = String(Number(value.toFixed(2)));
+  return rounded.length <= 6 && rounded !== '0' ? rounded : value.toExponential(1);
+}
+
+function formatZScore(value: number): string {
+  return String(Number(value.toFixed(2)));
 }
 
 function estimateTextWidth(text: string, fontSize: number): number {
@@ -249,12 +301,13 @@ function WrappedText({ lines, x, centerY, fontSize, anchor, weight, color }: { l
   return <text x={x} y={centerY} textAnchor={anchor} dominantBaseline="middle" fontSize={fontSize} fontWeight={weight} fill={color}>{lines.map((line, index) => <tspan key={`${line}-${index}`} x={x} y={centerY - ((lines.length - 1) * (fontSize + 2)) / 2 + index * (fontSize + 2)}>{line}</tspan>)}</text>;
 }
 
-interface CellProps { cx: number; cy: number; size: number; value: number; hits: number; total: number; genome: string; feature: string; settings: VisualizationSettings; presentColor?: string; rowIndex: number; columnIndex: number; }
+interface CellProps { cx: number; cy: number; size: number; value: number; hits: number; total: number; genome: string; feature: string; settings: VisualizationSettings; presentColor?: string; heatmapFill?: string; zScore?: number; rowIndex: number; columnIndex: number; }
 
-function Cell({ cx, cy, size, value, hits, total, genome, feature, settings, presentColor = settings.presentColor, rowIndex, columnIndex }: CellProps) {
+function Cell({ cx, cy, size, value, hits, total, genome, feature, settings, presentColor = settings.presentColor, heatmapFill, zScore, rowIndex, columnIndex }: CellProps) {
   const radius = size / 2;
   const stroke = settings.border ? '#263a33' : 'none';
-  const dataProps = genome ? { 'data-cell-tooltip': 'true', 'data-row-index': rowIndex, 'data-column-index': columnIndex, 'aria-label': `${feature}, ${genome}, ${hits} of ${total} KO requirements` } : {};
+  const dataProps = genome ? { 'data-cell-tooltip': 'true', 'data-row-index': rowIndex, 'data-column-index': columnIndex, 'aria-label': `${feature}, ${genome}, ${heatmapFill ? `${value} gene abundance, ` : ''}${zScore !== undefined ? `row z-score ${formatZScore(zScore)}, ` : ''}${hits} of ${total} KO requirements` } : {};
+  if (heatmapFill) return <g {...dataProps} className={genome ? 'matrix-cell' : undefined}>{settings.shape === 'square' ? <rect x={cx - radius} y={cy - radius} width={size} height={size} fill={heatmapFill} stroke={stroke} strokeWidth={1.2} /> : <circle cx={cx} cy={cy} r={radius} fill={heatmapFill} stroke={stroke} strokeWidth={1.2} />}</g>;
   if (settings.shape === 'square') return <g {...dataProps} className={genome ? 'matrix-cell' : undefined}><rect x={cx - radius} y={cy - radius} width={size} height={size} fill={settings.absentColor} />{value > 0 ? <rect x={cx - radius} y={cy + radius - size * value} width={size} height={size * value} fill={presentColor} /> : null}<rect x={cx - radius} y={cy - radius} width={size} height={size} fill="none" stroke={stroke} strokeWidth={1.2} /></g>;
   return <g {...dataProps} className={genome ? 'matrix-cell' : undefined}><circle cx={cx} cy={cy} r={radius} fill={settings.absentColor} />{value >= 1 ? <circle cx={cx} cy={cy} r={radius} fill={presentColor} /> : value > 0 ? <path d={sectorPath(cx, cy, radius, value)} fill={presentColor} /> : null}<circle cx={cx} cy={cy} r={radius} fill="none" stroke={stroke} strokeWidth={1.2} data-cell={`${rowIndex}-${columnIndex}`} /></g>;
 }

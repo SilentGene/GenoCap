@@ -1,10 +1,11 @@
 import type { MatrixModel } from './types';
+import { getHeatmapValue } from './heatmap';
 
 export function matrixToCsv(matrix: MatrixModel, genomeOrder: string[]): string {
   const header = ['metabolism', 'pathway', 'module', 'feature', ...genomeOrder];
   const rows = matrix.rows.map((row) => [
     row.metabolism, row.pathway, row.module, row.feature,
-    ...genomeOrder.map((genome) => String(row.cells[genome].value)),
+    ...genomeOrder.map((genome) => String(getHeatmapValue(row.cells[genome]))),
   ]);
   return [header, ...rows].map((row) => row.map(csvCell).join(',')).join('\r\n');
 }

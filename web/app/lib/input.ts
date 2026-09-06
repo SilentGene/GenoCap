@@ -32,6 +32,7 @@ export function parseAnnotations(text: string, kind: FileKind, database: Databas
   }
   if (errors.length) return emptyResult(errors);
 
+  const hasGeneAbundance = header.includes('gene_abundance');
   const index = Object.fromEntries(header.map((name, position) => [name, position]));
   const parserErrorRows = new Map<number, string[]>();
   for (const error of parsed.errors) {
@@ -60,11 +61,15 @@ export function parseAnnotations(text: string, kind: FileKind, database: Databas
     if (!genome) errors.push({ line: sourceLine, field: 'genome', value: row[index.genome] ?? '', reason: 'Genome is required.' });
     const koResult = splitKoCell(koRaw);
     if (koResult.reason) errors.push({ line: sourceLine, field: 'ko', value: koRaw, reason: koResult.reason });
-    if (!gene || !genome || koResult.reason) continue;
+    const abundanceRaw = hasGeneAbundance ? row[index.gene_abundance].trim() : '';
+    const geneAbundance = hasGeneAbundance ? Number(abundanceRaw) : undefined;
+    const invalidAbundance = hasGeneAbundance && (!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?$/.test(abundanceRaw) || !Number.isFinite(geneAbundance));
+    if (invalidAbundance) errors.push({ line: sourceLine, field: 'gene_abundance', value: abundanceRaw, reason: 'gene_abundance must be a finite number (integer or decimal); blank values are not allowed.' });
+    if (!gene || !genome || koResult.reason || invalidAbundance) continue;
 
     if (!seenGenomes.has(genome)) { seenGenomes.add(genome); genomes.push(genome); }
     koResult.kos.forEach((ko) => uniqueKos.add(ko));
-    records.push({ gene, genome, kos: koResult.kos, sourceLine });
+    records.push({ gene, genome, kos: koResult.kos, sourceLine, ...(hasGeneAbundance ? { geneAbundance } : {}) });
   }
 
   if (!errors.length && genomes.length === 0) {
@@ -72,7 +77,7 @@ export function parseAnnotations(text: string, kind: FileKind, database: Databas
   }
   const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
   const matchedKos = [...uniqueKos].filter((ko) => databaseKos.has(ko)).length;
-  return { records, genomes, errors, summary: { records: records.length, genomes: genomes.length, uniqueKos: uniqueKos.size, matchedKos } };
+  return { records, genomes, errors, hasGeneAbundance, summary: { records: records.length, genomes: genomes.length, uniqueKos: uniqueKos.size, matchedKos } };
 }
 
 function emptyResult(errors: InputValidationError[]): ParsedAnnotations {

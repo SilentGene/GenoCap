@@ -2,7 +2,7 @@ import Papa from 'papaparse';
 import { splitKoCell } from './ko';
 import type { DatabaseEntry } from './types';
 
-export const DATABASE_HEADERS = ['Metabolism', 'Pathway', 'Module', 'KO', 'gene_name', 'if_key'] as const;
+export const DATABASE_HEADERS = ['Metabolism', 'Pathway', 'Module', 'Gene_cluster', 'KO', 'gene_name', 'if_key', 'Gene_function'] as const;
 
 export interface DatabaseValidationError {
   line: number;
@@ -33,6 +33,7 @@ export function parseDatabaseTsv(text: string): ParsedDatabase {
   const errors: DatabaseValidationError[] = [];
 
   for (const required of DATABASE_HEADERS) {
+    if (required === 'Gene_cluster' || required === 'Gene_function') continue;
     if (!header.includes(required)) {
       errors.push({ line: 1, field: 'header', value: header.join('\\t'), reason: `Required header “${required}” is missing.` });
     }
@@ -68,6 +69,9 @@ export function parseDatabaseTsv(text: string): ParsedDatabase {
     const pathway = clean(row[indexes.Pathway]);
     const moduleName = clean(row[indexes.Module]);
     const ko = clean(row[indexes.KO]);
+    if (ko === 'NA') continue;
+    const geneCluster = clean(row[indexes.Gene_cluster]);
+    const geneFunction = clean(row[indexes.Gene_function]);
     const koResult = splitKoCell(ko);
     const geneName = clean(row[indexes.gene_name]);
     const keyValue = clean(row[indexes.if_key]).toLowerCase();
@@ -77,7 +81,6 @@ export function parseDatabaseTsv(text: string): ParsedDatabase {
       ['Pathway', pathway],
       ['Module', moduleName],
       ['KO', ko],
-      ['gene_name', geneName],
     ] as const;
     for (const [field, value] of requiredValues) {
       if (!value) errors.push({ line: sourceLine, field, value, reason: `${field} is required.` });
@@ -90,7 +93,7 @@ export function parseDatabaseTsv(text: string): ParsedDatabase {
     }
     if (requiredValues.some(([, value]) => !value) || koResult.reason || koResult.kos.length === 0 || (keyValue !== '' && keyValue !== 'yes' && keyValue !== 'no')) continue;
 
-    entries.push({ metabolism, pathway, module: moduleName, ko, geneName, isKey: keyValue === 'yes', sourceIndex: entries.length });
+    entries.push({ metabolism, pathway, module: moduleName, geneCluster, geneFunction, ko, geneName, isKey: keyValue === 'yes', sourceIndex: entries.length });
   }
 
   if (!errors.length && entries.length === 0) {
@@ -103,7 +106,7 @@ export function mergeDatabaseEntries(current: DatabaseEntry[], uploaded: Databas
   const source = mode === 'append' ? [...current, ...uploaded] : uploaded;
   const unique = new Map<string, DatabaseEntry>();
   for (const entry of source) {
-    const key = [entry.metabolism, entry.pathway, entry.module, entry.ko, entry.geneName, entry.isKey ? 'yes' : ''].join('\u001f');
+    const key = [entry.metabolism, entry.pathway, entry.module, entry.geneCluster ?? '', entry.ko, entry.geneName, entry.isKey ? 'yes' : '', entry.geneFunction ?? ''].join('\u001f');
     if (!unique.has(key)) unique.set(key, entry);
   }
   const entries = [...unique.values()].map((entry, sourceIndex) => ({ ...entry, sourceIndex }));
@@ -111,7 +114,7 @@ export function mergeDatabaseEntries(current: DatabaseEntry[], uploaded: Databas
 }
 
 export function databaseToTsv(entries: DatabaseEntry[]): string {
-  const rows = entries.map((entry) => [entry.metabolism, entry.pathway, entry.module, entry.ko, entry.geneName, entry.isKey ? 'yes' : '']);
+  const rows = entries.map((entry) => [entry.metabolism, entry.pathway, entry.module, entry.geneCluster ?? '', entry.ko, entry.geneName, entry.isKey ? 'yes' : '', entry.geneFunction ?? '']);
   return [DATABASE_HEADERS, ...rows].map((row) => row.map(tsvCell).join('\t')).join('\r\n');
 }
 

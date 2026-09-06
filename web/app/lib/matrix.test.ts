@@ -10,6 +10,23 @@ import type { DatabaseEntry } from './types';
 const database = databaseJson as DatabaseEntry[];
 
 describe('matrix construction', () => {
+  it('collects distinct functions for the corresponding gene and key gene context', () => {
+    const base: DatabaseEntry = { metabolism: 'N', pathway: 'P', module: 'M', ko: 'K00001', geneName: 'g', geneFunction: 'reductase', isKey: true, sourceIndex: 0 };
+    const db = [base, { ...base, ko: 'K00002' }, { ...base, geneFunction: 'transferase' }, { ...base, geneFunction: '' }, { ...base, module: 'Other', geneFunction: 'unrelated' }, { ...base, isKey: false, geneFunction: 'non-key function' }];
+    expect(buildMatrix(db, [], ['A'], 'gene', true).rows[0].geneFunctions).toEqual(['reductase', 'transferase', 'non-key function']);
+    expect(buildMatrix(db, [], ['A'], 'key', true).rows[0].geneFunctions).toEqual(['reductase', 'transferase']);
+  });
+  it('uses mode-specific suffixes, separates clusters, and omits NA rows', () => {
+    const base: DatabaseEntry = { metabolism: 'N', pathway: 'P', module: 'Reduction', geneCluster: 'ab', ko: 'K00001', geneName: 'a', isKey: true, sourceIndex: 0 };
+    const db = [base, { ...base, ko: 'K00002', geneName: 'b', sourceIndex: 1 }, { ...base, geneCluster: 'c', sourceIndex: 2 }, { ...base, geneCluster: '', geneName: '', sourceIndex: 3 }, { ...base, module: 'Skipped', ko: 'NA', sourceIndex: 4 }];
+    const modules = buildMatrix(db, [], ['A'], 'module', true).rows;
+    expect(modules.map((row) => row.feature)).toEqual(['Reduction (ab)', 'Reduction (c)', 'Reduction']);
+    expect(modules[0].cells.A.total).toBe(2);
+    expect(modules[1].cells.A.total).toBe(1);
+    for (const mode of ['gene', 'key'] as const) {
+      expect(buildMatrix(db, [], ['A'], mode, true).rows.map((row) => row.feature)).toEqual(['Reduction (a)', 'Reduction (b)', 'Reduction']);
+    }
+  });
   it('rounds module completeness to the nearest quarter', () => {
     const db: DatabaseEntry[] = ['K00001', 'K00002', 'K00003'].map((ko, sourceIndex) => ({ metabolism: 'M', pathway: 'P', module: 'Three genes', ko, geneName: `g${sourceIndex}`, isKey: false, sourceIndex }));
     const records = [{ gene: 'x', genome: 'A', kos: ['K00001'], sourceLine: 2 }];
@@ -21,7 +38,7 @@ describe('matrix construction', () => {
   it('fills the complete module symbol when quartile fill is disabled', () => {
     const db: DatabaseEntry[] = ['K00001', 'K00002', 'K00003'].map((ko, sourceIndex) => ({ metabolism: 'M', pathway: 'P', module: 'Three genes', ko, geneName: `g${sourceIndex}`, isKey: false, sourceIndex }));
     const records = [{ gene: 'x', genome: 'A', kos: ['K00001'], sourceLine: 2 }];
-    const matrix = buildMatrix(db, records, ['A'], 'module', true, false);
+    const matrix = buildMatrix(db, records, ['A'], 'module', true, 'solid');
     expect(matrix.rows[0].cells.A.rawValue).toBeCloseTo(1 / 3);
     expect(matrix.rows[0].cells.A.value).toBe(1);
   });
@@ -62,7 +79,7 @@ describe('matrix construction', () => {
       { metabolism: 'Nitrogen', pathway: 'P', module: 'N module', ko: 'K00001', geneName: 'n', isKey: false, sourceIndex: 0 },
       { metabolism: 'Sulfur', pathway: 'P', module: 'S module', ko: 'K00002', geneName: 's', isKey: false, sourceIndex: 1 },
     ];
-    const matrix = buildMatrix(db, [], ['A'], 'module', true, true, new Set(['Sulfur']));
+    const matrix = buildMatrix(db, [], ['A'], 'module', true, 'quartile', new Set(['Sulfur']));
     expect(matrix.rows.map((row) => row.metabolism)).toEqual(['Sulfur']);
   });
 
@@ -75,7 +92,7 @@ describe('matrix construction', () => {
       buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
-    expect(rowCounts).toEqual([171, 391, 144, 104]);
+    expect(rowCounts).toEqual([168, 391, 144, 104]);
   });
 
   it('exports current display values in genome order', () => {

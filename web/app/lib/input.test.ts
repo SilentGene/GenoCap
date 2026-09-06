@@ -49,3 +49,24 @@ describe('parseAnnotations', () => {
     expect(database.some((entry) => entry.ko === 'K01183, K13381')).toBe(true);
   });
 });
+
+describe('optional gene_abundance', () => {
+  it.each(['csv', 'tsv'] as const)('parses numeric abundance in %s', (kind) => {
+    const separator = kind === 'csv' ? ',' : '\t';
+    const text = [['gene', 'genome', 'ko', 'gene_abundance'], ['g1', 'A', 'K00001', '2'], ['g2', 'A', 'K00002', '0.25'], ['g3', 'B', '', '-1e2']].map(row => row.join(separator)).join('\n');
+    const result = parseAnnotations(text, kind, database);
+    expect(result.errors).toEqual([]);
+    expect(result.hasGeneAbundance).toBe(true);
+    expect(result.records.map(row => row.geneAbundance)).toEqual([2, 0.25, -100]);
+  });
+  it.each(['', 'abc', 'NaN', 'Infinity', '0x10', '1e999'])('rejects invalid abundance %s', (value) => {
+    const result = parseAnnotations(`gene,genome,ko,gene_abundance\ng,A,K00001,${value}`, 'csv', database);
+    expect(result.errors[0]).toMatchObject({ line: 2, field: 'gene_abundance' });
+  });
+  it('accepts files without abundance', () => {
+    const result = parseAnnotations('gene,genome,ko\ng,A,K00001', 'csv', database);
+    expect(result.errors).toEqual([]);
+    expect(result.hasGeneAbundance).toBe(false);
+    expect(result.records[0].geneAbundance).toBeUndefined();
+  });
+});

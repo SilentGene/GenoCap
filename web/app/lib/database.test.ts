@@ -4,6 +4,21 @@ import { databaseToTsv, mergeDatabaseEntries, parseDatabaseTsv } from './databas
 const header = 'Metabolism\tPathway\tModule\tKO\tgene_name\tif_key';
 
 describe('database TSV handling', () => {
+  it('preserves gene functions through import, merging, and download', () => {
+    const result = parseDatabaseTsv(`${header}\tGene_function\nN\tP\tM\tK00001\tg\tyes\treductase`);
+    expect(result.errors).toEqual([]);
+    expect(result.entries[0].geneFunction).toBe('reductase');
+    expect(parseDatabaseTsv(databaseToTsv(result.entries))).toEqual(result);
+    expect(mergeDatabaseEntries(result.entries, [{ ...result.entries[0], geneFunction: 'other function' }], 'append').entries).toHaveLength(2);
+  });
+  it('preserves gene clusters, accepts blank gene names, and skips NA KOs', () => {
+    const result = parseDatabaseTsv(`${header}\tGene_cluster\nN\tP\tM\tK00001\t\tyes\tcluster\nN\tP\tM\tNA\t\t\t`);
+    expect(result.errors).toEqual([]);
+    expect(result.entries).toHaveLength(1);
+    expect(result.entries[0]).toMatchObject({ geneCluster: 'cluster', geneName: '' });
+    expect(parseDatabaseTsv(databaseToTsv(result.entries))).toEqual(result);
+    expect(mergeDatabaseEntries(result.entries, [{ ...result.entries[0], geneCluster: 'other' }], 'append').entries).toHaveLength(2);
+  });
   it('parses a valid database and round-trips quoted fields', () => {
     const result = parseDatabaseTsv(`${header}\r\nNitrogen\tDenitrification\t"Nitrate\tto nitrite"\tK00370\tnarG\tyes\r\n`);
     expect(result.errors).toEqual([]);

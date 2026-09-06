@@ -55,7 +55,7 @@ export function openDatabaseViewer(entries: DatabaseEntry[]): boolean {
   const searchableRows: { element: HTMLTableRowElement; text: string }[] = [];
   for (const entry of entries) {
     const row = document.createElement('tr');
-    const values = [entry.metabolism, entry.pathway, entry.module, entry.ko, entry.geneName, entry.isKey ? 'yes' : ''];
+    const values = [entry.metabolism, entry.pathway, entry.module, entry.geneCluster ?? '', entry.ko, entry.geneName, entry.isKey ? 'yes' : '', entry.geneFunction ?? ''];
     for (const value of values) {
       const cell = document.createElement('td');
       cell.textContent = value;

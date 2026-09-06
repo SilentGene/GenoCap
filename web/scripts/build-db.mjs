@@ -18,7 +18,7 @@ const column = (name) => {
 
 const indexes = {
   metabolism: column('Metabolism'), pathway: column('Pathway'), module: column('Module'),
-  ko: column('KO'), geneName: column('gene_name'), isKey: column('if_key'),
+  geneFunction: column('Gene_function'), geneCluster: column('Gene_cluster'), ko: column('KO'), geneName: column('gene_name'), isKey: column('if_key'),
 };
 
 const cleanLabel = (value = '') => value.replaceAll('"', '').trim();
@@ -35,6 +35,8 @@ const entries = lines.slice(1).map((line, sourceIndex) => {
     metabolism: cleanLabel(fields[indexes.metabolism]),
     pathway: cleanLabel(fields[indexes.pathway]),
     module: cleanLabel(fields[indexes.module]),
+    geneCluster: cleanLabel(fields[indexes.geneCluster]),
+    geneFunction: cleanLabel(fields[indexes.geneFunction]),
     ko: cleanLabel(fields[indexes.ko]),
     geneName: cleanLabel(fields[indexes.geneName]),
     isKey: (fields[indexes.isKey]?.trim().toLowerCase() ?? '') === 'yes',
