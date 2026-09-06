@@ -86,6 +86,7 @@ describe('matrix construction', () => {
   it('matches expected database contexts and sample visible rows', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const parsed = parseAnnotations(sample, 'tsv', database);
+    expect(parsed.errors).toEqual([]);
     const geneRows = new Set<string>();
     const keyRows = new Set<string>();
     for (const entry of database) {
@@ -115,7 +116,8 @@ describe('matrix construction', () => {
     expect(geneAll.rows).toHaveLength(geneRows.size);
     expect(keyAll.rows).toHaveLength(keyRows.size);
     expect(moduleVisible.rows).toHaveLength(visibleModuleRows);
-    expect(moduleAll.rows.length).toBeGreaterThanOrEqual(moduleVisible.rows.length);
+    expect(moduleAll.rows).toHaveLength(moduleRowGroups.size);
+    expect(new Set(moduleAll.rows.map((row) => row.id))).toEqual(new Set(moduleRowGroups.keys()));
   });
 
   it('exports current display values in genome order', () => {
