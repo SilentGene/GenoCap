@@ -2,9 +2,11 @@
 
 # GenoCap
 
-GenoCap is a browser-based tool for exploring genome capabilities from KEGG annotations across genome collections. Files are processed locally and are never uploaded.
+GenoCap is a browser-based tool for exploring **geno**me **cap**abilities from KEGG annotations across genome collections. Files are processed locally and are never uploaded.
 
 ## Live application
+
+You do not need to install anything to use GenoCap. The application is hosted on GitHub Pages and can be accessed at:
 
 [![Button Click]][link]
 
@@ -26,6 +28,8 @@ GenoCap is a browser-based tool for exploring genome capabilities from KEGG anno
 - **Deployment:** GitHub Actions and [GitHub Pages](https://pages.github.com/) on Node.js 22.
 
 ## Run locally
+
+If you want to run GenoCap locally, clone the repository and install dependencies.
 
 Requirements: Node.js 22.13 or newer.
 
@@ -87,7 +91,13 @@ npm run build
 
 Here is an example visualization generated from the provided `doc/input_annotation.tsv` file:
 
-![Example visualization](doc/genocap-result-example.png)
+![Example visualization](doc/genocap-result-example_2048.jpg)
+
+---
+
+Another example visualization of the heatmap mode generated according to the key genes from the same input file:
+
+![Example Heatmap](doc/genocap-heatmap-example_2048.jpg)
 
 
 ## Citation
