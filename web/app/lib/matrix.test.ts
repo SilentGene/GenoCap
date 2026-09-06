@@ -96,11 +96,13 @@ describe('matrix construction', () => {
     }
     const moduleAll = buildMatrix(database, parsed.records, parsed.genomes, 'module', true);
     const moduleVisible = buildMatrix(database, parsed.records, parsed.genomes, 'module', false);
+    const geneAll = buildMatrix(database, parsed.records, parsed.genomes, 'gene', true);
+    const keyAll = buildMatrix(database, parsed.records, parsed.genomes, 'key', true);
     const visibleModuleRows = moduleAll.rows
       .filter((row) => parsed.genomes.some((genome) => row.cells[genome].hits > 0))
       .length;
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows).toHaveLength(geneRows.size);
-    expect(buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows).toHaveLength(keyRows.size);
+    expect(geneAll.rows).toHaveLength(geneRows.size);
+    expect(keyAll.rows).toHaveLength(keyRows.size);
     expect(moduleVisible.rows).toHaveLength(visibleModuleRows);
     expect(moduleAll.rows.length).toBeGreaterThanOrEqual(moduleVisible.rows.length);
   });
