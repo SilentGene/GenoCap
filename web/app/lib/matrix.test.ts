@@ -92,7 +92,14 @@ describe('matrix construction', () => {
       buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
-    expect(rowCounts.every((count) => count > 0)).toBe(true);
+    expect(rowCounts[0]).toBeGreaterThan(150);
+    expect(rowCounts[0]).toBeLessThan(250);
+    expect(rowCounts[1]).toBeGreaterThan(300);
+    expect(rowCounts[1]).toBeLessThan(500);
+    expect(rowCounts[2]).toBeGreaterThan(120);
+    expect(rowCounts[2]).toBeLessThan(220);
+    expect(rowCounts[3]).toBeGreaterThan(80);
+    expect(rowCounts[3]).toBeLessThan(180);
     expect(rowCounts[1]).toBeGreaterThanOrEqual(rowCounts[2]);
     expect(rowCounts[0]).toBeGreaterThanOrEqual(rowCounts[3]);
   });
