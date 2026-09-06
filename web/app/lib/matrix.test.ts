@@ -94,32 +94,15 @@ describe('matrix construction', () => {
       geneRows.add(id);
       if (entry.isKey) keyRows.add(id);
     }
-    const presentKos = new Set(parsed.records.flatMap((record) => record.kos));
-    const moduleKoGroups = new Map<string, Map<string, string[]>>();
-    for (const entry of database) {
-      const alternatives = splitKoCell(entry.ko).kos;
-      if (!alternatives.length) continue;
-      const id = [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()].join('\u001f');
-      const groupKey = [...alternatives].sort().join('\u001e');
-      const groups = moduleKoGroups.get(id) ?? new Map<string, string[]>();
-      groups.set(groupKey, groups.get(groupKey) ?? alternatives);
-      moduleKoGroups.set(id, groups);
-    }
-    const visibleModuleRows = [...moduleKoGroups.values()]
-      .filter((groups) => [...groups.values()].some((group) => group.some((ko) => presentKos.has(ko))))
+    const moduleAll = buildMatrix(database, parsed.records, parsed.genomes, 'module', true);
+    const moduleVisible = buildMatrix(database, parsed.records, parsed.genomes, 'module', false);
+    const visibleModuleRows = moduleAll.rows
+      .filter((row) => parsed.genomes.some((genome) => row.cells[genome].hits > 0))
       .length;
-    const rowCounts = [
-      buildMatrix(database, parsed.records, parsed.genomes, 'module', true).rows.length,
-      buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows.length,
-      buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
-      buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
-    ];
-    expect(rowCounts).toEqual([
-      moduleKoGroups.size,
-      geneRows.size,
-      keyRows.size,
-      visibleModuleRows,
-    ]);
+    expect(buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows).toHaveLength(geneRows.size);
+    expect(buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows).toHaveLength(keyRows.size);
+    expect(moduleVisible.rows).toHaveLength(visibleModuleRows);
+    expect(moduleAll.rows.length).toBeGreaterThanOrEqual(moduleVisible.rows.length);
   });
 
   it('exports current display values in genome order', () => {

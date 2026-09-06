@@ -48,8 +48,8 @@ describe('parseAnnotations', () => {
     const databaseKos = new Set(database.flatMap((entry) => splitKoCell(entry.ko).kos));
     const expectedMatchedKos = [...uniqueKos].filter((ko) => databaseKos.has(ko)).length;
     expect(result.errors).toEqual([]);
-    expect(result.summary.records).toBe(result.records.length);
-    expect(result.summary.genomes).toBe(result.genomes.length);
+    expect(result.summary.records).toBe(98869);
+    expect(result.summary.genomes).toBe(40);
     expect(result.summary.uniqueKos).toBe(uniqueKos.size);
     expect(result.summary.matchedKos).toBe(expectedMatchedKos);
     expect(database.some((entry) => entry.ko === 'K01183, K13381')).toBe(true);
