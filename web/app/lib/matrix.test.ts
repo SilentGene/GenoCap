@@ -100,7 +100,7 @@ describe('matrix construction', () => {
       const alternatives = splitKoCell(entry.ko).kos;
       if (!alternatives.length) continue;
       const id = [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()].join('\u001f');
-      const groupKey = alternatives.toSorted().join('\u001e');
+      const groupKey = [...alternatives].sort().join('\u001e');
       const groups = moduleKoGroups.get(id) ?? new Map<string, string[]>();
       groups.set(groupKey, groups.get(groupKey) ?? alternatives);
       moduleKoGroups.set(id, groups);
