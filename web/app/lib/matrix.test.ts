@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import databaseJson from '../data/genocap-db.json';
 import { matrixToCsv } from './export';
-import { parseAnnotations } from './input';
+import { parseAnnotations, splitKoCell } from './input';
 import { buildMatrix } from './matrix';
 import type { DatabaseEntry } from './types';
 
@@ -86,22 +86,45 @@ describe('matrix construction', () => {
   it('matches expected database contexts and sample visible rows', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const parsed = parseAnnotations(sample, 'tsv', database);
+    const countDefinitions = (mode: 'module' | 'gene' | 'key') => {
+      const ids = new Set<string>();
+      for (const entry of database) {
+        if (mode === 'key' && !entry.isKey) continue;
+        if (!splitKoCell(entry.ko).kos.length) continue;
+        const suffix = (mode === 'module' ? entry.geneCluster ?? '' : entry.geneName).trim();
+        const parts = mode === 'module'
+          ? [entry.metabolism, entry.module, suffix]
+          : [entry.metabolism, entry.module, entry.geneName];
+        ids.add(parts.join('\u001f'));
+      }
+      return ids.size;
+    };
+    const presentKos = new Set(parsed.records.flatMap((record) => record.kos));
+    const moduleKoGroups = new Map<string, Map<string, string[]>>();
+    for (const entry of database) {
+      const alternatives = splitKoCell(entry.ko).kos;
+      if (!alternatives.length) continue;
+      const id = [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()].join('\u001f');
+      const groupKey = alternatives.toSorted().join('\u001e');
+      const groups = moduleKoGroups.get(id) ?? new Map<string, string[]>();
+      groups.set(groupKey, groups.get(groupKey) ?? alternatives);
+      moduleKoGroups.set(id, groups);
+    }
+    const visibleModuleRows = [...moduleKoGroups.values()]
+      .filter((groups) => [...groups.values()].some((group) => group.some((ko) => presentKos.has(ko))))
+      .length;
     const rowCounts = [
       buildMatrix(database, parsed.records, parsed.genomes, 'module', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'gene', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'key', true).rows.length,
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
-    expect(rowCounts[0]).toBeGreaterThan(150);
-    expect(rowCounts[0]).toBeLessThan(250);
-    expect(rowCounts[1]).toBeGreaterThan(300);
-    expect(rowCounts[1]).toBeLessThan(500);
-    expect(rowCounts[2]).toBeGreaterThan(120);
-    expect(rowCounts[2]).toBeLessThan(220);
-    expect(rowCounts[3]).toBeGreaterThan(80);
-    expect(rowCounts[3]).toBeLessThan(180);
-    expect(rowCounts[1]).toBeGreaterThanOrEqual(rowCounts[2]);
-    expect(rowCounts[0]).toBeGreaterThanOrEqual(rowCounts[3]);
+    expect(rowCounts).toEqual([
+      countDefinitions('module'),
+      countDefinitions('gene'),
+      countDefinitions('key'),
+      visibleModuleRows,
+    ]);
   });
 
   it('exports current display values in genome order', () => {
