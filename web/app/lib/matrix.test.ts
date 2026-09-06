@@ -86,20 +86,14 @@ describe('matrix construction', () => {
   it('matches expected database contexts and sample visible rows', () => {
     const sample = readFileSync(resolve(process.cwd(), '../doc/input_annotation.tsv'), 'utf8');
     const parsed = parseAnnotations(sample, 'tsv', database);
-    const countDefinitions = (mode: 'module' | 'gene' | 'key') => {
-      const ids = new Set<string>();
-      for (const entry of database) {
-        if (mode === 'key' && !entry.isKey) continue;
-        if (!splitKoCell(entry.ko).kos.length) continue;
-        ids.add(
-          (mode === 'module'
-            ? [entry.metabolism, entry.module, (entry.geneCluster ?? '').trim()]
-            : [entry.metabolism, entry.module, entry.geneName])
-            .join('\u001f'),
-        );
-      }
-      return ids.size;
-    };
+    const geneRows = new Set<string>();
+    const keyRows = new Set<string>();
+    for (const entry of database) {
+      if (!splitKoCell(entry.ko).kos.length) continue;
+      const id = [entry.metabolism, entry.module, entry.geneName].join('\u001f');
+      geneRows.add(id);
+      if (entry.isKey) keyRows.add(id);
+    }
     const presentKos = new Set(parsed.records.flatMap((record) => record.kos));
     const moduleKoGroups = new Map<string, Map<string, string[]>>();
     for (const entry of database) {
@@ -121,9 +115,9 @@ describe('matrix construction', () => {
       buildMatrix(database, parsed.records, parsed.genomes, 'module', false).rows.length,
     ];
     expect(rowCounts).toEqual([
-      countDefinitions('module'),
-      countDefinitions('gene'),
-      countDefinitions('key'),
+      moduleKoGroups.size,
+      geneRows.size,
+      keyRows.size,
       visibleModuleRows,
     ]);
   });
